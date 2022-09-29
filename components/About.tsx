@@ -39,11 +39,11 @@ function About({}: Props) {
         />
       </motion.div>
 
-      <div className="space-y-10 px-0 md:px-10">
+      <div className="space-y-10 px-0 md:px-10 md:mt-32">
         <h4 className="text-2xl lg:text-4xl font-semibold">
           Here is a <span className="myHighlight">little</span> background
         </h4>
-        <p className="hidden md:block text-base">
+        <p className="hidden md:block text-xl">
           I'm Charles Ukasoanya, a passionate{' '}
           <span className="myHighlight">frontend developer</span>. My biggest
           motivation comes from the thought that with just some key strokes on
