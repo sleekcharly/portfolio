@@ -10,13 +10,13 @@ type Props = {};
 
 function ExperienceCard({}: Props) {
   return (
-    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[500px] md:w-[600px] xl:w-[900px] mt-10 xl:mt-[250px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-opacity duration-200 overflow-hidden">
+    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[500px] xl:w-[600px] mt-24 xl:mt-[190px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-opacity duration-200 overflow-hidden">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
         viewport={{ once: true }}
-        className="relative w-28 h-28 xl:w-[200px] xl:h-[200px]"
+        className="relative w-28 h-28 xl:w-[120px] xl:h-[120px]"
       >
         <Image
           src={gistoracle}
@@ -27,10 +27,10 @@ function ExperienceCard({}: Props) {
       </motion.div>
 
       <div className="md:px-10">
-        <h4 className="text-2xl xl:text-4xl font-light">CEO of GISTORACLE</h4>
-        <p className="font-bold text-lg xl:text-2xl mt-1">GISTORACLE</p>
+        <h4 className="text-2xl xl:text-3xl font-light">CEO of GISTORACLE</h4>
+        <p className="font-bold text-lg xl:text-xl mt-1">GISTORACLE</p>
         <div className="flex space-x-2 my-2">
-          <div className="relative w-[30px] h-[30px] xl:w-[40px] xl:h-[40px]">
+          <div className="relative w-[30px] h-[30px] xl:w-[35px] xl:h-[35px]">
             <Image
               src={react_logo}
               alt="React JS logo"
@@ -38,7 +38,7 @@ function ExperienceCard({}: Props) {
               className="object-cover"
             />
           </div>
-          <div className="relative w-[30px] h-[30px] xl:w-[40px] xl:h-[40px]">
+          <div className="relative w-[30px] h-[30px] xl:w-[35px] xl:h-[35px]">
             <Image
               src={next_logo}
               alt="Next JS"
@@ -46,7 +46,7 @@ function ExperienceCard({}: Props) {
               className="object-cover"
             />
           </div>
-          <div className="relative w-[30px] h-[30px] xl:w-[40px] xl:h-[40px]">
+          <div className="relative w-[30px] h-[30px] xl:w-[35px] xl:h-[35px]">
             <Image
               src={firebase_logo}
               alt="firebase"
@@ -56,14 +56,28 @@ function ExperienceCard({}: Props) {
           </div>
         </div>
 
-        <p className="uppercase py-5 text-gray-300">Started work at</p>
-
-        <ul className="list-disc space-y-4 ml-5 text-lg ">
-          <li className="w-[300px] md:w-[400px] xl:w-[500px] break-words">
-            postspostspostspostspostspostspostspostsposts
-          </li>
-          <li>posts</li>
-        </ul>
+        <p className="uppercase py-5 text-gray-300">
+          Started work... - Ended...
+        </p>
+        <div className="max-h-56  md:max-h-[400px] overflow-scroll">
+          <ul className="list-disc space-y-4 ml-5 text-base md:text-lg ">
+            <li className="max-w-[300px] md:max-w-[400px] break-words">
+              posts posts posts posts postspostspostspostsposts
+            </li>
+            <li className="max-w-[300px] md:max-w-[400px] xl:max-w-[500px] break-words">
+              postspostspostspostspostspostspostspostsposts
+            </li>
+            <li className="max-w-[300px] md:max-w-[400px] xl:max-w-[500px] break-words">
+              postspostspostspostspostspostspostspostsposts
+            </li>
+            <li className="max-w-[300px] md:max-w-[400px] xl:max-w-[500px] break-words">
+              postspostspostspostspostspostspostspostsposts
+            </li>
+            <li className="max-w-[300px] md:max-w-[400px] xl:max-w-[500px] break-words">
+              postspostspostspostspostspostspostspostsposts
+            </li>
+          </ul>
+        </div>
       </div>
     </article>
   );
