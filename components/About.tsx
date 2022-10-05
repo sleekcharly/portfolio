@@ -1,11 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import profilePic2 from '../public/images/charles2.jpg';
+import { PageInfo } from '../typings';
+import { urlFor } from '../sanity';
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-function About({}: Props) {
+function About({ pageInfo }: Props) {
   return (
     <motion.div
       initial={{
@@ -32,7 +35,7 @@ function About({}: Props) {
         className="relative -mb-20 mt-20  md:mt-0 xl:mt-60 sm:-mb-10 md:mb-0 flex-shrink-0 w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-95 xl:w-[450px] xl:h-[550px]"
       >
         <Image
-          src={profilePic2}
+          src={urlFor(pageInfo?.profilePic).url()}
           alt="Profile picture of Charles Ukasoanya"
           layout="fill"
           className="rounded-full object-cover md:rounded-lg"
@@ -44,37 +47,41 @@ function About({}: Props) {
           Here is a <span className="myHighlight">little</span> background
         </h4>
         <p className="hidden md:block text-xl">
-          I'm Charles Ukasoanya, a passionate{' '}
-          <span className="myHighlight">frontend developer</span>. My biggest
-          motivation comes from the thought that with just some key strokes on
-          the keyboard of my computer I can do amazing things, well in reality
-          thats a lot of keystrokes. I enjoy creating fast, clean, and
-          maintainable web applications, ready to scale from few users to
+          I&apos;m Charles Ukasoanya, a passionate{' '}
+          <span className="myHighlight font-semibold">frontend developer</span>.
+          My biggest motivation comes from the thought that with just some key
+          strokes on the keyboard of my computer I can do amazing things, well
+          in reality thats a lot of keystrokes. I enjoy creating fast, clean,
+          and maintainable web applications, ready to scale from few users to
           thousands. My past work experience as a{' '}
-          <span className="myHighlight">Crew Trainer</span> in the ever fast
-          pace McDonalds fast food chain ensures that I can deliver a seamless
-          and engaging experience to your users. Background in{' '}
-          <span className="myHighlight">
+          <span className="myHighlight font-semibold">Crew Trainer</span> in the
+          ever fast pace McDonalds fast food chain ensures that I can deliver a
+          seamless and engaging experience to your users. Background in{' '}
+          <span className="myHighlight font-semibold">
             Information and Communication Technology
           </span>{' '}
           and ability as a self taught devloper (frontend-heavy and sufficient
           back-end proficiency), allow me to create everything from small
           business websites to custom web applications. I am{' '}
-          <span className="myHighlight">an avid podcast listener</span>
+          <span className="myHighlight font-semibold">
+            an avid podcast listener
+          </span>
           where I stay up to date with fresh and upcoming technologies in
           fullstack software development. It is an exciting time to be a
           developer and I look forward to the opportunities ahead and the
           products that have yet to be built.
         </p>
         <p className="md:hidden text-base">
-          I'm Charles Ukasoanya, a passionate{' '}
-          <span className="myHighlight">frontend developer</span>. My biggest
-          motivation comes from the thought that with just some key strokes on
-          the keyboard of my computer I can do amazing things, well in reality
-          thats a lot of keystrokes. I enjoy creating fast, clean, and
-          maintainable web applications, ready to scale from few users to
+          I&apos;m Charles Ukasoanya, a passionate{' '}
+          <span className="myHighlight font-semibold">frontend developer</span>.
+          My biggest motivation comes from the thought that with just some key
+          strokes on the keyboard of my computer I can do amazing things, well
+          in reality thats a lot of keystrokes. I enjoy creating fast, clean,
+          and maintainable web applications, ready to scale from few users to
           thousands. I am{' '}
-          <span className="myHighlight">an avid podcast listener </span>
+          <span className="myHighlight font-semibold">
+            an avid podcast listener
+          </span>{' '}
           where I stay up to date with fresh and upcoming technologies in
           fullstack software development. It is an exciting time to be a
           developer and I look forward to the opportunities ahead and the
