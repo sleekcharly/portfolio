@@ -9,10 +9,10 @@
     }
 
     .myHighlight {
-        @apply underline decoration-[#F7AB0A]/50
+        @apply text-[#B22222]
     }
 
     .contactInput {
-        @apply outline-none bg-slate-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-[#F7AB0A]/40 focus:text-[#F7AB0A]/40 hover:border-[#F7AB0A]/40
+        @apply outline-none bg-slate-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-[#B22222]/40 focus:text-white/40 hover:border-[#F7AB0A]/40
     }
 }

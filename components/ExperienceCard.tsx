@@ -1,10 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import gistoracle from '../public/images/gistoracle.png';
-import react_logo from '../public/images/react_logo.png';
-import next_logo from '../public/images/nextjs_logo.png';
-import firebase_logo from '../public/images/firebase_logo.png';
 import { Experience } from '../typings';
 import { urlFor } from '../sanity';
 
@@ -14,7 +10,7 @@ type Props = {
 
 function ExperienceCard({ experience }: Props) {
   return (
-    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[500px] xl:w-[600px] mt-24 xl:mt-[190px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-opacity duration-200 overflow-hidden">
+    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[450px] xl:w-[600px] mt-[7rem]  snap-center bg-[#292929] p-5 hover:opacity-100 opacity-40 cursor-pointer transition-opacity duration-200 overflow-hidden">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +26,7 @@ function ExperienceCard({ experience }: Props) {
         />
       </motion.div>
 
-      <div className="md:px-10">
+      <div className="pr-5">
         <h4 className="text-2xl xl:text-3xl font-light">
           {experience?.jobTitle}
         </h4>
@@ -59,13 +55,11 @@ function ExperienceCard({ experience }: Props) {
             ? 'Present'
             : new Date(experience.dateEnded).toDateString()}
         </p>
-        <div className="max-h-56 md:max-h-[350px] overflow-scroll scrollbar-thin scrollbar-track-black scrollbar-thumb-[#F7AB0A]/80 ">
-          <ul className="list-disc space-y-4 ml-5 text-base md:text-lg ">
+
+        <div className="max-h-56 pr-5 overflow-scroll scrollbar-thin scrollbar-track-black scrollbar-thumb-[#B22222]/80 ">
+          <ul className="list-disc space-y-4 ml-5 text-base md:text-lg max-w-[450px] lg:max-w-full]">
             {experience.points.map((point, index) => (
-              <li
-                key={index}
-                className="max-w-[450px] md:max-w-[400px] break-words"
-              >
+              <li key={index} className=" break-words">
                 {point}
               </li>
             ))}

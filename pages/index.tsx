@@ -10,6 +10,7 @@ import Hero from '../components/Hero';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import profilePic from '../public/images/charles2.jpg';
+import { urlFor } from '../sanity';
 import { Experience, PageInfo, Project, Skill, Social } from '../typings';
 import { fetchExperiences } from '../utils/fetchExperiences';
 import { fetchSkills } from '../utils/fetchSkills';
@@ -28,14 +29,14 @@ type Props = {
 
 const Home = ({ projects, skills, socials, experiences, pageInfo }: Props) => {
   return (
-    <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+    <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#B22222]">
       <Head>
         <title>Charles Ukasoanya</title>
         <meta
           name="description"
           content="The personal website of software developer, Charles Ukasoanya"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={urlFor(pageInfo.profilePic).url()} />
       </Head>
 
       {/* Header */}

@@ -21,7 +21,7 @@ function Projects({ projects }: Props) {
         Projects
       </h3>
 
-      <div className="relative w-full flex overflow-x-scroll snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+      <div className="relative w-full flex overflow-x-scroll snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#B22222]/80">
         {/* projects */}
         {projects.map((project, i) => (
           <div
@@ -65,11 +65,7 @@ function Projects({ projects }: Props) {
               </div>
 
               <p className="text-lg text-center md:text-left">
-                Netflix 2.0 app that has a Log In and Log out Authentication
-                with Google. It has a beautiful Home Screen with all the movies
-                looking just like Netflix. There is also a subscription page
-                where you can see your active monthly subscription. We also use
-                Stripe Payments for the monthly Netflix Subscriptions!
+                {project.summary}
               </p>
             </div>
           </div>

@@ -46,7 +46,7 @@ function About({ pageInfo }: Props) {
         <h4 className="text-2xl lg:text-4xl font-semibold">
           Here is a <span className="myHighlight">little</span> background
         </h4>
-        <p className="hidden md:block text-xl">
+        <p className="hidden md:block text-lg lg:text-xl">
           I&apos;m Charles Ukasoanya, a passionate{' '}
           <span className="myHighlight font-semibold">frontend developer</span>.
           My biggest motivation comes from the thought that with just some key
