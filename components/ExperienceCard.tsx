@@ -34,7 +34,7 @@ function ExperienceCard({ experience }: Props) {
           {experience?.company}
         </p>
         <div className="flex space-x-2 my-2">
-          {experience?.technologies.map((tech) => (
+          {experience.technologies?.map((tech) => (
             <div
               key={tech._id}
               className="relative w-[30px] h-[30px] xl:w-[35px] xl:h-[35px]"
