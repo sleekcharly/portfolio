@@ -22,7 +22,7 @@ function Projects({ projects }: Props) {
 
       <div className="relative w-full flex overflow-x-scroll snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#B22222]/80">
         {/* projects */}
-        {projects.map((project, i) => (
+        {projects?.map((project, i) => (
           <div
             key={i}
             className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen"

@@ -34,7 +34,7 @@ function ExperienceCard({ experience }: Props) {
           {experience?.company}
         </p>
         <div className="flex space-x-2 my-2">
-          {experience.technologies?.map((tech) => (
+          {experience?.technologies?.map((tech) => (
             <div
               key={tech._id}
               className="relative w-[30px] h-[30px] xl:w-[35px] xl:h-[35px]"
@@ -50,15 +50,15 @@ function ExperienceCard({ experience }: Props) {
         </div>
 
         <p className="uppercase py-5 text-gray-300">
-          {new Date(experience.dateStarted).toDateString()} -{' '}
-          {experience.isCurrentlyWorkingHere
+          {new Date(experience?.dateStarted).toDateString()} -{' '}
+          {experience?.isCurrentlyWorkingHere
             ? 'Present'
-            : new Date(experience.dateEnded).toDateString()}
+            : new Date(experience?.dateEnded).toDateString()}
         </p>
 
         <div className="max-h-56 pr-5 overflow-scroll scrollbar-thin scrollbar-track-black scrollbar-thumb-[#B22222]/80 ">
           <ul className="list-disc space-y-4 ml-5 text-base md:text-lg max-w-[450px] lg:max-w-full]">
-            {experience.points.map((point, index) => (
+            {experience?.points.map((point, index) => (
               <li key={index} className=" break-words">
                 {point}
               </li>
