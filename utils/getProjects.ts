@@ -3,8 +3,11 @@
 import { Project } from '../typings';
 
 export const fetchProjects = async () => {
+  const dev = process.env.NODE_ENV !== 'production';
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProjects`,
+    `${
+      dev ? process.env.NEXT_PUBLIC_BASE_URL : process.env.VERCEL_URL
+    }/api/getProjects`,
   );
 
   const data = await res.json();

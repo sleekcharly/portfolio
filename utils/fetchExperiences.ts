@@ -3,8 +3,11 @@
 import { Experience } from '../typings';
 
 export const fetchExperiences = async () => {
+  const dev = process.env.NODE_ENV !== 'production';
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getExperiences`,
+    `${
+      dev ? process.env.NEXT_PUBLIC_BASE_URL : process.env.VERCEL_URL
+    }/api/getExperiences`,
   );
 
   const data = await res.json();
