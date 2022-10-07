@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import firebase_logo from '../public/images/firebase_logo.png';
 import { Skill } from '../typings';
 import { urlFor } from '../sanity';
 

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 import { motion } from 'framer-motion';
-import gistoraclePreview from '../public/images/gistoraclePrev.png';
 import { Project } from '../typings';
 import { urlFor } from '../sanity';
 
