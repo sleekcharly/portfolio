@@ -3,11 +3,8 @@
 import { PageInfo } from '../typings';
 
 export const fetchPageInfo = async () => {
-  const dev = process.env.NODE_ENV !== 'production';
   const res = await fetch(
-    `${
-      dev ? process.env.NEXT_PUBLIC_BASE_URL : process.env.VERCEL_URL
-    }/api/getPageInfo`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/getPageInfo`,
   );
 
   const data = await res.json();
