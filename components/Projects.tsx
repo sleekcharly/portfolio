@@ -27,7 +27,10 @@ function Projects({ projects }: Props) {
             key={i}
             className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen"
           >
-            <motion.div
+            <motion.a
+              href={project.linkToBuild}
+              target="_blank"
+              rel="noreferrer"
               initial={{
                 y: -300,
                 opacity: 0,
@@ -35,20 +38,25 @@ function Projects({ projects }: Props) {
               transition={{ duration: 1.5 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative w-[400px] h-[250px] md:w-[500px] md:h-[300px]"
+              className="relative w-[400px] h-[250px] md:w-[500px] md:h-[300px] cursor-pointer"
             >
               <Image
                 src={urlFor(project.image).url()}
                 alt={`${project.title} preview`}
                 layout="fill"
               />
-            </motion.div>
+            </motion.a>
 
             <div className="space-y-10 px-0 md:px-10 max-w-6xl">
               <h4 className="text-4xl font-semibold text-center">
-                <span className="underline decoration-[#F7AB0A]/50">
+                <a
+                  href={project.linkToBuild}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline decoration-[#F7AB0A]/50"
+                >
                   {project.title}
-                </span>
+                </a>
               </h4>
 
               <div className="flex items-center space-x-2 justify-center">
