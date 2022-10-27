@@ -116,60 +116,26 @@
 // };
 
 import Head from 'next/head';
-import type { GetStaticProps } from 'next';
-
-import { urlFor } from '../sanity';
-
-import { Experience, PageInfo, Project, Skill, Social } from '../typings';
-import { fetchExperiences } from '../utils/fetchExperiences';
-import { fetchSkills } from '../utils/fetchSkills';
-import { fetchSocials } from '../utils/fetchSocials';
-import { fetchPageInfo } from '../utils/getPageInfo';
-import { fetchProjects } from '../utils/getProjects';
+import Navbar from '../components/Navbar';
 
 // create types for props
-type Props = {
-  pageInfo: PageInfo;
-  experiences: Experience[];
-  skills: Skill[];
-  projects: Project[];
-  socials: Social[];
-};
+type Props = {};
 
-const Home = ({ projects, skills, socials, experiences, pageInfo }: Props) => {
+const Home = (props: Props) => {
   return (
-    <Head>
-      <title>Charles Ukasoanya</title>
-      <meta
-        name="description"
-        content="The personal website of software developer, Charles Ukasoanya"
-      />
-      <link rel="icon" href={urlFor(pageInfo.profilePic).url()} />
-    </Head>
+    <>
+      <Head>
+        <title>Charles Ukasoanya</title>
+        <meta
+          name="description"
+          content="The personal website of software developer, Charles Ukasoanya"
+        />
+        <link rel="icon" href="/images/charles2.jpg" />
+      </Head>
+
+      <Navbar />
+    </>
   );
 };
 
 export default Home;
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const pageInfo: PageInfo = await fetchPageInfo();
-  const experiences: Experience[] = await fetchExperiences();
-  const skills: Skill[] = await fetchSkills();
-  const projects: Project[] = await fetchProjects();
-  const socials: Social[] = await fetchSocials();
-
-  return {
-    props: {
-      pageInfo,
-      experiences,
-      skills,
-      projects,
-      socials,
-    },
-
-    // Next.js will attempt to re-generate the page:
-    // when a request comes in
-    // at modt once every 10 seconds
-    revalidate: 10,
-  };
-};
