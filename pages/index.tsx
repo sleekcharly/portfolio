@@ -116,6 +116,7 @@
 // };
 
 import Head from 'next/head';
+import Main from '../components/Main';
 import Navbar from '../components/Navbar';
 
 // create types for props
@@ -134,6 +135,7 @@ const Home = (props: Props) => {
       </Head>
 
       <Navbar />
+      <Main />
     </>
   );
 };
