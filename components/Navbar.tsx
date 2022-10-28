@@ -3,10 +3,14 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { SocialIcon } from 'react-social-icons';
+import { urlFor } from '../sanity';
+import { PageInfo } from '../typings';
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-const Navbar = (props: Props) => {
+const Navbar = ({ pageInfo }: Props) => {
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
@@ -18,9 +22,9 @@ const Navbar = (props: Props) => {
       <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
         <div className="relative w-10 h-10 md:w-14 md:h-14">
           <Image
-            src="/../public/images/charles2.jpg"
+            src={urlFor(pageInfo.profilePic).url()}
             alt="/"
-            layout="fill"
+            fill
             className="rounded-full"
           />
         </div>
@@ -70,9 +74,9 @@ const Navbar = (props: Props) => {
             <div className="flex w-full items-center justify-between">
               <div className="relative w-10 h-10">
                 <Image
-                  src="/../public/images/charles2.jpg"
+                  src={urlFor(pageInfo.profilePic).url()}
                   alt="/"
-                  layout="fill"
+                  fill
                   className="rounded-full"
                 />
               </div>

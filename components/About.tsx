@@ -96,10 +96,14 @@
 
 import Image from 'next/image';
 import React from 'react';
+import { urlFor } from '../sanity';
+import { PageInfo } from '../typings';
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-const About = (props: Props) => {
+const About = ({ pageInfo }: Props) => {
   return (
     <div className="'w-full md:h-screen p-2 flex items-center py-16">
       <div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8">
@@ -134,9 +138,9 @@ const About = (props: Props) => {
         <div className="w-full h-auto m-auto shadow-xl shadow-gray-400 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
           <div className="relative w-[300px] h-[270px] sm:w-[350px] sm:h-[300px]">
             <Image
-              src="/../public/images/charles.jpg"
+              src={urlFor(pageInfo?.heroImage).url()}
               alt="charles ukasoanya"
-              layout="fill"
+              fill
               className="rounded-xl"
             />
           </div>

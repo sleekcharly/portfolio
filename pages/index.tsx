@@ -119,11 +119,25 @@ import Head from 'next/head';
 import About from '../components/About';
 import Main from '../components/Main';
 import Navbar from '../components/Navbar';
+import Skills from '../components/Skills';
+import { urlFor } from '../sanity';
+import { Experience, PageInfo, Project, Skill, Social } from '../typings';
+import { fetchExperiences } from '../utils/fetchExperiences';
+import { fetchSkills } from '../utils/fetchSkills';
+import { fetchSocials } from '../utils/fetchSocials';
+import { fetchPageInfo } from '../utils/getPageInfo';
+import { fetchProjects } from '../utils/getProjects';
 
 // create types for props
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+  experiences: Experience[];
+  skills: Skill[];
+  projects: Project[];
+  socials: Social[];
+};
 
-const Home = (props: Props) => {
+const Home = ({ projects, skills, socials, experiences, pageInfo }: Props) => {
   return (
     <>
       <Head>
@@ -132,14 +146,38 @@ const Home = (props: Props) => {
           name="description"
           content="The personal website of software developer, Charles Ukasoanya"
         />
-        <link rel="icon" href="/images/charles2.jpg" />
+        <link rel="icon" href={urlFor(pageInfo.profilePic).url()} />
       </Head>
 
-      <Navbar />
+      <Navbar pageInfo={pageInfo} />
       <Main />
-      <About />
+      <About pageInfo={pageInfo} />
+      <Skills skills={skills} />
     </>
   );
 };
 
 export default Home;
+
+export const getStaticProps = async () => {
+  const pageInfo: PageInfo = await fetchPageInfo();
+  const experiences: Experience[] = await fetchExperiences();
+  const skills: Skill[] = await fetchSkills();
+  const projects: Project[] = await fetchProjects();
+  const socials: Social[] = await fetchSocials();
+
+  return {
+    props: {
+      pageInfo,
+      experiences,
+      skills,
+      projects,
+      socials,
+    },
+
+    // Next.js will attempt to re-generate the page:
+    // when a request comes in
+    // at modt once every 10 seconds
+    revalidate: 10,
+  };
+};

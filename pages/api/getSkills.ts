@@ -5,7 +5,7 @@ import { Skill } from '../../typings';
 
 // groq query to get skills from sanity
 const query = groq`
-    *[_type == 'skill']
+    *[_type == 'skill' && essential == true]
 `;
 
 // type for skill
