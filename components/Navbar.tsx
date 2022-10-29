@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { SocialIcon } from 'react-social-icons';
 import { urlFor } from '../sanity';
@@ -12,40 +12,59 @@ type Props = {
 
 const Navbar = ({ pageInfo }: Props) => {
   const [nav, setNav] = useState(false);
+  const [shadow, setShadow] = useState(false);
 
   const handleNav = () => {
     setNav(!nav);
   };
 
+  useEffect(() => {
+    const handleShadow = () => {
+      if (window.scrollY >= 90) {
+        setShadow(true);
+      } else {
+        setShadow(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleShadow);
+  }, []);
+
   return (
-    <div className="fixed w-full h-20 shadow-xl z-[100]">
+    <div
+      className={
+        shadow ? 'fixed w-full h-20 shadow-xl z-[100]' : 'fixed w-full z-[100]'
+      }
+    >
       <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
-        <div className="relative w-10 h-10 md:w-14 md:h-14">
-          <Image
-            src={urlFor(pageInfo.profilePic).url()}
-            alt="/"
-            fill
-            className="rounded-full"
-          />
-        </div>
+        <Link href="/">
+          <div className="relative w-10 h-10 md:w-14 md:h-14">
+            <Image
+              src={urlFor(pageInfo.profilePic).url()}
+              alt={`${pageInfo.name}-image`}
+              fill
+              className="rounded-full"
+            />
+          </div>
+        </Link>
 
         <div>
           <ul className="hidden md:flex">
             <Link href="/">
               <li className="ml-10 text-sm uppercase hover:border-b">Home</li>
             </Link>
-            <Link href="/">
+            <Link href="/#about">
               <li className="ml-10 text-sm uppercase hover:border-b">About</li>
             </Link>
-            <Link href="/">
+            <Link href="/#skills">
               <li className="ml-10 text-sm uppercase hover:border-b">Skills</li>
             </Link>
-            <Link href="/">
+            <Link href="/#project">
               <li className="ml-10 text-sm uppercase hover:border-b">
                 Projects
               </li>
             </Link>
-            <Link href="/">
+            <Link href="/#contact">
               <li className="ml-10 text-sm uppercase hover:border-b">
                 Contact
               </li>
