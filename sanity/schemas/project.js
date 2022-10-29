@@ -18,6 +18,12 @@ export default {
       },
     },
     {
+      name: 'slug',
+      title: 'SLug',
+      type: 'slug',
+      options: { source: 'title', maxLength: 90 },
+    },
+    {
       name: 'summary',
       title: 'Summary',
       type: 'text',

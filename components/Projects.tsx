@@ -93,7 +93,7 @@ import { urlFor } from '../sanity';
 import { Project } from '../typings';
 
 type Props = {
-  projects: Project[];
+  projects: Project[] | any;
 };
 
 const Projects = ({ projects }: Props) => {
@@ -106,7 +106,7 @@ const Projects = ({ projects }: Props) => {
         <h2 className="py-4">What I&apos;ve Built</h2>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project) => (
+          {projects.map((project: any) => (
             <div
               className="relative flex items-center justify-center w-80 h-56 md:w-[450px] md:h-[300px] lg:w-[500px] lg:h-[300px] shadow-xl shadow-gray-400 rounded-xl group hover:bg-gradient-to-r from-[#5651e5] to-[#709dff]"
               key={project._id}
@@ -123,7 +123,7 @@ const Projects = ({ projects }: Props) => {
                   {project.title}
                 </h3>
                 <div className="flex items-center space-x-2 justify-center">
-                  {project.technologies.map((tech) => (
+                  {project.technologies.map((tech: any) => (
                     <div
                       key={tech._id}
                       className="relative w-10 h-10 bg-white rounded-full"
@@ -137,7 +137,7 @@ const Projects = ({ projects }: Props) => {
                     </div>
                   ))}
                 </div>
-                <Link href="/">
+                <Link href={`/project/${project.slug.current}`}>
                   <p className="text-center py-1 w-32 mt-5 mr-auto ml-auto rounded-lg bg-white text-gray-700 font-bold text-lg">
                     More Info
                   </p>
