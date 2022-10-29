@@ -117,8 +117,10 @@
 
 import Head from 'next/head';
 import About from '../components/About';
+import ContactMe from '../components/ContactMe';
 import Main from '../components/Main';
 import Navbar from '../components/Navbar';
+import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import { urlFor } from '../sanity';
 import { Experience, PageInfo, Project, Skill, Social } from '../typings';
@@ -153,6 +155,8 @@ const Home = ({ projects, skills, socials, experiences, pageInfo }: Props) => {
       <Main />
       <About pageInfo={pageInfo} />
       <Skills skills={skills} />
+      <Projects projects={projects} />
+      <ContactMe pageInfo={pageInfo} />
     </>
   );
 };
