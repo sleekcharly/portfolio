@@ -12,7 +12,7 @@ html {
 
 @layer base {
     body {
-        @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide
+        @apply bg-[rgb(36,36,36)] text-white tracking-wide
     }
 
     h1,
@@ -37,6 +37,6 @@ html {
     }
 
     button {
-        @apply shadow-xl shadow-gray-400 rounded-xl uppercase bg-gradient-to-r from-[#5651e5] to-[#709dff] text-white
+        @apply shadow-md shadow-red-600 rounded-xl uppercase bg-gradient-to-r from-[#b22222] to-[#bf0f0f] text-white font-semibold
     }
 }

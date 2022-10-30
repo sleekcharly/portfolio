@@ -11,9 +11,10 @@ import { fetchPageInfo } from '../../utils/getPageInfo';
 type Props = {
   pageInfo: PageInfo;
   project: Project;
+  slug: string;
 };
 
-const ProjectDetails = ({ pageInfo, project }: Props) => {
+const ProjectDetails = ({ pageInfo, project, slug }: Props) => {
   const techs = project.technologies.map((tech) => `${tech.title} `);
   let techString = techs.join(' ').replace(/\s+/g, ' / ');
   techString = techString.slice(0, techString.length - 2);
@@ -28,7 +29,7 @@ const ProjectDetails = ({ pageInfo, project }: Props) => {
         />
         <link rel="icon" href={urlFor(pageInfo.profilePic).url()} />
       </Head>
-      <Navbar pageInfo={pageInfo} />
+      <Navbar pageInfo={pageInfo} project={project} slug={slug} />
       <div className="w-full">
         <div className="w-screen h-[30vh] lg:h-[40vh] relative">
           <div className="absolute top-0 left-0 w-full h-[30vh] lg:h-[40vh] bg-black/80 z-10" />
@@ -45,40 +46,49 @@ const ProjectDetails = ({ pageInfo, project }: Props) => {
         </div>
 
         <div className="max-w-[1240px] mx-auto p-2 grid md:grid-cols-5 gap-8 pt-8">
-          <div className="col-span-4">
-            <p>Project</p>
-            <h2>Overview</h2>
+          <div className="md:col-span-3 xl:col-span-4">
+            <p className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
+              Project
+            </p>
+            <h2 className="py-2">Overview</h2>
             <p>{project.summary}</p>
 
             <button className="px-8 py-2 mt-4 mr-8">Demo</button>
             <button className="px-8 py-2 mt-4">Code</button>
           </div>
 
-          <div className="col-span-4 md:col-span-1 shadow-xl shadow-gray-400 rounded-xl p-4">
-            <p className="text-center font-bold pb-2">Technologies</p>
+          <div className="md:col-span-2 xl:col-span-1 shadow-lg shadow-red-600 rounded-xl p-4 md:w-64">
+            <p className="uppercase mt-5 md:mt-0 md:text-center font-bold pb-2 mb-2 tracking-[4px] ">
+              Technologies
+            </p>
 
-            <div className="grid grid-cols-3 md:grid-cols-1">
+            <div className="grid grid-cols-3 md:flex flex-col">
               {project.technologies.map((tech) => (
-                <div key={tech._id} className="flex items-center">
-                  <div className="relative w-5 h-5">
+                <div
+                  key={tech._id}
+                  className="flex items-center space-x-2 py-2"
+                >
+                  <div className="relative w-5 h-5 md:w-10 md:h-10">
                     <Image
                       src={urlFor(tech.image).url()}
                       alt={tech.title}
                       fill
                     />
                   </div>{' '}
-                  <p className="text-gray-600 py-2 flex items-center">
+                  <p className="text-gray-300 py-2 flex items-center">
                     {tech.title}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-
-          <Link href="/#project">
-            <p className="underline cursor-pointer">Back</p>
-          </Link>
         </div>
+
+        <Link href="/#project">
+          <p className="underline cursor-pointer font-bold max-w-[1240px] ml-auto mr-auto mt-8 px-6 py-6 md:p-0">
+            Back
+          </p>
+        </Link>
       </div>
     </>
   );
@@ -125,6 +135,7 @@ export const getStaticProps = async ({ params: { slug } }: any) => {
     props: {
       pageInfo,
       project,
+      slug,
       //   experiences,
       //   skills,
       //   projects,

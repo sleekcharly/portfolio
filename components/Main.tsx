@@ -20,15 +20,15 @@ const Main = (props: Props) => {
     <div className="w-full h-screen text-center" id="home">
       <div className="max-w-[1240px] w-full h-full mx-auto p-2 flex justify-center items-center">
         <div>
-          <p className="uppercase text-sm tracking-widest text-gray-600">
+          <p className="uppercase text-sm  text-gray-500 pb-2 tracking-[15px]">
             SOFTWARE ENGINEER
           </p>
-          <h1 className="py-4 text-gray-700">Hi, I am Charles</h1>
-          <h2 className="py-2 text-gray-700">
+          <h1 className="py-4 text-white">Hi, I am Charles</h1>
+          <h2 className="py-2 text-white text-lg md:text-3xl lg:text-6xl font-semibold px-10">
             <span>{text}</span>
             <Cursor cursorColor="#f7AB0A" />
           </h2>
-          <p className="py-4 text-gray-600 max-w-[70%] m-auto">
+          <p className="py-4 text-gray-300 max-w-[70%] m-auto">
             A strong Background in Information and Communication Technology and
             ability as a self taught devloper (frontend-heavy and sufficient
             back-end proficiency), allow me to create everything from small
@@ -36,32 +36,32 @@ const Main = (props: Props) => {
           </p>
 
           <div className="flex items-center justify-between max-w-[330px] m-auto py-4">
-            <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+            <div className="rounded-full shadow-lg shadow-red-700 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
               <SocialIcon
                 url="https://github.com/sleekcharly"
-                fgColor="gray"
+                fgColor="white"
                 bgColor="transparent"
               />
             </div>
-            <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+            <div className="rounded-full shadow-lg shadow-red-700 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
               <SocialIcon
                 url="https://twitter.com/sleekcharly"
-                fgColor="gray"
+                fgColor="white"
                 bgColor="transparent"
               />
             </div>
-            <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+            <div className="rounded-full shadow-lg shadow-red-700 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
               <SocialIcon
                 url="https://www.linkedin.com/in/ukasoanya-charles/"
-                fgColor="gray"
+                fgColor="white"
                 bgColor="transparent"
               />
             </div>
-            <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+            <div className="rounded-full shadow-lg shadow-red-700 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
               <SocialIcon
                 className="cursor-pointer"
                 network="email"
-                fgColor="gray"
+                fgColor="white"
                 bgColor="transparent"
               />
             </div>

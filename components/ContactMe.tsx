@@ -107,16 +107,16 @@ const ContactMe = ({ pageInfo }: Props) => {
   return (
     <div className="w-full lg:h-screen" id="contact">
       <div className="max-w-[1240px] m-auto px-2 py-16 w-full">
-        <p className="text-xl tracking-widest uppercase text-[#5651e5]">
+        <p className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
           Contact
         </p>
         <h2 className="py-4">Get In Touch</h2>
         <div className="md:grid md:grid-cols-5 gap-8">
           {/* left */}
-          <div className="md:col-span-3 lg:col-span-2 w-full h-full shadow-xl shadow-gray-400 rounded-xl p-4">
+          <div className="md:col-span-2 w-full h-full shadow-lg shadow-red-600 rounded-xl p-4">
             <div className="lg:p-4 h-full">
               <div>
-                <div className="relative w-80 h-56">
+                <div className="relative w-80 h-56 md:w-[250px] md:h-[140px] lg:w-[330px] lg:h-[210px] xl:w-[420px] xl:h-[280px]">
                   <Image
                     src={urlFor(pageInfo.contactImage).url()}
                     alt="field lights theme wallpaper"
@@ -136,28 +136,28 @@ const ContactMe = ({ pageInfo }: Props) => {
               <div>
                 <p className="uppercase">Connect with me.</p>
                 <div className="flex items-center justify-between py-4">
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-red-600 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
                     <SocialIcon
                       url="https://github.com/sleekcharly"
                       fgColor="gray"
                       bgColor="transparent"
                     />
                   </div>
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-red-600 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
                     <SocialIcon
                       url="https://twitter.com/sleekcharly"
                       fgColor="gray"
                       bgColor="transparent"
                     />
                   </div>
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-red-600 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
                     <SocialIcon
                       url="https://www.linkedin.com/in/ukasoanya-charles/"
                       fgColor="gray"
                       bgColor="transparent"
                     />
                   </div>
-                  <div className="rounded-full shadow-lg shadow-gray-400 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
+                  <div className="rounded-full shadow-lg shadow-red-600 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
                     <SocialIcon
                       className="cursor-pointer"
                       network="email"
@@ -171,14 +171,14 @@ const ContactMe = ({ pageInfo }: Props) => {
           </div>
 
           {/* right */}
-          <div className="md:col-span-3 w-full h-auto shadow-xl shadow-gray-400 rounded-xl lg:p-4">
+          <div className="md:col-span-3 w-full h-auto shadow-lg shadow-red-600 rounded-xl lg:p-4">
             <div className="p-4">
               <form>
-                <div className="flex flex-col py-2 md:flex-row md:justify-between gap-5">
+                <div className="flex flex-col py-2 md:grid md:grid-cols-2 md:justify-between gap-5">
                   <div className="flex flex-col md:flex-1 py-2">
                     <label className="uppercase text-sm py-2">Name</label>
                     <input
-                      className="border-2 rounded-lg p-3 flex border-gray-300"
+                      className="border-2 rounded-lg p-3 flex border-gray-300 text-gray-800"
                       type="text"
                     />
                   </div>
@@ -186,7 +186,7 @@ const ContactMe = ({ pageInfo }: Props) => {
                   <div className="flex flex-col md:flex-1 py-2">
                     <label className="uppercase text-sm py-2">Email</label>
                     <input
-                      className="border-2 rounded-lg p-3 flex border-gray-300"
+                      className="border-2 rounded-lg p-3 flex border-gray-300 text-gray-800"
                       type="email"
                     />
                   </div>
@@ -195,7 +195,7 @@ const ContactMe = ({ pageInfo }: Props) => {
                 <div className="flex flex-col py-2">
                   <label className="uppercase text-sm py-2">Subject</label>
                   <input
-                    className="border-2 rounded-lg p-3 flex border-gray-300"
+                    className="border-2 rounded-lg p-3 flex border-gray-300 text-gray-800"
                     type="email"
                   />
                 </div>
@@ -203,7 +203,7 @@ const ContactMe = ({ pageInfo }: Props) => {
                 <div className="flex flex-col py-2">
                   <label className="uppercase text-sm py-2">Message</label>
                   <textarea
-                    className="border-2 rounded-lg p-3 border-gray-300"
+                    className="border-2 rounded-lg p-3 border-gray-300 text-gray-800"
                     rows={6}
                   ></textarea>
                 </div>

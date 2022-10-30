@@ -100,7 +100,7 @@ const Projects = ({ projects }: Props) => {
   return (
     <div className="w-full" id="project">
       <div className="max-w-[1240px] mx-auto px-2 py-16">
-        <p className="text-xl tracking-widest uppercase text-[#5651e5]">
+        <p className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
           Projects
         </p>
         <h2 className="py-4">What I&apos;ve Built</h2>
@@ -108,7 +108,7 @@ const Projects = ({ projects }: Props) => {
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project: any) => (
             <div
-              className="relative flex items-center justify-center w-80 h-56 md:w-[450px] md:h-[300px] lg:w-[500px] lg:h-[300px] shadow-xl shadow-gray-400 rounded-xl group hover:bg-gradient-to-r from-[#5651e5] to-[#709dff]"
+              className="relative m-auto flex items-center justify-center w-80 h-56 md:w-96 md:h-[234] lg:w-[450px] lg:h-[300px] xl:w-[500px] xl:h-[300px] shadow-lg shadow-red-600 rounded-xl group hover:bg-gradient-to-r from-[#5651e5] to-[#709dff]"
               key={project._id}
             >
               <Image
@@ -126,7 +126,7 @@ const Projects = ({ projects }: Props) => {
                   {project.technologies.map((tech: any) => (
                     <div
                       key={tech._id}
-                      className="relative w-10 h-10 bg-white rounded-full"
+                      className="relative w-10 h-10 bg-gray-500 rounded-full"
                     >
                       <Image
                         src={urlFor(tech.image).url()}
@@ -138,7 +138,7 @@ const Projects = ({ projects }: Props) => {
                   ))}
                 </div>
                 <Link href={`/project/${project.slug.current}`}>
-                  <p className="text-center py-1 w-32 mt-5 mr-auto ml-auto rounded-lg bg-white text-gray-700 font-bold text-lg">
+                  <p className="text-center py-1 w-32 mt-5 mr-auto ml-auto rounded-lg bg-[#b22222] text-white font-bold text-lg">
                     More Info
                   </p>
                 </Link>
