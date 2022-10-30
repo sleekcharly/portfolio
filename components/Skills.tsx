@@ -43,12 +43,12 @@ type Props = { skills: SkillType[] };
 
 const Skills = ({ skills }: Props) => {
   return (
-    <div className="w-full lg:h-screen p-2" id="skills">
+    <section className="w-full lg:h-screen p-2" id="skills">
       <div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full">
-        <p className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
+        <h2 className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
           Skills
-        </p>
-        <h2 className="py-4">What I Can Do</h2>
+        </h2>
+        <h3 className="py-4 text-lg md:text-xl">What I Can Do</h3>
         <div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {/* loop over skills */}
           {skills?.map((skill) => (
@@ -74,7 +74,7 @@ const Skills = ({ skills }: Props) => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
 import { SocialIcon } from 'react-social-icons';
+import { Link } from 'react-scroll';
 
 type Props = {};
 
@@ -17,9 +18,9 @@ const Main = (props: Props) => {
   });
 
   return (
-    <div className="w-full h-screen text-center" id="home">
+    <section className="w-full h-screen text-center" id="home">
       <div className="max-w-[1240px] w-full h-full mx-auto p-2 flex justify-center items-center">
-        <div>
+        <header>
           <p className="uppercase text-sm  text-gray-500 pb-2 tracking-[15px]">
             SOFTWARE ENGINEER
           </p>
@@ -57,18 +58,10 @@ const Main = (props: Props) => {
                 bgColor="transparent"
               />
             </div>
-            <div className="rounded-full shadow-lg shadow-red-700 p-1 cursor-pointer hover:scale-110 ease-in duration-300">
-              <SocialIcon
-                className="cursor-pointer"
-                network="email"
-                fgColor="white"
-                bgColor="transparent"
-              />
-            </div>
           </div>
-        </div>
+        </header>
       </div>
-    </div>
+    </section>
   );
 };
 

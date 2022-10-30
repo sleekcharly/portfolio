@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Link as SLink, animateScroll as scroll } from 'react-scroll';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { SocialIcon } from 'react-social-icons';
 import { urlFor } from '../sanity';
 import { PageInfo, Project } from '../typings';
 import { motion } from 'framer-motion';
+
 type Props = {
   pageInfo: PageInfo;
   project?: Project;
@@ -67,7 +67,7 @@ const Navbar = ({ pageInfo }: Props) => {
           </motion.div>
         </Link>
 
-        <motion.div
+        <motion.nav
           initial={{ x: 500, opacity: 0, scale: 0.5 }}
           animate={{
             x: 0,
@@ -84,32 +84,32 @@ const Navbar = ({ pageInfo }: Props) => {
                 Home
               </li>
             </Link>
-            <SLink to="about" spy={true} smooth={true} duration={200}>
+            <Link href="/#about">
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 About
               </li>
-            </SLink>
-            <SLink to="skills" spy={true} smooth={true} duration={200}>
+            </Link>
+            <Link href="/#skills">
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 Skills
               </li>
-            </SLink>
-            <SLink to="project" spy={true} smooth={true} duration={200}>
+            </Link>
+            <Link href="/#project">
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 Projects
               </li>
-            </SLink>
-            <SLink to="contact" spy={true} smooth={true} duration={200}>
+            </Link>
+            <Link href="/#contact">
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 Contact
               </li>
-            </SLink>
+            </Link>
           </ul>
 
           <div className="md:hidden" onClick={handleNav}>
             <AiOutlineMenu size={25} />
           </div>
-        </motion.div>
+        </motion.nav>
       </div>
 
       <div
@@ -161,29 +161,29 @@ const Navbar = ({ pageInfo }: Props) => {
                   </li>
                 </Link>
 
-                <SLink to="about" spy={true} smooth={true} duration={200}>
+                <Link href="/#about">
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     About
                   </li>
-                </SLink>
+                </Link>
 
-                <SLink to="skills" spy={true} smooth={true} duration={200}>
+                <Link href="/#skills">
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     Skills
                   </li>
-                </SLink>
+                </Link>
 
-                <SLink to="project" spy={true} smooth={true} duration={200}>
+                <Link href="/#project">
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     Projects
                   </li>
-                </SLink>
+                </Link>
 
-                <SLink to="contact" spy={true} smooth={true} duration={200}>
+                <Link href="/#contact">
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     Contact
                   </li>
-                </SLink>
+                </Link>
               </ul>
             </nav>
 
@@ -210,14 +210,6 @@ const Navbar = ({ pageInfo }: Props) => {
                 <div className="rounded-full shadow-lg shadow-red-600 cursor-pointer hover:scale-105 ease-in duration-300">
                   <SocialIcon
                     url="https://www.linkedin.com/in/ukasoanya-charles/"
-                    fgColor="gray"
-                    bgColor="transparent"
-                  />
-                </div>
-                <div className="rounded-full shadow-lg shadow-red-600  cursor-pointer hover:scale-105 ease-in duration-300">
-                  <SocialIcon
-                    className="cursor-pointer"
-                    network="email"
                     fgColor="gray"
                     bgColor="transparent"
                   />

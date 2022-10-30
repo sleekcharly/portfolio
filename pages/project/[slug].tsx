@@ -25,7 +25,7 @@ const ProjectDetails = ({ pageInfo, project, slug }: Props) => {
         <title>{`Charles Ukasoanya - ${project.title}`}</title>
         <meta
           name="description"
-          content={`${project.title} project built by Charles Ukasoanya`}
+          content={`${project.title} project built by Charles Ukasoanya. ${project.summary}`}
         />
         <link rel="icon" href={urlFor(pageInfo.profilePic).url()} />
       </Head>
@@ -40,27 +40,32 @@ const ProjectDetails = ({ pageInfo, project, slug }: Props) => {
             className="absolute z-1 object-cover"
           />
           <div className="absolute top-[70%] max-w-[1240px] w-full left-[50%] right-[50%] translate-x-[-50%] translate-y-[-50%] text-white z-10 p-2">
-            <h2 className="py-2">{project.title}</h2>
+            <h1 className="py-2">{project.title}</h1>
             <h3>{techString}</h3>
           </div>
         </div>
 
         <div className="max-w-[1240px] mx-auto p-2 grid md:grid-cols-5 gap-8 pt-8">
           <div className="md:col-span-3 xl:col-span-4">
-            <p className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
+            <h2 className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
               Project
-            </p>
-            <h2 className="py-2">Overview</h2>
+            </h2>
+            <h3 className="py-2 text-lg md:text-xl">Overview</h3>
             <p>{project.summary}</p>
 
-            <button className="px-8 py-2 mt-4 mr-8">Demo</button>
-            <button className="px-8 py-2 mt-4">Code</button>
+            <a href={project.linkToBuild} target="_blank" rel="noreferrer">
+              <button className="px-8 py-2 mt-4 mr-8">Demo</button>
+            </a>
+
+            <a href={project.linkToCode} target="_blank" rel="noreferrer">
+              <button className="px-8 py-2 mt-4">Code</button>
+            </a>
           </div>
 
           <div className="md:col-span-2 xl:col-span-1 shadow-lg shadow-red-600 rounded-xl p-4 md:w-64">
-            <p className="uppercase mt-5 md:mt-0 md:text-center font-bold pb-2 mb-2 tracking-[4px] ">
+            <h3 className="uppercase mt-5 md:mt-0 md:text-center font-bold pb-2 mb-2 tracking-[4px] ">
               Technologies
-            </p>
+            </h3>
 
             <div className="grid grid-cols-3 md:flex flex-col">
               {project.technologies.map((tech) => (
@@ -85,7 +90,7 @@ const ProjectDetails = ({ pageInfo, project, slug }: Props) => {
         </div>
 
         <Link href="/#project">
-          <p className="underline cursor-pointer font-bold max-w-[1240px] ml-auto mr-auto mt-8 px-6 py-6 md:p-0">
+          <p className="underline cursor-pointer font-bold max-w-[1240px] ml-5 lg:ml-auto mr-auto  mt-8 px-6 py-6 md:p-0">
             Back
           </p>
         </Link>

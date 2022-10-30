@@ -98,12 +98,12 @@ type Props = {
 
 const Projects = ({ projects }: Props) => {
   return (
-    <div className="w-full" id="project">
+    <section className="w-full" id="project">
       <div className="max-w-[1240px] mx-auto px-2 py-16">
-        <p className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
+        <h2 className="uppercase text-sm md:text-lg lg:text-xl  text-gray-500 pb-2 tracking-[15px]">
           Projects
-        </p>
-        <h2 className="py-4">What I&apos;ve Built</h2>
+        </h2>
+        <h3 className="py-4 text-lg md:text-xl">What I&apos;ve Built</h3>
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project: any) => (
@@ -139,7 +139,7 @@ const Projects = ({ projects }: Props) => {
                 </div>
                 <Link href={`/project/${project.slug.current}`}>
                   <p className="text-center py-1 w-32 mt-5 mr-auto ml-auto rounded-lg bg-[#b22222] text-white font-bold text-lg">
-                    More Info
+                    Learn More
                   </p>
                 </Link>
               </div>
@@ -147,7 +147,7 @@ const Projects = ({ projects }: Props) => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
