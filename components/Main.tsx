@@ -1,7 +1,6 @@
 import React from 'react';
 import { Cursor, useTypewriter } from 'react-simple-typewriter';
 import { SocialIcon } from 'react-social-icons';
-import { Link } from 'react-scroll';
 
 type Props = {};
 
