@@ -24,6 +24,7 @@ export interface PageInfo extends SanityBody {
   name: string;
   phoneNumber: string;
   profilePic: Image;
+  contactImage: Image;
 }
 
 export interface Technology extends SanityBody {
@@ -55,7 +56,9 @@ export interface Project extends SanityBody {
   _type: 'project';
   image: Image;
   linkToBuild: string;
+  linkToCode: string;
   summary: string;
+  slug: string;
   technologies: Technology[];
 }
 

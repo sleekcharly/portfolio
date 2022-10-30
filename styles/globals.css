@@ -2,17 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* create custom style for hero button */
-@layer components {
-    .heroButton {
-        @apply px-6 py-2 border border-[#242424] rounded-full uppercase text-xs tracking-widest text-gray-500 transition-all hover:border-[#F7AB0A]/40 hover:text-[#F7AB0A]/40
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Raleway', sans-serif;
+}
+
+@layer base {
+    body {
+        @apply bg-[rgb(36,36,36)] text-white tracking-wide
     }
 
-    .myHighlight {
-        @apply text-[#B22222]
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold
     }
 
-    .contactInput {
-        @apply outline-none bg-slate-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-[#B22222]/40 focus:text-white/40 hover:border-[#F7AB0A]/40
+    h1 {
+        @apply text-4xl sm:text-5xl md:text-6xl font-[Raleway]
+    }
+
+    h2 {
+        @apply text-3xl sm:text-4xl
+    }
+
+    li {
+        @apply cursor-pointer
+    }
+
+    button {
+        @apply shadow-md shadow-red-600 rounded-xl uppercase bg-gradient-to-r from-[#b22222] to-[#bf0f0f] text-white font-semibold
     }
 }

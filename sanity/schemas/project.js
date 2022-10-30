@@ -18,6 +18,12 @@ export default {
       },
     },
     {
+      name: 'slug',
+      title: 'SLug',
+      type: 'slug',
+      options: { source: 'title', maxLength: 90 },
+    },
+    {
       name: 'summary',
       title: 'Summary',
       type: 'text',
@@ -32,6 +38,11 @@ export default {
     {
       name: 'linkToBuild',
       title: 'LinkToBuild',
+      type: 'url',
+    },
+    {
+      name: 'linkToCode',
+      title: 'LinkToCode',
       type: 'url',
     },
   ],

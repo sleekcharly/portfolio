@@ -30,6 +30,14 @@ export default {
       },
     },
     {
+      name: 'contactImage',
+      title: 'ContactImage',
+      type: 'image',
+      option: {
+        hotspot: true,
+      },
+    },
+    {
       name: 'phoneNumber',
       title: 'PhoneNumber',
       type: 'string',
