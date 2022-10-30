@@ -34,8 +34,8 @@ const ContactMe = ({ pageInfo }: Props) => {
     ) {
       emailjs
         .sendForm(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
           form.current,
           process.env.NEXT_PUBLIC_EMAILJS_PUBLICKEY,
         )
