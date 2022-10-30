@@ -98,12 +98,17 @@ import React from 'react';
 import { SocialIcon } from 'react-social-icons';
 import { urlFor } from '../sanity';
 import { PageInfo } from '../typings';
+import { animateScroll as scroll } from 'react-scroll';
 
 type Props = {
   pageInfo: PageInfo;
 };
 
 const ContactMe = ({ pageInfo }: Props) => {
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
+
   return (
     <div className="w-full lg:h-screen" id="contact">
       <div className="max-w-[1240px] m-auto px-2 py-16 w-full">
@@ -218,7 +223,7 @@ const ContactMe = ({ pageInfo }: Props) => {
       </div>
 
       <div className="flex justify-center py-4">
-        <Link href="/">
+        <Link href="/" onClick={() => scrollToTop()}>
           <div className="relative w-10 h-10">
             <Image
               src={urlFor(pageInfo.profilePic).url()}

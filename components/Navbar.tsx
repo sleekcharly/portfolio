@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Link as SLink, animateScroll as scroll } from 'react-scroll';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { SocialIcon } from 'react-social-icons';
@@ -83,26 +84,26 @@ const Navbar = ({ pageInfo }: Props) => {
                 Home
               </li>
             </Link>
-            <Link href="/#about">
+            <SLink to="about" spy={true} smooth={true} duration={200}>
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 About
               </li>
-            </Link>
-            <Link href="/#skills">
+            </SLink>
+            <SLink to="skills" spy={true} smooth={true} duration={200}>
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 Skills
               </li>
-            </Link>
-            <Link href="/#project">
+            </SLink>
+            <SLink to="project" spy={true} smooth={true} duration={200}>
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 Projects
               </li>
-            </Link>
-            <Link href="/#contact">
+            </SLink>
+            <SLink to="contact" spy={true} smooth={true} duration={200}>
               <li className="ml-10 text-sm uppercase hover:border-b font-bold">
                 Contact
               </li>
-            </Link>
+            </SLink>
           </ul>
 
           <div className="md:hidden" onClick={handleNav}>
@@ -125,11 +126,11 @@ const Navbar = ({ pageInfo }: Props) => {
         >
           <div>
             <div className="flex w-full items-center justify-between">
-              <Link href="/">
+              <Link href="/" onClick={() => setNav(false)}>
                 <div className="relative w-10 h-10">
                   <Image
                     src={urlFor(pageInfo.profilePic).url()}
-                    alt="/"
+                    alt="Charles Ukasoanya"
                     fill
                     className="rounded-full"
                   />
@@ -160,29 +161,29 @@ const Navbar = ({ pageInfo }: Props) => {
                   </li>
                 </Link>
 
-                <Link href="/#about">
+                <SLink to="about" spy={true} smooth={true} duration={200}>
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     About
                   </li>
-                </Link>
+                </SLink>
 
-                <Link href="/#skills">
+                <SLink to="skills" spy={true} smooth={true} duration={200}>
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     Skills
                   </li>
-                </Link>
+                </SLink>
 
-                <Link href="/#project">
+                <SLink to="project" spy={true} smooth={true} duration={200}>
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     Projects
                   </li>
-                </Link>
+                </SLink>
 
-                <Link href="/#contact">
+                <SLink to="contact" spy={true} smooth={true} duration={200}>
                   <li onClick={() => setNav(false)} className="py-4 text-sm">
                     Contact
                   </li>
-                </Link>
+                </SLink>
               </ul>
             </nav>
 
