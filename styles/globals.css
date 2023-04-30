@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -39,4 +39,8 @@ html {
     button {
         @apply shadow-md shadow-red-600 rounded-xl uppercase bg-gradient-to-r from-[#b22222] to-[#bf0f0f] text-white font-semibold
     }
-}
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
