@@ -203,7 +203,7 @@ export default function Home() {
         <title>Charles Ukasoanya | Portfolio</title>
         <meta
           name="description"
-          content="he personal website of software developer, Charles Ukasoanya"
+          content="The personal website of software developer, Charles Ukasoanya"
         />
       </Head>
 
@@ -220,7 +220,7 @@ export default function Home() {
 
             <div className="w-1/2 flex flex-col items-center self-center">
               <AnimatedText
-                text="Tutning Vision into reality With Code."
+                text="Turning Vision into reality With Code."
                 className="!text-6xl text-left"
               />
 
