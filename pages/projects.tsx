@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Head from 'next/head';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
@@ -6,6 +7,8 @@ import AnimatedText from '../components/AnimatedText';
 import { GithubIcon } from '../components/Icons';
 import Layout from '../components/Layout';
 import project1 from '../public/images/gistoracle_preview.png';
+
+const FramerImage = motion(Image);
 
 interface ProjectProps {
   type: string;
@@ -32,7 +35,13 @@ const FeaturedProject: React.FC<ProjectProps> = ({
         target="_blank"
         className="w-1/2 cursor-pointer overflow-hidden rounded-lg"
       >
-        <Image src={img} alt={title} className="w-full h-auto" />
+        <FramerImage
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+          src={img}
+          alt={title}
+          className="w-full h-auto"
+        />
       </Link>
 
       <div className="w-1/2 flex flex-col items-start justify-between pl-6">
@@ -79,7 +88,13 @@ const Project: React.FC<ProjectProps> = ({
         target="_blank"
         className="w-full cursor-pointer overflow-hidden rounded-lg"
       >
-        <Image src={img} alt={title} className="w-full h-auto" />
+        <FramerImage
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+          src={img}
+          alt={title}
+          className="w-full h-auto"
+        />
       </Link>
 
       <div className="w-full flex flex-col items-start justify-between mt-4">
