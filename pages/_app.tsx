@@ -20,6 +20,8 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 // set montserrat font
 const montserrat = Montserrat({
@@ -28,6 +30,8 @@ const montserrat = Montserrat({
 });
 
 const _app = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -35,10 +39,13 @@ const _app = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`${montserrat.variable} font-mont bg-light w-full min-h-screen`}
+        className={`${montserrat.variable} font-mont bg-light dark:bg-dark w-full min-h-screen`}
       >
         <Navbar />
-        <Component {...pageProps} />
+        <AnimatePresence mode="wait">
+          <Component key={router.asPath} {...pageProps} />
+        </AnimatePresence>
+
         <Footer />
       </main>
     </>
