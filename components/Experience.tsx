@@ -38,6 +38,7 @@ const Details: React.FC<DetailsProps> = ({
           <a
             href={companyLink}
             target="_blank"
+            rel="noreferrer"
             className="text-primary dark:text-primaryDark capitalize"
           >
             @{company}
