@@ -127,7 +127,7 @@ const Navbar = () => {
             whileHover={{ y: -2 }}
             className="w-6 mx-3 bg-light dark:bg-dark rounded-full"
           >
-            <GithubIcon />
+            <GithubIcon className="" />
           </motion.a>
           <motion.a
             href="https://twitter.com/sleekcharly"
@@ -136,7 +136,7 @@ const Navbar = () => {
             whileHover={{ y: -2 }}
             className="w-6 mx-3"
           >
-            <TwitterIcon />
+            <TwitterIcon className="" />
           </motion.a>
           <motion.a
             href="https://www.linkedin.com/in/ukasoanya-charles/"
@@ -145,7 +145,7 @@ const Navbar = () => {
             whileHover={{ y: -2 }}
             className="w-6 ml-3"
           >
-            <LinkedInIcon />
+            <LinkedInIcon className="" />
           </motion.a>
 
           <button
@@ -200,7 +200,7 @@ const Navbar = () => {
               whileHover={{ y: -2 }}
               className="w-6 mx-3 bg-light rounded-full dark:bg-dark sm:mx-1"
             >
-              <GithubIcon />
+              <GithubIcon className="" />
             </motion.a>
             <motion.a
               href="https://twitter.com/sleekcharly"
@@ -209,7 +209,7 @@ const Navbar = () => {
               whileHover={{ y: -2 }}
               className="w-6 mx-3 sm:mx-1"
             >
-              <TwitterIcon />
+              <TwitterIcon className="" />
             </motion.a>
             <motion.a
               href="https://www.linkedin.com/in/ukasoanya-charles/"
@@ -218,7 +218,7 @@ const Navbar = () => {
               whileHover={{ y: -2 }}
               className="w-6 ml-3 sm:mx-1"
             >
-              <LinkedInIcon />
+              <LinkedInIcon className="" />
             </motion.a>
 
             <button

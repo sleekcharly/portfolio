@@ -1,10 +1,6 @@
 import React from 'react';
 
-interface IconsProps {
-  className?: string;
-}
-
-export const GithubIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const GithubIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -21,7 +17,7 @@ export const GithubIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
   </svg>
 );
 
-export const TwitterIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const TwitterIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -38,7 +34,7 @@ export const TwitterIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
   </svg>
 );
 // #0A66C2
-export const LinkedInIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const LinkedInIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -59,7 +55,7 @@ export const LinkedInIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
   </svg>
 );
 
-export const CircularText: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const CircularText = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={1440}
@@ -72,7 +68,7 @@ export const CircularText: React.FC<IconsProps> = ({ className, ...rest }) => (
   </svg>
 );
 
-export const LinkArrow: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const LinkArrow = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -93,7 +89,7 @@ export const LinkArrow: React.FC<IconsProps> = ({ className, ...rest }) => (
   </svg>
 );
 
-export const SunIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const SunIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -271,7 +267,7 @@ export const SunIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
   </svg>
 );
 
-export const MoonIcon: React.FC<IconsProps> = ({ className, ...rest }) => (
+export const MoonIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
