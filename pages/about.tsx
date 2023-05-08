@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import AnimatedText from '../components/AnimatedText';
 import Education from '../components/Education';
-import Experience from '../components/Experience';
+import Experience from '../components/MyExperience';
 import Layout from '../components/Layout';
 import Skills from '../components/Skills';
 import TransitionEffect from '../components/TransitionEffect';
