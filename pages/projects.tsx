@@ -72,7 +72,7 @@ const FeaturedProject: React.FC<ProjectProps> = ({
         </p>
         <div className="mt-2 flex items-center">
           <Link href={githubLink} target="_blank" className="w-10">
-            <GithubIcon />
+            <GithubIcon className="" />
           </Link>
           <Link
             href={link}
@@ -136,7 +136,7 @@ const Project: React.FC<ProjectProps> = ({
           </Link>
 
           <Link href={githubLink} target="_blank" className="w-8 md:w-6">
-            <GithubIcon />
+            <GithubIcon className="" />
           </Link>
         </div>
       </div>
