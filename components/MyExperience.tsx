@@ -86,15 +86,6 @@ const Experience = () => {
           />
 
           <Details
-            position="FullStack Developer / Founder"
-            company="Gistoracle Limited"
-            companyLink="https://www.gistoracle.com"
-            time="2019 - present"
-            address="Lagos,  Nigeria"
-            work="Created the Gistoracle Application using JavaScript, React, Next.Js, Tailwind, Material-UI, Firebase, and Algolia."
-          />
-
-          <Details
             position="Field Support Engineer / Front-end Engineer"
             company="Ping Telecoms"
             companyLink="https://www.pingtelecoms.net"
