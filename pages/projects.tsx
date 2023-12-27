@@ -7,7 +7,7 @@ import AnimatedText from '../components/AnimatedText';
 import { GithubIcon } from '../components/Icons';
 import Layout from '../components/Layout';
 import TransitionEffect from '../components/TransitionEffect';
-import project1 from '../public/images/gistoracle_preview.png';
+import project1 from '../public/images/demo.png';
 import project2 from '../public/images/pingtelecoms_preview.webp';
 import project3 from '../public/images/fit_club.webp';
 import project4 from '../public/images/react_admin.webp';
@@ -167,11 +167,11 @@ const projects = () => {
           <div className="grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
             <div className="col-span-12">
               <FeaturedProject
-                title="Gistoracle"
-                summary="The Gistoracle application was built using Javascript, CSS3, SASS, Next js (a React.js framework), Firebase, Material-UI & Tailwind. The app features a sign-in, and sign-up, homepage with news feeds, community pages, category pages, a user proﬁle page, and a settings page."
-                link="https://www.gistoracle.com"
-                type="Forum"
-                githubLink="https://github.com/sleekcharly/gistoracle-v2"
+                title="FabChat"
+                summary="COMPLETE SaaS Platform with Stripe Payments & Next.js 14. The FabChat application was built using  Next js 14,Typescript, Firebase, Shadcn and Stripe. The app features the unique use of AI to translate your chats into any language of choice. Seamlessly chat with anyone in any language of your choice"
+                link="https://fabchat-khaki.vercel.app/"
+                type="Saas"
+                githubLink="https://github.com/sleekcharly/FabChat"
                 img={project1}
               />
             </div>
