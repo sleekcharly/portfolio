@@ -23,7 +23,7 @@ const Footer = () => {
         </div>
 
         <Link
-          href="https://wa.me/2347030832025"
+          href="https://wa.me/2348037866963"
           target={`_blank`}
           className="underline underline-offset-2"
         >
