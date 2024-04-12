@@ -7,7 +7,7 @@ import AnimatedText from '../components/AnimatedText';
 import { GithubIcon } from '../components/Icons';
 import Layout from '../components/Layout';
 import TransitionEffect from '../components/TransitionEffect';
-import project1 from '../public/images/demo.png';
+import project1 from '../public/images/vision_call.png';
 import project2 from '../public/images/pingtelecoms_preview.webp';
 import project3 from '../public/images/fit_club.webp';
 import project4 from '../public/images/react_admin.webp';
@@ -167,11 +167,13 @@ const projects = () => {
           <div className="grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
             <div className="col-span-12">
               <FeaturedProject
-                title="FabChat"
-                summary="COMPLETE SaaS Platform with Stripe Payments & Next.js 14. The FabChat application was built using  Next js 14,Typescript, Firebase, Shadcn and Stripe. The app features the unique use of AI to translate your chats into any language of choice. Seamlessly chat with anyone in any language of your choice"
-                link="https://fabchat-khaki.vercel.app/"
-                type="Saas"
-                githubLink="https://github.com/sleekcharly/FabChat"
+                title="VISION CALL"
+                summary="Here is an awesome video conferencing application built with the latest Next.js and Typescript, this project portrays a video conferencing tool just like the popular Zoom app. 
+                
+                It enables users to securely log in, create meetings, and access various meeting functionalities such as recording, screen sharing and managing participants."
+                link="https://vision-call.vercel.app/"
+                type="Video Conferencing"
+                githubLink="https://github.com/sleekcharly/vision-call"
                 img={project1}
               />
             </div>
@@ -217,7 +219,7 @@ const projects = () => {
               />
             </div>
 
-            <div className="col-span-6 sm:col-span-12">
+            {/* <div className="col-span-6 sm:col-span-12">
               <Project
                 title="Brander"
                 link="https://mybrander.vercel.app/"
@@ -225,7 +227,7 @@ const projects = () => {
                 githubLink="https://github.com/sleekcharly/brander"
                 img={project6}
               />
-            </div>
+            </div> */}
           </div>
         </Layout>
       </main>
