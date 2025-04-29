@@ -1,4 +1,4 @@
-# my_portfolio_2.0
+# my_portfolio_3.0
 
 This project was built using Javascript, Typescript, and Next Js.
 

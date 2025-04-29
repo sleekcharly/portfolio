@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-primary: var(--font-jetbrainsMono);
+    --color-primary: var(--primary);
+    --color-accent: var(--accent);
+    --color-accent-hover: var(--accent-hover);
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 960px;
+    --breakpoint-xl: 1200px;
+}
+
+@utility container {
+    margin: auto;
+    padding-inline: 15px;
+}
+
+:root {
+    --primary: oklch(0.23 0.0115 285.46);
+    --accent: oklch(0.88 0.2134 155.95);
+    --accent-hover: oklch(0.8 0.1936 156.11);
+}
+
+@layer base {
+    body {
+        @apply font-primary bg-primary text-white leading-loose;
+    }
+}
