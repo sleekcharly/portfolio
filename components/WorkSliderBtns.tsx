@@ -6,7 +6,7 @@ import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
 interface WorkSliderBtnsProps {
   containerStyles: string;
   btnStyles: string;
-  iconStyles: string;
+  iconStyles?: string;
 }
 
 const WorkSliderBtns = ({
