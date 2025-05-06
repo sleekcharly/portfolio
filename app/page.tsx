@@ -5,19 +5,20 @@ import { FiDownload } from 'react-icons/fi';
 import Socials from '@/components/Socials';
 import Photo from '@/components/Photo';
 import Stats from '@/components/Stats';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <section className="h-full">
-      <div className="container mx-auto h-full">
+      <div className="container mx-auto h-full max-w-[85%]">
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           {/* text */}
           <div className="text-center xl:text-left order-2 xl:order-none">
             <span className="text-xl">
               Telecommunications & Software Engineer
             </span>
-            <h1 className="h1 mb-6">
-              Hello I&apos;m
+            <h1 className="h1 mb-6 mt-6">
+              Hello, I&apos;m
               <br /> <span className="text-accent">Charles Ukasoanya</span>
             </h1>
             <p className="max-w-[500px] mb-9 text-white/80">
@@ -29,14 +30,21 @@ export default function Home() {
 
             {/* Btn & socials */}
             <div className="flex flex-col xl:flex-row items-center gap-8">
-              <Button
-                className="uppercase flex items-center gap-2"
-                size="lg"
-                variant="outline"
+              <Link
+                href="/01Ukasoanya-Charles.pdf"
+                target={`_blank`}
+                download={true}
               >
-                <span>Download CV</span>
-                <FiDownload className="text-xl" />
-              </Button>
+                <Button
+                  className="uppercase flex items-center gap-2 cursor-pointer"
+                  size="lg"
+                  variant="outline"
+                >
+                  <span>Download CV</span>
+                  <FiDownload className="text-xl" />
+                </Button>
+              </Link>
+
               <div className="mb-8 xl:mb-0">
                 <Socials
                   containerStyles="flex gap-6"

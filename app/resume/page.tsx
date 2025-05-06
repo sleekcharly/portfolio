@@ -51,37 +51,22 @@ const experience = {
   icon: '/assets/resume/badge.svg',
   title: 'My experience',
   description:
-    'I have over 8 years of experience in the tech industry, working with various technologies and frameworks. ',
+    '8+ years of building impactful solutions across software development and telecommunications using modern tech stacks.',
   items: [
     {
-      company: 'Tech Company A',
-      position: 'Software Engineer',
-      date: 'Jan 2020 - Present',
+      company: 'Ping Telecoms',
+      position: 'Senior Operations Manager | Fullstack Developer',
+      date: 'Jan 2018 - Present',
     },
     {
-      company: 'Tech Company B',
-      position: 'Frontend Developer',
-      date: 'Jan 2018 - Dec 2019',
+      company: 'Remote',
+      position: 'Freelance Software Developer',
+      date: '2019 - Present',
     },
     {
-      company: 'Tech Company C',
-      position: 'Intern',
-      date: 'Jan 2016 - Dec 2017',
-    },
-    {
-      company: 'Tech Company C',
-      position: 'Intern',
-      date: 'Jan 2016 - Dec 2017',
-    },
-    {
-      company: 'Tech Company C',
-      position: 'Intern',
-      date: 'Jan 2016 - Dec 2017',
-    },
-    {
-      company: 'Tech Company C',
-      position: 'Intern',
-      date: 'Jan 2016 - Dec 2017',
+      company: 'Ping Telecoms',
+      position: 'Field Support Engineer | Frontend Developer',
+      date: 'Jun 2014 - Jan 2018',
     },
   ],
 };
@@ -91,27 +76,17 @@ const education = {
   icon: '/assets/resume/cap.svg',
   title: 'My education',
   description:
-    'I have a degree in Computer Science from XYZ University, where I learned the fundamentals of programming and software development.',
+    'Earned an MSc in Information and Communication Technology from Anglia Ruskin University, where I developed a strong foundation in programming principles, software development methodologies, and modern IT systems.',
   items: [
     {
-      institution: 'XYZ University',
-      degree: 'Bachelor of Science in Computer Science',
-      duration: '2012 - 2016',
+      institution: 'Anglia Ruskin University ',
+      degree: 'MSc, Information and Communication Technology',
+      duration: '2016 - 2018',
     },
     {
-      institution: 'ABC Institute',
-      degree: 'Diploma in Web Development',
-      duration: '2011 - 2012',
-    },
-    {
-      institution: 'ABC Institute',
-      degree: 'Diploma in Web Development',
-      duration: '2011 - 2012',
-    },
-    {
-      institution: 'ABC Institute',
-      degree: 'Diploma in Web Development',
-      duration: '2011 - 2012',
+      institution: 'Federal University of Technology, Owerri',
+      degree: 'B.Eng, Petroleum Engineering',
+      duration: '2008 - 2012',
     },
   ],
 };
@@ -120,7 +95,7 @@ const education = {
 const skills = {
   title: 'My skills',
   description:
-    'I have a diverse skill set that includes both front-end and back-end development. I am proficient in HTML, CSS, JavaScript, and various frameworks and libraries.',
+    'Equipped with a robust full-stack development toolkit, including modern front-end technologies (React, Next.js, Tailwind CSS) and back-end systems (Python, Firebase, PostgreSQL), with practical experience in building scalable, real-time web applications.',
   skillsList: [
     {
       name: 'HTML',
@@ -210,12 +185,12 @@ const Resume = () => {
                           className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
                         >
                           <span className="text-accent">{item.date}</span>
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">
+                          <h3 className="text-lg max-w-[260px] min-h-[100px] text-center lg:text-left">
                             {item.position}
                           </h3>
                           <div className="flex items-center gap-3">
                             {/* dot */}
-                            <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
+                            <span className="text-xs xm:text-sm lg:text-base w-[6px] h-[6px] rounded-full bg-accent"></span>
                             <p className="text-white/60">{item.company}</p>
                           </div>
                         </li>
@@ -242,7 +217,7 @@ const Resume = () => {
                           className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
                         >
                           <span className="text-accent">{item.duration}</span>
-                          <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">
+                          <h3 className="text-lg max-w-[260px] min-h-[80px]  text-center lg:text-left">
                             {item.degree}
                           </h3>
                           <div className="flex items-center gap-3">

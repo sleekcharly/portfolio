@@ -20,49 +20,71 @@ import WorkSliderBtns from '@/components/WorkSliderBtns';
 const projects = [
   {
     num: '01',
-    category: 'frontend',
-    title: 'Project 1',
+    category: 'fullstack',
+    title: 'Fr Stanley Foundation Website',
     description:
-      'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
+      'Built a dynamic and responsive website for the Fr Stanley Ukasoanya Foundation using React and Firebase for seamless frontend and backend integration. Integrated Paystack for secure donation processing and deployed a clean, user-friendly interface to support the foundation’s mission and outreach efforts.',
     stack: [
-      { name: 'HTML 5' },
-      { name: 'CSS 3' },
       { name: 'JavaScript' },
       { name: 'React' },
+      { name: 'Firebase' },
+      { name: 'Paystack' },
     ],
-    image: '/assets/work/thumb1.png',
-    live: '',
-    github: '',
+    ongoing: false,
+    image: '/assets/work/frstanleyfdn.png',
+    live: 'https://www.frstanleyfdn.org/',
+    github: 'https://github.com/sleekcharly/frStanleyUkasoanyaFoundation',
   },
   {
     num: '02',
     category: 'frontend',
-    title: 'Project 2',
+    title: 'PingTelecoms',
     description:
-      'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
+      'Redesigned and developed the official website for Ping Telecommunications using Next.js, Tailwind CSS, and Framer Motion for a seamless and dynamic user experience.',
     stack: [
-      { name: 'HTML 5' },
-      { name: 'MongoDB' },
-      { name: 'JavaScript' },
-      { name: 'React' },
+      { name: 'Next.js' },
+      { name: 'Tailwind' },
+      { name: 'AWS' },
+      { name: 'Sanity' },
     ],
-    image: '/assets/work/thumb2.png',
+    ongoing: false,
+    image: '/assets/work/pingtel.png',
+    live: 'https://www.pingtelecoms.net/',
+    github: 'https://github.com/sleekcharly/ping_telecoms',
+  },
+
+  {
+    num: '03',
+    category: 'fullstack',
+    title: 'Real-Time Weather Dashboard',
+    description:
+      'Developing a full-stack weather application using Python to scrape live data from on-site weather station sensors. Integrated Firebase for real-time data storage and built a responsive frontend dashboard using Next.js, Tailwind CSS, and Framer Motion to visualize atmospheric conditions for aviation and operational efficiency.',
+    stack: [
+      { name: 'Next.js' },
+      { name: 'Python' },
+      { name: 'Framer Motion' },
+      { name: 'Firebase' },
+    ],
+    ongoing: true,
+    image: '/assets/work/cnlawos2.png',
     live: '',
     github: '',
   },
   {
-    num: '03',
+    num: '04',
     category: 'fullstack',
-    title: 'Project 3',
+    title: 'Catalyst Xpresx Logistics',
     description:
-      'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
+      'A dynamic logistics platform built with Next.js, Tailwind CSS, Framer Motion, and Firebase, designed to streamline package deliveries via dispatch bikes and bicycles. It features real-time booking, Google Maps integration for route tracking, and secure online payment functionality for a seamless delivery experience.',
     stack: [
-      { name: 'HTML 5' },
-      { name: 'Python' },
-      { name: 'JavaScript' },
-      { name: 'React' },
+      { name: 'Next.js' },
+      { name: 'Tailwind' },
+      { name: 'Framer Motion' },
+      { name: 'Firebase' },
+      { name: 'Map' },
     ],
-    image: '/assets/work/thumb3.png',
+    ongoing: true,
+    image: '/assets/work/catalyst.png',
     live: '',
     github: '',
   },
@@ -113,12 +135,12 @@ const Work = () => {
               </div>
               {/* project category */}
               <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
-                {project.category} project
+                {project.category} project {project.ongoing && '(ongoing)'}
               </h2>
               {/* project description */}
               <p className="text-white/60">{project.description}</p>
               {/* stack */}
-              <ul className="flex gap-4">
+              <ul className="flex gap-4  flex-wrap">
                 {project.stack.map((item, index) => {
                   return (
                     <li key={index} className="text-xl text-accent">
@@ -135,32 +157,36 @@ const Work = () => {
               {/* buttons */}
               <div className="flex items-center gap-4">
                 {/* live project button */}
-                <Link href={project.live}>
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-                        <BsArrowUpRight className="text-white text-3xl group-hover:text-accent-hover" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Live project</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Link>
+                {project.live && (
+                  <Link href={project.live}>
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
+                          <BsArrowUpRight className="text-white text-3xl group-hover:text-accent-hover" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Live project</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Link>
+                )}
 
                 {/* github project button */}
-                <Link href={project.github}>
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-                        <BsGithub className="text-white text-3xl group-hover:text-accent-hover" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Github repository</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Link>
+                {project.github && (
+                  <Link href={project.github}>
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
+                          <BsGithub className="text-white text-3xl group-hover:text-accent-hover" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Github repository</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -174,7 +200,7 @@ const Work = () => {
               {projects.map((project: Project, index) => {
                 return (
                   <SwiperSlide key={index} className="w-full">
-                    <div className="h-[460px] relative group flex justify-center items-center bg-pink-50/20">
+                    <div className="h-[200px] sm:h-[320px] md:h-[390px] lg:h-[480px] xl:h-[310px] 2xl:h-[390px] relative group flex justify-center items-center bg-pink-50/20">
                       {/* overlay */}
                       <div className="absolute top-0 bottom-0 w-full h-full bg-black/20 z-10"></div>
                       {/* image */}

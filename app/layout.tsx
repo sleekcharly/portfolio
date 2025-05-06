@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 // components
 import Header from '@/components/Header';
@@ -15,7 +16,7 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'Charles Ukasoanya',
-  description: 'Personal website of software developer Charles Ukasoanya',
+  description: 'The personal website of software developer, Charles Ukasoanya',
 };
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Header />
         <StairTransition />
         <PageTransition>{children}</PageTransition>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
