@@ -5,34 +5,52 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 export async function GET() {
   const headers = {
-    Authorization: `token ${GITHUB_TOKEN}`,
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
     'User-Agent': GITHUB_USERNAME,
+    'Content-Type': 'application/json',
   };
 
-  try {
-    const reposRes = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
-      {
-        headers,
-      },
-    );
-
-    const repos = await reposRes.json();
-
-    let totalCommits = 0;
-
-    for (const repo of repos) {
-      const commitsRes = await fetch(
-        `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/commits?author=${GITHUB_USERNAME}`,
-        {
-          headers,
-        },
-      );
-
-      const commits = await commitsRes.json();
-
-      totalCommits += Array.isArray(commits) ? commits.length : 0;
+  const query = `
+    query {
+      user(login: "${GITHUB_USERNAME}") {
+        repositories(first: 100) {
+          edges {
+            node {
+              name
+              owner {
+                login
+              }
+              object(expression: "HEAD") {
+                ... on Commit {
+                  history(first: 1) {
+                    totalCount
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  `;
+
+  try {
+    const response = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ query }),
+    });
+
+    const data = await response.json();
+
+    // Summing all commits across repositories
+    const totalCommits = data.data.user.repositories.edges.reduce(
+      (
+        sum: number,
+        repo: { node: { object: { history: { totalCount: number } } } },
+      ) => sum + repo.node.object.history.totalCount,
+      0,
+    );
 
     return NextResponse.json({ commits: totalCommits });
   } catch (error) {
