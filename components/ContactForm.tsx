@@ -61,7 +61,7 @@ const ContactForm = () => {
         className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl"
         onSubmit={handleSubmit}
       >
-        <h3 className="text-4xl text-accent">Let&apos;s work together</h3>
+        <h2 className="text-4xl text-accent">Let&apos;s work together</h2>
         <p className="text-white/60">
           Have a project in mind or just want to say hello? I&apos;m always open
           to new opportunities and collaborations. Feel free to reach out!

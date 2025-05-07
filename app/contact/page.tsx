@@ -44,11 +44,32 @@ const Contact = () => {
                 return (
                   <li key={index} className="flex items-center gap-6">
                     <div className="w-[52px] h-[52px] xl:w-[72px] xl:h-[72px] bg-[#27272c] text-accent rounded-md flex items-center justify-center">
-                      <div className="text-[28px]">{item.icon}</div>
+                      <div className="text-[28px]" aria-hidden="true">
+                        {item.icon}
+                      </div>
                     </div>
                     <div className="flex-1">
-                      <p>{item.title}</p>
-                      <h3>{item.description}</h3>
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+
+                      {item.title === 'Email' ? (
+                        <a
+                          href="mailto:c_ukasoanya@yahoo.com"
+                          className="text-white/70 hover:underline"
+                        >
+                          {item.description}
+                        </a>
+                      ) : item.title === 'Phone' ? (
+                        <a
+                          href="tel:+2348037866963"
+                          className="text-white/70 hover:underline"
+                        >
+                          {item.description}
+                        </a>
+                      ) : (
+                        <address className="not-italic text-white/70">
+                          {item.description}
+                        </address>
+                      )}
                     </div>
                   </li>
                 );

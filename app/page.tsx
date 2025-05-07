@@ -7,13 +7,28 @@ import Photo from '@/components/Photo';
 import Stats from '@/components/Stats';
 import Link from 'next/link';
 
+export const metadata = {
+  title: 'Charles Ukasoanya | Telecommunications & Software Engineer',
+  description:
+    'Portfolio of Charles Ukasoanya – bridging telecommunications and software engineering with innovative, user-centric digital solutions.',
+  keywords: [
+    'Charles Ukasoanya',
+    'Telecommunications Engineer',
+    'Software Developer',
+    'Full Stack Developer',
+    'React',
+    'Next.js',
+    'Frontend Developer',
+  ],
+};
+
 export default function Home() {
   return (
-    <section className="h-full">
+    <main className="h-full">
       <div className="container mx-auto h-full max-w-[85%]">
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           {/* text */}
-          <div className="text-center xl:text-left order-2 xl:order-none">
+          <header className="text-center xl:text-left order-2 xl:order-none">
             <span className="text-xl">
               Telecommunications & Software Engineer
             </span>
@@ -31,7 +46,7 @@ export default function Home() {
             {/* Btn & socials */}
             <div className="flex flex-col xl:flex-row items-center gap-8">
               <Link
-                href="/01Ukasoanya-Charles.pdf"
+                href="/charles-ukasoanya-cv.pdf"
                 target={`_blank`}
                 download={true}
               >
@@ -39,6 +54,7 @@ export default function Home() {
                   className="uppercase flex items-center gap-2 cursor-pointer"
                   size="lg"
                   variant="outline"
+                  aria-label="Download Charles Ukasoanya CV"
                 >
                   <span>Download CV</span>
                   <FiDownload className="text-xl" />
@@ -52,7 +68,7 @@ export default function Home() {
                 />
               </div>
             </div>
-          </div>
+          </header>
           {/* photo */}
           <div className="order-1 xl:order-none mb-8 xl:mb-0">
             <Photo />
@@ -61,6 +77,6 @@ export default function Home() {
       </div>
 
       <Stats />
-    </section>
+    </main>
   );
 }

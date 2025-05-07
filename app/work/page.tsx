@@ -125,8 +125,8 @@ const Work = () => {
       }}
       className="min-h-[80vh] flex flex-col justify-center py-12 xl:px-0"
     >
-      <div className="container mx-auto">
-        <div className="flex flex-col xl:flex-row xl:gap-[30px]">
+      <section className="container mx-auto">
+        <article className="flex flex-col xl:flex-row xl:gap-[30px]">
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-[30px] h-[50%]">
               {/* outline num */}
@@ -161,7 +161,10 @@ const Work = () => {
                   <Link href={project.live}>
                     <TooltipProvider delayDuration={100}>
                       <Tooltip>
-                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
+                        <TooltipTrigger
+                          className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group"
+                          aria-label="View live project"
+                        >
                           <BsArrowUpRight className="text-white text-3xl group-hover:text-accent-hover" />
                         </TooltipTrigger>
                         <TooltipContent>
@@ -177,7 +180,10 @@ const Work = () => {
                   <Link href={project.github}>
                     <TooltipProvider delayDuration={100}>
                       <Tooltip>
-                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
+                        <TooltipTrigger
+                          className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group"
+                          aria-label="View github project"
+                        >
                           <BsGithub className="text-white text-3xl group-hover:text-accent-hover" />
                         </TooltipTrigger>
                         <TooltipContent>
@@ -209,7 +215,8 @@ const Work = () => {
                           src={project.image}
                           fill
                           className="object-cover"
-                          alt=""
+                          alt={project.title}
+                          priority={index === 0}
                         />
                       </div>
                     </div>
@@ -223,8 +230,8 @@ const Work = () => {
               />
             </Swiper>
           </div>
-        </div>
-      </div>
+        </article>
+      </section>
     </motion.div>
   );
 };

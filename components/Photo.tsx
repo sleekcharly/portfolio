@@ -25,7 +25,7 @@ const Photo = () => {
         >
           <Image
             src={ProfileImage}
-            alt="Charles Ukasoanya"
+            alt="Charles Ukasoanya portrait"
             priority
             quality={100}
             fill
