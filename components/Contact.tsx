@@ -15,7 +15,7 @@ const Contact = () => {
   });
 
   const [status, setStatus] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
