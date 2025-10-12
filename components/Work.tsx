@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import SendIcon from '@/public/icons/send-icon.png';
 import { motion } from 'motion/react';
+import Link from 'next/link';
 
 // type Props = {}
 
@@ -61,8 +62,10 @@ const Work = () => {
                 <p>{project.description}</p>
               </div>
 
-              <div className="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
-                <Image src={SendIcon} alt="send icon" className="w-5" />
+              <div className="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition cursor-pointer">
+                <Link href={`/project/${project.slug}`}>
+                  <Image src={SendIcon} alt="send icon" className="w-5" />
+                </Link>
               </div>
             </div>
           </motion.div>

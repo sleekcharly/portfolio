@@ -20,9 +20,10 @@ const Header = () => {
           src={ProfilePhotoLight}
           alt="Charles Ukasoanya photo"
           className="rounded-full w-32"
+          priority
         />
       </motion.div>
-      <motion.h3
+      <motion.h1
         initial={{ y: -20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
@@ -30,15 +31,15 @@ const Header = () => {
       >
         Hi! I&apos;m Charles Ukasoanya{' '}
         <Image src={HandIcon} alt="hand icon" className="w-6" />
-      </motion.h3>
-      <motion.h1
+      </motion.h1>
+      <motion.h2
         initial={{ y: -30, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5 }}
         className="text-3xl sm:text-6xl lg:text-[66px] font-Ovo"
       >
         Telecoms Engineer, IoT & Software Innovator
-      </motion.h1>
+      </motion.h2>
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
