@@ -10,6 +10,7 @@ import CloseBlack from '@/public/icons/close-black.png';
 import CloseWhite from '@/public/icons/close-white.png';
 import { ThemeToggle } from './theme-toggle';
 import ArrowIconDark from '@/public/icons/arrow-icon-dark.png';
+import Link from 'next/link';
 
 // type Props = {};
 
@@ -57,11 +58,11 @@ const Navbar = () => {
             : ''
         }`}
       >
-        <a href="#top" className="flex items-end cursor-pointer mr-14">
+        <Link href="/#top" className="flex items-end cursor-pointer mr-14">
           <h2 className="text-3xl font-semibold">
             Charles <span className="text-red-800">.</span>
           </h2>
-        </a>
+        </Link>
 
         <ul
           className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 ${
@@ -71,42 +72,42 @@ const Navbar = () => {
           } `}
         >
           <li>
-            <a href="#top" className="font-Ovo">
+            <Link href="/#top" className="font-Ovo">
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#about" className="font-Ovo">
+            <Link href="/#about" className="font-Ovo">
               About
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#services" className="font-Ovo">
+            <Link href="/#services" className="font-Ovo">
               Services
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#work" className="font-Ovo">
+            <Link href="/#work" className="font-Ovo">
               My Work
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/blog" className="font-Ovo">
+            <Link href="/blog" className="font-Ovo">
               Blog
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#contact" className="font-Ovo">
+            <Link href="/#contact" className="font-Ovo">
               Contact me
-            </a>
+            </Link>
           </li>
         </ul>
 
         <div className="flex items-center gap-4">
           <ThemeToggle />
 
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 rounded-full ml-4 dark:border-white/50 cursor-pointer"
           >
             <span className="font-Ovo">Contact</span>
@@ -116,7 +117,7 @@ const Navbar = () => {
               alt="arrow icon dark"
               className="w-3 hidden dark:block"
             />
-          </a>
+          </Link>
 
           <button className="block md:hidden ml-3" onClick={openMenu}>
             <Image
@@ -153,34 +154,34 @@ const Navbar = () => {
             />
           </div>
           <li>
-            <a href="#top" className="font-Ovo" onClick={closeMenu}>
+            <Link href="/#top" className="font-Ovo" onClick={closeMenu}>
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#about" className="font-Ovo" onClick={closeMenu}>
+            <Link href="/#about" className="font-Ovo" onClick={closeMenu}>
               About
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#services" className="font-Ovo" onClick={closeMenu}>
+            <Link href="/#services" className="font-Ovo" onClick={closeMenu}>
               Services
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#work" className="font-Ovo" onClick={closeMenu}>
+            <Link href="/#work" className="font-Ovo" onClick={closeMenu}>
               My Work
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/blog" className="font-Ovo" onClick={closeMenu}>
+            <Link href="/blog" className="font-Ovo" onClick={closeMenu}>
               Blog
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#contact" className="font-Ovo" onClick={closeMenu}>
+            <Link href="/#contact" className="font-Ovo" onClick={closeMenu}>
               Contact me
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

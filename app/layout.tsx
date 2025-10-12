@@ -3,7 +3,6 @@ import { Outfit as OutfitFont, Ovo as OvoFont } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import { ThemeProvider } from '@/providers/ThemeProvider';
-import { Toaster } from '@/components/ui/sonner';
 
 const outfit = OutfitFont({
   weight: ['400', '500', '600', '700'],
@@ -104,22 +103,35 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Script
-          id="ld+json"
+          id="person-schema"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Charles Ukasoanya',
+              jobTitle: 'Software Developer & Technology Leader',
               url: 'https://www.devcharles.com',
-              jobTitle: 'Senior Operations Manager',
+              sameAs: [
+                'https://twitter.com/sleekcharly',
+                'https://www.linkedin.com/in/charles-ukasoanya',
+                'https://github.com/sleekcharly',
+              ],
               worksFor: {
                 '@type': 'Organization',
-                name: 'Ping Telecoms',
+                name: 'Ping Telecommunications Resources Limited',
               },
-              sameAs: [
-                'https://www.linkedin.com/in/ukasoanya-charles/',
-                'https://github.com/sleekcharly',
+              alumniOf: 'Anglia Ruskin University, Cambridge United Kingdom',
+              nationality: 'Nigerian',
+              knowsAbout: [
+                'Software Engineering',
+                'IoT Systems',
+                'Meteorological Installations',
+                'Web Development',
+                'Next.js',
+                'Cloud Computing',
+                'AWOS',
               ],
             }),
           }}
@@ -132,7 +144,6 @@ export default function RootLayout({
           {children}
         </body>
       </ThemeProvider>
-      <Toaster position="bottom-right" richColors />
     </html>
   );
 }
