@@ -4,7 +4,6 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Script from 'next/script';
 import { ThemeProvider } from '@/providers/ThemeProvider';
-('next/font/google');
 
 export const metadata: Metadata = {
   title: 'Portfolio - Charles Ukasoanya',
