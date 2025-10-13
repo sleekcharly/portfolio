@@ -4,19 +4,7 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Script from 'next/script';
 import { ThemeProvider } from '@/providers/ThemeProvider';
-import { Outfit as OutfitFont, Ovo as OvoFont } from 'next/font/google';
-
-const outfit = OutfitFont({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-outfit',
-});
-
-const ovo = OvoFont({
-  weight: ['400'],
-  subsets: ['latin'],
-  variable: '--font-ovo',
-});
+('next/font/google');
 
 export const metadata: Metadata = {
   title: 'Portfolio - Charles Ukasoanya',
