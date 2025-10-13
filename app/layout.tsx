@@ -7,11 +7,13 @@ import { ThemeProvider } from '@/providers/ThemeProvider';
 const outfit = OutfitFont({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
+  variable: '--font-outfit',
 });
 
 const ovo = OvoFont({
   weight: ['400'],
   subsets: ['latin'],
+  variable: '--font-ovo',
 });
 
 export const metadata: Metadata = {
@@ -98,7 +100,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${outfit.variable} ${ovo.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -137,13 +143,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <ThemeProvider>
-        <body
-          className={`${outfit.className} ${ovo.className} antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
-        >
+
+      <body
+        className={`antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
-        </body>
-      </ThemeProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

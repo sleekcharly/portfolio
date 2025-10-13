@@ -3,6 +3,20 @@ import '@/app/globals.css';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Script from 'next/script';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import { Outfit as OutfitFont, Ovo as OvoFont } from 'next/font/google';
+
+const outfit = OutfitFont({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-outfit',
+});
+
+const ovo = OvoFont({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-ovo',
+});
 
 export const metadata: Metadata = {
   title: 'Portfolio - Charles Ukasoanya',
@@ -59,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Script
           id="person-schema"
@@ -96,10 +110,16 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
-        <Navbar />
-        {children}
-        <Footer />
+
+      <body
+        className="antialiased leading-8 overflow-x-hidden"
+        suppressHydrationWarning
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
