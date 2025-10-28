@@ -1,3 +1,5 @@
+'use client';
+
 import { workData } from '@/assets/data';
 import Image from 'next/image';
 import React from 'react';

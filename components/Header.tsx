@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import React from 'react';
 import ProfilePhotoLight from '@/public/images/og-image.png';
@@ -5,10 +7,11 @@ import HandIcon from '@/public/icons/hand-icon.png';
 import ArrowRightWhite from '@/public/icons/right-arrow-white.png';
 import DownloadIcon from '@/public/icons/download-icon.png';
 import { motion } from 'motion/react';
+import { HERO_QUERYResult } from '@/sanity.types';
 
-// type Props = {}
+type Props = { profile: HERO_QUERYResult };
 
-const Header = () => {
+const Header = ({ profile }: Props) => {
   return (
     <header className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4">
       <motion.div
@@ -29,7 +32,7 @@ const Header = () => {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="flex items-end gap-2 text-xl md:text-2xl mb-3 font-Ovo"
       >
-        Hi! I&apos;m Charles Ukasoanya{' '}
+        Hi! I&apos;m {profile?.firstName} {profile?.lastName}{' '}
         <Image src={HandIcon} alt="hand icon" className="w-6" />
       </motion.h1>
       <motion.h2
@@ -38,7 +41,7 @@ const Header = () => {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="text-3xl sm:text-6xl lg:text-[66px] font-Ovo"
       >
-        Telecoms Engineer, IoT & Software Innovator
+        {profile?.headline}
       </motion.h2>
       <motion.p
         initial={{ opacity: 0 }}
@@ -46,10 +49,7 @@ const Header = () => {
         transition={{ duration: 0.6, delay: 0.7 }}
         className="max-w-2xl mx-auto font-Ovo"
       >
-        I bridge the gap between telecommunications and software by crafting
-        intelligent, user-centered digital solutions that enhance connectivity,
-        optimize systems, and deliver impactful user experiences across
-        platforms.
+        {profile?.shortBio}
       </motion.p>
       <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
         <motion.a

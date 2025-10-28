@@ -1,11 +1,11 @@
+'use client';
+
 import Image from 'next/image';
 import React from 'react';
 import UserPhoto from '@/public/images/user-image-light.png';
 import UserPhotoDark from '@/public/images/user-image-dark.png';
 import { infoList, toolsData } from '@/assets/data';
 import { motion } from 'motion/react';
-
-// type Props = {}
 
 const About = () => {
   return (

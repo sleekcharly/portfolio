@@ -40,8 +40,40 @@ export default defineType({
       description: 'Detailed about section with rich text formatting',
     }),
     defineField({
+      name: 'ogImage',
+      title: 'OG Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+          description: 'Important for SEO and accessibility',
+        },
+      ],
+    }),
+    defineField({
       name: 'profileImage',
       title: 'Profile Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+          description: 'Important for SEO and accessibility',
+        },
+      ],
+    }),
+    defineField({
+      name: 'profileImageDark',
+      title: 'Profile Image (dark Mode)',
       type: 'image',
       options: {
         hotspot: true,

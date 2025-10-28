@@ -9,6 +9,7 @@ import {
   Ovo as OvoFont,
 } from 'next/font/google';
 import BlogSidebar from './BlogSidebar';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const jetFont = JetBrainsMono({
   weight: ['400', '500', '600', '700'],
@@ -139,10 +140,12 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex flex-col md:flex-row md:gap-10">
-            <BlogSidebar />
-            <div className="p-5 md:ml-[320px]">{children}</div>
-          </div>
+          <ClerkProvider>
+            <div className="flex flex-col md:flex-row md:gap-10">
+              <BlogSidebar />
+              <div className="p-5 md:ml-[320px]">{children}</div>
+            </div>
+          </ClerkProvider>
         </ThemeProvider>
       </body>
     </html>

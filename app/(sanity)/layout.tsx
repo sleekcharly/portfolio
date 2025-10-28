@@ -1,10 +1,5 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
-import Script from 'next/script';
-import { ThemeProvider } from '@/providers/ThemeProvider';
-import { SanityLive } from '@/sanity/lib/live';
 
 export const metadata: Metadata = {
   title: 'Portfolio - Charles Ukasoanya',
@@ -62,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      {/* <head>
         <Script
           id="person-schema"
           type="application/ld+json"
@@ -97,19 +92,9 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
+      </head> */}
 
-      <body
-        className="antialiased leading-8 overflow-x-hidden"
-        suppressHydrationWarning
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          {children}
-          <SanityLive />
-          <Footer />
-        </ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
