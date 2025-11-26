@@ -13,6 +13,69 @@
  */
 
 // Source: schema.json
+export type Achievement = {
+  _id: string;
+  _type: "achievement";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  type?: "award" | "hackathon" | "publication" | "speaking" | "open-source" | "milestone" | "recognition" | "other";
+  issuer?: string;
+  date?: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  url?: string;
+  featured?: boolean;
+  order?: number;
+};
+
+export type Certification = {
+  _id: string;
+  _type: "certification";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  issuer?: string;
+  issueDate?: string;
+  expiryDate?: string;
+  credentialId?: string;
+  credentialUrl?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+  skills?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }>;
+  order?: number;
+};
+
 export type Navigation = {
   _id: string;
   _type: "navigation";
@@ -210,6 +273,63 @@ export type Service = {
   order?: number;
 };
 
+export type Experience = {
+  _id: string;
+  _type: "experience";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  company?: string;
+  position?: string;
+  employmentType?: "full-time" | "part-time" | "contract" | "freelance" | "internship";
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  current?: boolean;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  responsibilities?: Array<string>;
+  achievements?: Array<string>;
+  technologies?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }>;
+  companyLogo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  companyWebsite?: string;
+  order?: number;
+};
+
 export type Education = {
   _id: string;
   _type: "education";
@@ -222,7 +342,6 @@ export type Education = {
   startDate?: string;
   endDate?: string;
   current?: boolean;
-  gpa?: string;
   description?: string;
   achievements?: Array<string>;
   logo?: {
@@ -301,6 +420,24 @@ export type Profile = {
   lastName?: string;
   headline?: string;
   shortBio?: string;
+  extendedBio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   fullBio?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -359,12 +496,16 @@ export type Profile = {
     _type: "image";
   };
   email?: string;
+  phone?: string;
+  location?: string;
+  availability?: "available" | "open" | "unavailable";
   socialLinks?: {
     github?: string;
     linkedin?: string;
     twitter?: string;
     website?: string;
   };
+  yearsOfExperience?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -485,17 +626,21 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Navigation | SiteSettings | Contact | Blog | Service | Education | Skill | Project | Profile | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Achievement | Certification | Navigation | SiteSettings | Contact | Blog | Service | Experience | Education | Skill | Project | Profile | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/(portfolio)/page.tsx
 // Variable: HERO_QUERY
-// Query: *[_id == "singleton-profile"][0]{    firstName,    lastName,    headline,    shortBio,    ogImage,}
+// Query: *[_id == "singleton-profile"][0]{    firstName,    lastName,    headline,    shortBio,    ogImage,    extendedBio,    fullBio,    profileImage,    profileImageDark}
 export type HERO_QUERYResult = {
   firstName: null;
   lastName: null;
   headline: null;
   shortBio: null;
   ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  profileImage: null;
+  profileImageDark: null;
 } | {
   firstName: null;
   lastName: null;
@@ -513,6 +658,10 @@ export type HERO_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
+  extendedBio: null;
+  fullBio: null;
+  profileImage: null;
+  profileImageDark: null;
 } | {
   firstName: string | null;
   lastName: string | null;
@@ -531,12 +680,460 @@ export type HERO_QUERYResult = {
     alt?: string;
     _type: "image";
   } | null;
+  extendedBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  fullBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  profileImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  profileImageDark: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+} | null;
+
+// Source: ./components/chat/ChatWrapper.tsx
+// Variable: CHAT_PROFILE_QUERY
+// Query: *[_id == "singleton-profile"][0]{    _id,    _type,    _createdAt,    _updatedAt,    _rev,    firstName,    lastName,    headline,    shortBio,    email,    phone,    location,    availability,    socialLinks,    profileImage,    profileImageDark,    ogImage,    extendedBio,    fullBio,    yearsOfExperience  }
+export type CHAT_PROFILE_QUERYResult = {
+  _id: string;
+  _type: "achievement";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "blog";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "certification";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: string | null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "education";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "experience";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: string | null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "navigation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "profile";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: string | null;
+  lastName: string | null;
+  headline: string | null;
+  shortBio: string | null;
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  availability: "available" | "open" | "unavailable" | null;
+  socialLinks: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    website?: string;
+  } | null;
+  profileImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  profileImageDark: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  ogImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  extendedBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  fullBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  yearsOfExperience: number | null;
+} | {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "sanity.imageAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "service";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: null;
+} | {
+  _id: string;
+  _type: "skill";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: null;
+  lastName: null;
+  headline: null;
+  shortBio: null;
+  email: null;
+  phone: null;
+  location: null;
+  availability: null;
+  socialLinks: null;
+  profileImage: null;
+  profileImageDark: null;
+  ogImage: null;
+  extendedBio: null;
+  fullBio: null;
+  yearsOfExperience: number | null;
 } | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_id == \"singleton-profile\"][0]{\n    firstName,\n    lastName,\n    headline,\n    shortBio,\n    ogImage,\n}": HERO_QUERYResult;
+    "*[_id == \"singleton-profile\"][0]{\n    firstName,\n    lastName,\n    headline,\n    shortBio,\n    ogImage,\n    extendedBio,\n    fullBio,\n    profileImage,\n    profileImageDark\n}": HERO_QUERYResult;
+    "*[_id == \"singleton-profile\"][0]{\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    firstName,\n    lastName,\n    headline,\n    shortBio,\n    email,\n    phone,\n    location,\n    availability,\n    socialLinks,\n    profileImage,\n    profileImageDark,\n    ogImage,\n    extendedBio,\n    fullBio,\n    yearsOfExperience\n  }": CHAT_PROFILE_QUERYResult;
   }
 }

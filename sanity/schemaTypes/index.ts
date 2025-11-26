@@ -8,6 +8,9 @@ import blog from './blog';
 import contact from './contact';
 import siteSettings from './siteSettings';
 import navigation from './navigation';
+import experience from './experience';
+import certification from './certification';
+import achievement from './achievement';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -15,10 +18,13 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     project,
     skill,
     education,
+    experience,
     service,
     blog,
     contact,
     siteSettings,
     navigation,
+    certification,
+    achievement
   ],
 };

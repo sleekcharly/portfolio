@@ -2,8 +2,6 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
-
-
 :root {
     --box-shadow-black: 4px 4px 0 #000;
     --box-shadow-white: 4px 4px 0 #fff;
@@ -39,7 +37,6 @@
     --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
     --sidebar-border: oklch(0.929 0.013 255.508);
     --sidebar-ring: oklch(0.704 0.04 256.788);
-
 
 }
 

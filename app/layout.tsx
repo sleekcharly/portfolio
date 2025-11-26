@@ -151,6 +151,9 @@ export default function RootLayout({
         <body
           className={`antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
         >
+          <Script 
+      src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"
+      strategy="afterInteractive"/>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>

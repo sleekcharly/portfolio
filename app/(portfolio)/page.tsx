@@ -13,6 +13,10 @@ const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
     headline,
     shortBio,
     ogImage,
+    extendedBio,
+    fullBio,
+    profileImage,
+    profileImageDark
 }`);
 
 export default async function Home() {
@@ -25,7 +29,7 @@ export default async function Home() {
   return (
     <main>
       <Header profile={profile} />
-      <About />
+      <About profile={profile} />
       <Services />
       <Work />
       <Contact />

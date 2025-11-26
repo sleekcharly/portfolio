@@ -33,6 +33,13 @@ export default defineType({
       validation: (Rule) => Rule.required().max(300),
     }),
     defineField({
+      name: 'extendedBio',
+      title: 'Extended Bio',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Extended about section with rich text formatting',
+    }),
+    defineField({
       name: 'fullBio',
       title: 'Full Bio',
       type: 'array',
@@ -94,6 +101,29 @@ export default defineType({
       validation: (Rule) => Rule.required().email(),
     }),
     defineField({
+      name: 'phone',
+      title: 'Phone Number',
+      type: 'string',
+    }),
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string',
+      description: "E.g., 'San Francisco, CA' or 'Remote'",
+    }),
+    defineField({
+      name: 'availability',
+      title: 'Availability Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Available for hire', value: 'available' },
+          { title: 'Open to opportunities', value: 'open' },
+          { title: 'Not looking', value: 'unavailable' },
+        ],
+      },
+    }),
+    defineField({
       name: 'socialLinks',
       title: 'Social Links',
       type: 'object',
@@ -107,6 +137,12 @@ export default defineType({
         // { name: 'youtube', title: 'YouTube', type: 'url' },
         // { name: 'stackoverflow', title: 'Stack Overflow', type: 'url' },
       ],
+    }),
+    defineField({
+      name: 'yearsOfExperience',
+      title: 'Years of Experience',
+      type: 'number',
+      validation: (Rule) => Rule.min(0),
     }),
   ],
   preview: {

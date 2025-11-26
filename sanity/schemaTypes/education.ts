@@ -42,12 +42,6 @@ export default defineType({
       initialValue: false,
     }),
     defineField({
-      name: 'gpa',
-      title: 'GPA',
-      type: 'string',
-      description: "E.g., '3.8/4.0'",
-    }),
-    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
