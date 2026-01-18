@@ -35,7 +35,7 @@ export async function createSession() {
 
   if (!response.ok) {
     const error = await response.text();
-    console.log(response)
+    
     throw new Error(`Failed to create session: ${error}`);
   }
 

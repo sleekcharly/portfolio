@@ -30,6 +30,13 @@ export default defineType({
       validation: (Rule) => Rule.max(200),
     }),
     defineField({
+      name:'blogContent',
+      title:'Blog Content',
+      type:"text",
+      description:'Main content of the blog post in markdown format',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'image',
