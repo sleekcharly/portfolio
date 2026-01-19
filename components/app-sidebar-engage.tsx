@@ -1,7 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { BookOpen, Bot, Settings2, SquareTerminal } from "lucide-react";
+import {
+    BookOpen,
+    Bot,
+    LogOutIcon,
+    Settings2,
+    SquareTerminal,
+} from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import {
     Sidebar,
@@ -16,6 +22,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import ProfilePhotoLight from "@/public/images/og-image.png";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 // Dashboard Data.
 const data = {
@@ -44,6 +52,22 @@ const data = {
     ],
 };
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    async function handleLogout() {
+        try {
+            // 1. Sign out from Firebase client
+            await signOut(auth);
+
+            // 2. Clear session cookie on server
+            await fetch("/api/auth/logout", {
+                method: "POST",
+            });
+
+            // 3. Redirect to login
+            window.location.href = "/engage/login";
+        } catch (err) {
+            console.error("Logout failed", err);
+        }
+    }
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -82,7 +106,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>
-                <button>Logout</button>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            onClick={handleLogout}
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer flex items-center"
+                        >
+                            <LogOutIcon />
+                            <span className="text-lg">Logout</span>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

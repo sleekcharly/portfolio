@@ -15,6 +15,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default async function AdminLayout({
     children,
@@ -51,6 +52,9 @@ export default async function AdminLayout({
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
+                    </div>
+                    <div className="ml-auto px-4">
+                        <ThemeToggle />
                     </div>
                 </header>
                 {children}
