@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import {
-    BookOpen,
-    Bot,
+    BarChart3,
+    File,
+    LayoutDashboard,
     LogOutIcon,
-    Settings2,
-    SquareTerminal,
+    MessageSquare,
+    PenSquare,
 } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import {
@@ -31,23 +32,29 @@ const data = {
         {
             title: "Overview",
             url: "/engage",
-            icon: SquareTerminal,
+            icon: LayoutDashboard,
             isActive: true,
         },
         {
-            title: "Post",
-            url: "/engage/new-post",
-            icon: Bot,
+            title: "Posts",
+            url: "/engage/posts",
+            icon: File,
         },
+        {
+            title: "Create Post",
+            url: "/engage/create-post",
+            icon: PenSquare,
+        },
+
         {
             title: "Analytics",
             url: "engage/analytics",
-            icon: BookOpen,
+            icon: BarChart3,
         },
         {
             title: "Commenting",
             url: "/engage/commenting",
-            icon: Settings2,
+            icon: MessageSquare,
         },
     ],
 };
