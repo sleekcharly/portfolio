@@ -42,18 +42,18 @@ const data = {
         },
         {
             title: "Create Post",
-            url: "/engage/create-post",
+            url: "/engage/posts/new",
             icon: PenSquare,
         },
 
         {
             title: "Analytics",
-            url: "engage/analytics",
+            url: "/engage/analytics",
             icon: BarChart3,
         },
         {
             title: "Commenting",
-            url: "/engage/commenting",
+            url: "/engage/comments",
             icon: MessageSquare,
         },
     ],
