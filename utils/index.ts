@@ -1,4 +1,5 @@
 import { auth, db, storage } from "@/lib/firebase";
+import { ImageExtension } from "@harshtalks/image-tiptap";
 import { collection, doc, getDocs, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -80,3 +81,18 @@ export async function uploadBlogImage(file: File) {
   await uploadBytes(imageRef, file);
   return await getDownloadURL(imageRef)
 }
+
+// Custom Image Extension
+export const CustomImage = ImageExtension.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: {
+        default: "100%",
+        renderHTML: attributes => ({
+          style: `width: ${attributes.width};`,
+        }),
+      },
+    };
+  },
+});

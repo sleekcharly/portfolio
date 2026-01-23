@@ -17,7 +17,8 @@ import {
 import { db } from "@/lib/firebase";
 import "./styles.scss";
 import { ImageIcon, XCircleIcon } from "lucide-react";
-import { generateUniqueSlug, uploadBlogImage } from "@/utils";
+import { CustomImage, generateUniqueSlug, uploadBlogImage } from "@/utils";
+import { ImageAligner } from "@harshtalks/image-tiptap";
 
 // Category type definition
 type Category = {
@@ -290,6 +291,46 @@ function MenuBar({ editor }: { editor: Editor }) {
     );
 }
 
+// Image resize controls component
+const ImageResizeControls = ({ editor }: { editor: Editor }) => {
+    if (!editor) return null;
+
+    const isImageSelected = editor.isActive("image");
+    if (!isImageSelected) return null;
+
+    const setWidth = (width: string) => {
+        editor.chain().focus().updateAttributes("image", { width }).run();
+    };
+
+    return (
+        <div className="flex flex-wrap items-center gap-2 border border-gray-300 rounded-md p-2 bg-white">
+            <span className="text-sm font-medium text-gray-700">
+                Image size:
+            </span>
+
+            {["25%", "50%", "75%", "100%"].map((size) => (
+                <button
+                    key={size}
+                    type="button"
+                    onClick={() => setWidth(size)}
+                    className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
+                >
+                    {size}
+                </button>
+            ))}
+
+            <input
+                type="number"
+                min={10}
+                max={100}
+                placeholder="Custom"
+                className="w-20 px-2 py-1 text-sm border border-gray-300 rounded"
+                onChange={(e) => setWidth(`${e.target.value}%`)}
+            />
+        </div>
+    );
+};
+
 // New post form component
 export default function NewPostForm() {
     const [title, setTitle] = useState("");
@@ -381,6 +422,7 @@ export default function NewPostForm() {
             Image.configure({
                 inline: false,
             }),
+            CustomImage,
             TextStyleKit,
         ],
         content: "",
@@ -590,6 +632,29 @@ export default function NewPostForm() {
 
                     {/* Image Upload */}
                     {editor && <ImageUploadButton editor={editor} />}
+
+                    {/* Image Controls */}
+                    {editor && (
+                        <div className="flex flex-col gap-2">
+                            <ImageAligner.Root editor={editor}>
+                                <ImageAligner.AlignMenu>
+                                    <ImageAligner.Items className="bg-white flex items-center gap-2 border border-gray-300 rounded p-2">
+                                        <ImageAligner.Item alignment="left">
+                                            Left
+                                        </ImageAligner.Item>
+                                        <ImageAligner.Item alignment="center">
+                                            Center
+                                        </ImageAligner.Item>
+                                        <ImageAligner.Item alignment="right">
+                                            Right
+                                        </ImageAligner.Item>
+                                    </ImageAligner.Items>
+                                </ImageAligner.AlignMenu>
+                            </ImageAligner.Root>
+
+                            <ImageResizeControls editor={editor} />
+                        </div>
+                    )}
 
                     {/* Editor Content */}
                     <div className="bg-gray-100 p-2 dark:border dark:border-gray-500 dark:text-gray-900">
