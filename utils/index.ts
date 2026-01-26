@@ -1,7 +1,8 @@
 import { auth, db, storage } from "@/lib/firebase";
 import { ImageExtension } from "@harshtalks/image-tiptap";
 import { collection, doc, getDocs, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import type { Editor } from "@tiptap/react";
 
 // Formats a timestamp into a human-readable date string
 export function formattedDate(date: number) {
@@ -73,13 +74,24 @@ async function restorePost(postId: string) {
 }
 
 // Uploads a blog image to Firebase Storage and returns its download URL
-export async function uploadBlogImage(file: File) {
-  const imageRef = ref(
-    storage, `blog-images/${Date.now()}-${file.name}`
-  )
+type UploadResult = {
+  url: string;
+  path: string;
+};
+
+export async function uploadBlogImage(file: File): Promise<UploadResult> {
+  const filePath = `blog-images/${crypto.randomUUID()}-${file.name}`;
+
+  const imageRef = ref(storage, filePath);
 
   await uploadBytes(imageRef, file);
-  return await getDownloadURL(imageRef)
+
+  const url = await getDownloadURL(imageRef);
+
+  return {
+    url,
+    path: filePath,
+  }
 }
 
 // Custom Image Extension
@@ -87,12 +99,68 @@ export const CustomImage = ImageExtension.extend({
   addAttributes() {
     return {
       ...this.parent?.(),
+
       width: {
         default: "100%",
-        renderHTML: attributes => ({
-          style: `width: ${attributes.width};`,
+        renderHTML: attrs => ({
+          style: `width:${attrs.width}`,
         }),
+      },
+
+      align: {
+        default: "center",
+        renderHTML: attrs => ({
+          style: `margin:${
+            attrs.align === "left"
+              ? "0 auto 0 0"
+              : attrs.align === "right"
+              ? "0 0 0 auto"
+              : "0 auto"
+          }`,
+        }),
+      },
+
+      alt: {
+        default: "",
+      },
+
+      caption: {
+        default: "",
+      },
+
+      storagePath: {
+        default: "",
       },
     };
   },
 });
+
+// Replace Image logic
+export async function replaceImage(
+  editor: Editor,
+  file: File
+) {
+
+  const { url, path } = await uploadBlogImage(file);
+
+  editor
+    .chain()
+    .focus()
+    .updateAttributes("image", {
+      src: url,
+      storagePath: path,
+    })
+    .run();
+}
+
+
+// Delete image safely
+export async function deleteSelectedImage(editor: Editor) {
+  const attrs = editor.getAttributes("image");
+
+  if (attrs.storagePath) {
+    await deleteObject(ref(storage, attrs.storagePath));
+  }
+
+  editor.chain().focus().deleteSelection().run();
+}

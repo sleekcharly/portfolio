@@ -10,15 +10,32 @@ export default function LoginPage() {
     const [checkingAuth, setCheckingAuth] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.href = "/engage";
-            } else {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (!user) {
                 setCheckingAuth(false);
+                return;
             }
 
-            return () => unsubscribe();
+            try {
+                const token = await user.getIdToken(true);
+
+                const res = await fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ idToken: token }),
+                });
+
+                if (res.ok) {
+                    window.location.href = "/engage";
+                } else {
+                    setCheckingAuth(false);
+                }
+            } catch {
+                setCheckingAuth(false);
+            }
         });
+
+        return () => unsubscribe();
     }, []);
 
     if (checkingAuth) {
@@ -27,7 +44,7 @@ export default function LoginPage() {
                 <Spinner />
             </div>
         );
+    } else {
+        return <LoginContent />;
     }
-
-    return <LoginContent />;
 }

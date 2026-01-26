@@ -3,11 +3,9 @@
 import { useEditor, EditorContent, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { TextStyleKit } from "@tiptap/extension-text-style";
-import Image from "@tiptap/extension-image";
 import type { Editor } from "@tiptap/react";
 import { useState, useEffect, useRef } from "react";
 import {
-    addDoc,
     collection,
     serverTimestamp,
     getDocs,
@@ -17,7 +15,13 @@ import {
 import { db } from "@/lib/firebase";
 import "./styles.scss";
 import { ImageIcon, XCircleIcon } from "lucide-react";
-import { CustomImage, generateUniqueSlug, uploadBlogImage } from "@/utils";
+import {
+    CustomImage,
+    deleteSelectedImage,
+    generateUniqueSlug,
+    replaceImage,
+    uploadBlogImage,
+} from "@/utils";
 import { ImageAligner } from "@harshtalks/image-tiptap";
 
 // Category type definition
@@ -331,6 +335,69 @@ const ImageResizeControls = ({ editor }: { editor: Editor }) => {
     );
 };
 
+// Caption + Alt text editor (inline, clean UI)
+const ImageMetaControls = ({ editor }: { editor: Editor }) => {
+    if (!editor || !editor.isActive("image")) return null;
+
+    const attrs = editor.getAttributes("image");
+
+    const update = (key: string, value: string) => {
+        editor
+            .chain()
+            .focus()
+            .updateAttributes("image", { [key]: value })
+            .run();
+    };
+
+    return (
+        <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-2 bg-white">
+            <input
+                className="px-2 py-1 border border-gray-300 rounded text-sm"
+                placeholder="Alt text (for SEO & accessibility)"
+                value={attrs.alt || ""}
+                onChange={(e) => update("alt", e.target.value)}
+            />
+
+            <input
+                className="px-2 py-1 border border-gray-300 rounded text-sm"
+                placeholder="Image caption"
+                value={attrs.caption || ""}
+                onChange={(e) => update("caption", e.target.value)}
+            />
+        </div>
+    );
+};
+
+// image action buttons (replace + delete)
+const ImageActionButtons = ({ editor }: { editor: Editor }) => {
+    if (!editor || !editor.isActive("image")) return null;
+
+    return (
+        <div className="flex gap-2 border border-gray-300 rounded-md p-2 bg-white">
+            <label className="px-2 py-1 text-sm border border-gray-300 rounded cursor-pointer hover:bg-gray-100">
+                Replace
+                <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={(e) =>
+                        e.target.files &&
+                        replaceImage(editor, e.target.files[0])
+                    }
+                />
+            </label>
+
+            <button
+                type="button"
+                onClick={() => deleteSelectedImage(editor)}
+                className="px-2 py-1 text-sm border border-red-400 text-red-600 rounded hover:bg-red-50"
+            >
+                Delete
+            </button>
+        </div>
+    );
+};
+
 // New post form component
 export default function NewPostForm() {
     const [title, setTitle] = useState("");
@@ -356,7 +423,7 @@ export default function NewPostForm() {
 
             try {
                 setUploading(true);
-                const url = await uploadBlogImage(file);
+                const { url } = await uploadBlogImage(file);
                 setUploading(false);
                 editor.chain().focus().setImage({ src: url }).run();
             } catch (err) {
@@ -419,10 +486,9 @@ export default function NewPostForm() {
     const editor = useEditor({
         extensions: [
             StarterKit,
-            Image.configure({
+            CustomImage.configure({
                 inline: false,
             }),
-            CustomImage,
             TextStyleKit,
         ],
         content: "",
@@ -638,7 +704,7 @@ export default function NewPostForm() {
                         <div className="flex flex-col gap-2">
                             <ImageAligner.Root editor={editor}>
                                 <ImageAligner.AlignMenu>
-                                    <ImageAligner.Items className="bg-white flex items-center gap-2 border border-gray-300 rounded p-2">
+                                    <ImageAligner.Items className="flex gap-2 border border-gray-300 rounded p-2 bg-white">
                                         <ImageAligner.Item alignment="left">
                                             Left
                                         </ImageAligner.Item>
@@ -653,6 +719,8 @@ export default function NewPostForm() {
                             </ImageAligner.Root>
 
                             <ImageResizeControls editor={editor} />
+                            <ImageMetaControls editor={editor} />
+                            <ImageActionButtons editor={editor} />
                         </div>
                     )}
 
