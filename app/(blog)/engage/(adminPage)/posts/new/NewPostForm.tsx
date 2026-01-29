@@ -22,7 +22,7 @@ import {
     replaceImage,
     uploadBlogImage,
 } from "@/utils";
-import { ImageAligner } from "@harshtalks/image-tiptap";
+import { useRouter } from "next/navigation";
 
 // Category type definition
 type Category = {
@@ -476,6 +476,9 @@ export default function NewPostForm() {
     const [isDirty, setIsDirty] = useState(false);
     const [uploading, setUploading] = useState(false);
 
+    // initialize router
+    const router = useRouter();
+
     // Image upload button
     function ImageUploadButton({ editor }: { editor: Editor }) {
         const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -656,11 +659,35 @@ export default function NewPostForm() {
         setLoading(true);
 
         try {
-            const slug = await generateUniqueSlug(trimmedTitle, db);
+            let id = postId;
+            let slug: string | undefined;
 
-            postId &&
-                (await setDoc(
-                    doc(db, "posts", postId),
+            // 🔥 If post does not exist yet, create it first
+            if (!id) {
+                slug = await generateUniqueSlug(trimmedTitle, db);
+                const ref = doc(collection(db, "posts"));
+
+                await setDoc(ref, {
+                    title: trimmedTitle,
+                    excerpt: trimmedExcerpt,
+                    content,
+                    categories: selectedCategories,
+                    tags,
+                    status,
+                    slug,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp(),
+                    publishedAt:
+                        status === "published" ? serverTimestamp() : null,
+                    deletedAt: null,
+                    deletedBy: null,
+                });
+
+                id = ref.id;
+                setPostId(id);
+            } else {
+                await setDoc(
+                    doc(db, "posts", id),
                     {
                         title: trimmedTitle,
                         excerpt: trimmedExcerpt,
@@ -673,13 +700,8 @@ export default function NewPostForm() {
                         updatedAt: serverTimestamp(),
                     },
                     { merge: true },
-                ));
-
-            alert(
-                status === "published"
-                    ? "Post published successfully."
-                    : "Draft saved successfully.",
-            );
+                );
+            }
 
             // Optional: reset form after save
             setTitle("");
@@ -687,6 +709,9 @@ export default function NewPostForm() {
             editor.commands.clearContent();
             setSelectedCategories([]);
             setTags([]);
+
+            // ✅ Redirect to preview page
+            router.push(`/engage/posts/${id}/preview`);
         } catch (error: any) {
             console.error("Failed to publish post: ", error);
 
