@@ -303,7 +303,11 @@ const ImageResizeControls = ({ editor }: { editor: Editor }) => {
     if (!isImageSelected) return null;
 
     const setWidth = (width: string) => {
-        editor.chain().focus().updateAttributes("image", { width }).run();
+        const attrs = editor.getAttributes("image"); // preserve
+        editor
+            .chain()
+            .updateAttributes("image", { ...attrs, width })
+            .run();
     };
 
     return (
@@ -316,7 +320,11 @@ const ImageResizeControls = ({ editor }: { editor: Editor }) => {
                 <button
                     key={size}
                     type="button"
-                    onClick={() => setWidth(size)}
+                    onMouseDown={(e) => e.preventDefault()} // important
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setWidth(size);
+                    }}
                     className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
                 >
                     {size}
@@ -329,6 +337,9 @@ const ImageResizeControls = ({ editor }: { editor: Editor }) => {
                 max={100}
                 placeholder="Custom"
                 className="w-20 px-2 py-1 text-sm border border-gray-300 rounded"
+                onMouseDown={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.stopPropagation()}
                 onChange={(e) => setWidth(`${e.target.value}%`)}
             />
         </div>
@@ -337,32 +348,70 @@ const ImageResizeControls = ({ editor }: { editor: Editor }) => {
 
 // Caption + Alt text editor (inline, clean UI)
 const ImageMetaControls = ({ editor }: { editor: Editor }) => {
+    const [alt, setAlt] = useState("");
+    const [caption, setCaption] = useState("");
+
+    useEffect(() => {
+        if (!editor) return;
+
+        const sync = () => {
+            const attrs = editor.getAttributes("image");
+            setAlt(attrs.alt ?? "");
+            setCaption(attrs.caption ?? "");
+        };
+
+        sync();
+        editor.on("selectionUpdate", sync);
+        editor.on("transaction", sync);
+
+        return () => {
+            editor.off("selectionUpdate", sync);
+            editor.off("transaction", sync);
+        };
+    }, [editor]);
+
     if (!editor || !editor.isActive("image")) return null;
 
-    const attrs = editor.getAttributes("image");
-
-    const update = (key: string, value: string) => {
+    const update = (key: "alt" | "caption", value: string) => {
+        const attrs = editor.getAttributes("image");
         editor
             .chain()
-            .focus()
-            .updateAttributes("image", { [key]: value })
+            .updateAttributes("image", { ...attrs, [key]: value })
             .run();
+    };
+
+    const stopEditorHijack = (e: React.SyntheticEvent) => {
+        e.stopPropagation();
     };
 
     return (
         <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-2 bg-white">
             <input
+                type="text"
                 className="px-2 py-1 border border-gray-300 rounded text-sm"
                 placeholder="Alt text (for SEO & accessibility)"
-                value={attrs.alt || ""}
-                onChange={(e) => update("alt", e.target.value)}
+                value={alt}
+                onMouseDownCapture={stopEditorHijack}
+                onClickCapture={stopEditorHijack}
+                onKeyDownCapture={stopEditorHijack}
+                onChange={(e) => {
+                    setAlt(e.target.value);
+                    update("alt", e.target.value);
+                }}
             />
 
             <input
+                type="text"
                 className="px-2 py-1 border border-gray-300 rounded text-sm"
                 placeholder="Image caption"
-                value={attrs.caption || ""}
-                onChange={(e) => update("caption", e.target.value)}
+                value={caption}
+                onMouseDownCapture={stopEditorHijack}
+                onClickCapture={stopEditorHijack}
+                onKeyDownCapture={stopEditorHijack}
+                onChange={(e) => {
+                    setCaption(e.target.value);
+                    update("caption", e.target.value);
+                }}
             />
         </div>
     );
@@ -398,6 +447,22 @@ const ImageActionButtons = ({ editor }: { editor: Editor }) => {
     );
 };
 
+// Function to set image alignment
+function setImageAlignment(
+    editor: Editor,
+    alignment: "left" | "center" | "right",
+) {
+    const attrs = editor.getAttributes("image");
+
+    editor
+        .chain()
+        .updateAttributes("image", {
+            ...attrs,
+            "data-alignment": alignment,
+        })
+        .run();
+}
+
 // New post form component
 export default function NewPostForm() {
     const [title, setTitle] = useState("");
@@ -423,9 +488,13 @@ export default function NewPostForm() {
 
             try {
                 setUploading(true);
-                const { url } = await uploadBlogImage(file);
+                const { url, path } = await uploadBlogImage(file);
                 setUploading(false);
-                editor.chain().focus().setImage({ src: url }).run();
+                editor
+                    .chain()
+                    .setImage({ src: url })
+                    .updateAttributes("image", { storagePath: path })
+                    .run();
             } catch (err) {
                 console.error(err);
                 alert("Image upload failed");
@@ -508,33 +577,33 @@ export default function NewPostForm() {
 
             try {
                 const content = editor.getJSON();
-                const slug = postId
-                    ? undefined
-                    : await generateUniqueSlug(title.trim(), db);
 
-                const ref = postId
-                    ? doc(db, "posts", postId)
-                    : doc(collection(db, "posts"));
+                const isNew = !postId;
 
-                await setDoc(
-                    ref,
-                    {
-                        title: title.trim(),
-                        excerpt: excerpt.trim(),
-                        content,
-                        categories: selectedCategories,
-                        tags,
-                        status: "draft",
-                        ...(slug && { slug }),
-                        deletedAt: null,
-                        deletedBy: null,
-                        updatedAt: serverTimestamp(),
-                        createdAt: postId ? undefined : serverTimestamp(),
-                    },
-                    { merge: true },
-                );
+                const ref = isNew
+                    ? doc(collection(db, "posts"))
+                    : doc(db, "posts", postId);
 
-                if (!postId) {
+                const baseData: any = {
+                    title: title.trim(),
+                    excerpt: excerpt.trim(),
+                    content,
+                    categories: selectedCategories,
+                    tags,
+                    status: "draft",
+                    deletedAt: null,
+                    deletedBy: null,
+                    updatedAt: serverTimestamp(),
+                };
+
+                if (isNew) {
+                    baseData.createdAt = serverTimestamp();
+                    baseData.slug = await generateUniqueSlug(title.trim(), db);
+                }
+
+                await setDoc(ref, baseData, { merge: true });
+
+                if (isNew) {
                     setPostId(ref.id);
                 }
 
@@ -700,23 +769,31 @@ export default function NewPostForm() {
                     {editor && <ImageUploadButton editor={editor} />}
 
                     {/* Image Controls */}
-                    {editor && (
+                    {editor && editor.isActive("image") && (
                         <div className="flex flex-col gap-2">
-                            <ImageAligner.Root editor={editor}>
-                                <ImageAligner.AlignMenu>
-                                    <ImageAligner.Items className="flex gap-2 border border-gray-300 rounded p-2 bg-white">
-                                        <ImageAligner.Item alignment="left">
-                                            Left
-                                        </ImageAligner.Item>
-                                        <ImageAligner.Item alignment="center">
-                                            Center
-                                        </ImageAligner.Item>
-                                        <ImageAligner.Item alignment="right">
-                                            Right
-                                        </ImageAligner.Item>
-                                    </ImageAligner.Items>
-                                </ImageAligner.AlignMenu>
-                            </ImageAligner.Root>
+                            <div className="flex gap-2 border border-gray-300 rounded p-2 bg-white">
+                                {(["left", "center", "right"] as const).map(
+                                    (a) => (
+                                        <button
+                                            key={a}
+                                            type="button"
+                                            onMouseDown={(e) =>
+                                                e.preventDefault()
+                                            }
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (!editor.isActive("image"))
+                                                    return;
+                                                setImageAlignment(editor, a);
+                                            }}
+                                            className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
+                                        >
+                                            {a.charAt(0).toUpperCase() +
+                                                a.slice(1)}
+                                        </button>
+                                    ),
+                                )}
+                            </div>
 
                             <ImageResizeControls editor={editor} />
                             <ImageMetaControls editor={editor} />

@@ -1,4 +1,6 @@
-/* Basic editor styles */ 
+.ProseMirror-selectednode {
+    outline: none !important;
+}
 
 .tiptap {
     :first-child {

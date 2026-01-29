@@ -23,8 +23,6 @@ export default async function AdminLayout({
     children: React.ReactNode;
 }) {
     const session = await getServerSession();
-    console.log("session: ", session);
-    console.log("ADMIN UID: ", process.env.ADMIN_UID);
 
     if (!session || session.uid !== process.env.ADMIN_UID) {
         redirect("/engage/login");

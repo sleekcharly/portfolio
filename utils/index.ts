@@ -100,40 +100,44 @@ export const CustomImage = ImageExtension.extend({
     return {
       ...this.parent?.(),
 
+      "data-alignment": {
+        default: "center",
+        renderHTML: attrs => {
+          const align = attrs["data-alignment"];
+
+          if (align === "center") {
+            return {
+              style: "display:block;margin-left:auto;margin-right:auto;",
+            };
+          }
+
+          if (align === "right") {
+            return {
+              style: "display:block;margin-left:auto;margin-right:0;",
+            };
+          }
+
+          // left (default)
+          return {
+            style: "display:block;margin-left:0;margin-right:auto;",
+          };
+        },
+      },
+
+      storagePath: { default: "" },
+      caption: { default: "" },
+      alt: { default: "" },
+
       width: {
         default: "100%",
         renderHTML: attrs => ({
-          style: `width:${attrs.width}`,
+          style: `width:${attrs.width};`,
         }),
-      },
-
-      align: {
-        default: "center",
-        renderHTML: attrs => ({
-          style: `margin:${
-            attrs.align === "left"
-              ? "0 auto 0 0"
-              : attrs.align === "right"
-              ? "0 0 0 auto"
-              : "0 auto"
-          }`,
-        }),
-      },
-
-      alt: {
-        default: "",
-      },
-
-      caption: {
-        default: "",
-      },
-
-      storagePath: {
-        default: "",
       },
     };
   },
 });
+
 
 // Replace Image logic
 export async function replaceImage(
