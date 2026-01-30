@@ -3,6 +3,7 @@ import { ImageExtension } from "@harshtalks/image-tiptap";
 import { collection, doc, getDocs, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import type { Editor } from "@tiptap/react";
+import type { DOMOutputSpec } from "@tiptap/pm/model";
 
 // Formats a timestamp into a human-readable date string
 export function formattedDate(date: number) {
@@ -100,41 +101,55 @@ export const CustomImage = ImageExtension.extend({
     return {
       ...this.parent?.(),
 
-      "data-alignment": {
-        default: "center",
-        renderHTML: attrs => {
-          const align = attrs["data-alignment"];
-
-          if (align === "center") {
-            return {
-              style: "display:block;margin-left:auto;margin-right:auto;",
-            };
-          }
-
-          if (align === "right") {
-            return {
-              style: "display:block;margin-left:auto;margin-right:0;",
-            };
-          }
-
-          // left (default)
-          return {
-            style: "display:block;margin-left:0;margin-right:auto;",
-          };
-        },
-      },
-
+      "data-alignment": { default: "center" },
       storagePath: { default: "" },
       caption: { default: "" },
       alt: { default: "" },
-
-      width: {
-        default: "100%",
-        renderHTML: attrs => ({
-          style: `width:${attrs.width};`,
-        }),
-      },
+      width: { default: "100%" },
     };
+  },
+
+  renderHTML({ HTMLAttributes }): DOMOutputSpec {
+    const attrs = HTMLAttributes as Record<string, any>;
+
+    const caption = (attrs.caption ?? "").toString();
+    const width = (attrs.width ?? "100%").toString();
+    const alignment = (attrs["data-alignment"] ?? "center").toString();
+
+    // build styles
+    const figureStyle =
+      alignment === "right"
+        ? "text-align:right;"
+        : alignment === "left"
+          ? "text-align:left;"
+          : "text-align:center;";
+
+    const imgStyle = `width:${width}; display:inline-block;`;
+
+    // IMPORTANT: keep src/alt/etc
+    const { style, ...imgAttrs } = attrs;
+    const mergedStyle = `${style ?? ""} ${imgStyle}`.trim();
+
+    const img: DOMOutputSpec = [
+      "img",
+      {
+        ...imgAttrs,
+        style: mergedStyle,
+      },
+    ];
+
+    // If no caption, return the img spec
+    if (!caption.trim()) {
+      return img;
+    }
+
+    // With caption, return figure wrapper
+    return [
+      "figure",
+      { style: figureStyle },
+      img,
+      ["figcaption", { "data-caption": "true" }, caption],
+    ];
   },
 });
 
