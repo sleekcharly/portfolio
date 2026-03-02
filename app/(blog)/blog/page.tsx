@@ -1,9 +1,10 @@
-// type Props = {};
-
+// app/(blog)/blog/page.tsx
 import BlogPage from "./BlogPage";
 
-const page = () => {
-    return <BlogPage />;
-};
-
-export default page;
+export default async function Page({
+    searchParams,
+}: {
+    searchParams?: { page?: string };
+}) {
+    return <BlogPage searchParams={searchParams} />;
+}

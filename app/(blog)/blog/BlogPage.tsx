@@ -6,29 +6,26 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+
+import { getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
+
 import BlogCard from "./BlogCard";
 import FeaturedPost from "./FeaturedPost";
-
-const POSTS_PER_PAGE = 11;
-
-async function getPosts(page: number) {
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/posts?page=${page}&limit=${POSTS_PER_PAGE}`,
-        { cache: "no-store" }
-    );
-
-    return res.json(); // {posts, total}
-}
 
 export default async function BlogPage({
     searchParams,
 }: {
-    searchParams: { page?: string };
+    searchParams?: { page?: string } | Promise<{ page?: string }>;
 }) {
-    // const currentPage = Number(searchParams.page ?? 1);
+    const resolvedSearchParams = await searchParams;
+    const pageParam = resolvedSearchParams?.page ?? "1";
+    const currentPage = Math.max(Number(pageParam) || 1, 1);
 
-    // const { posts, total } = await getPosts(currentPage);
-    // const totalPages = Math.ceil(total / POSTS_PER_PAGE);
+    const { posts, total } = await getPostsPage(currentPage);
+    const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+
+    console.log("posts: ", posts);
+    console.log("totalPages: ", totalPages);
 
     return (
         <div className="flex flex-col gap-10">
