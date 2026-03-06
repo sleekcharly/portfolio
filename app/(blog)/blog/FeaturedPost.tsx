@@ -80,7 +80,7 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
             </div>
             <div className="w-full">
                 {/* Blog Feature title Image */}
-                {post && (
+                {post?.images[0] && (
                     <motion.div
                         initial={{ y: -20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}

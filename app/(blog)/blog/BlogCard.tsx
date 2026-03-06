@@ -16,20 +16,22 @@ type BlogCardProps = {
 const BlogCard = ({ post }: BlogCardProps) => {
     return (
         <div>
-            <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="relative w-full h-80 xl:h-90"
-            >
-                <Image
-                    src={post.images[0].url}
-                    alt=""
-                    fill
-                    className="object-cover w-full h-full"
-                    priority
-                />
-            </motion.div>
+            {post?.images[0] && (
+                <motion.div
+                    initial={{ y: -20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.7 }}
+                    className="relative w-full h-80 xl:h-90"
+                >
+                    <Image
+                        src={post.images[0].url}
+                        alt=""
+                        fill
+                        className="object-cover w-full h-full"
+                        priority
+                    />
+                </motion.div>
+            )}
 
             {/* Blog Feature title */}
             <motion.h3

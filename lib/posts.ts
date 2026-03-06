@@ -4,7 +4,7 @@ import { adminDb as db } from "@/lib/firebase-admin";
 import { FirestorePost } from "./types";
 import { serializeTimestamp } from "@/utils/server";
 
-const POSTS_PER_PAGE = 11;
+const POSTS_PER_PAGE = 10;
 
 export async function getPostsPage(page: number) {
     const safePage = Number.isFinite(page) && page > 0 ? page : 1;

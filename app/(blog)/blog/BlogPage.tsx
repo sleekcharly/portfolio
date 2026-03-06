@@ -24,9 +24,6 @@ export default async function BlogPage({
     const { posts, total } = await getPostsPage(currentPage);
     const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
-    console.log("posts: ", posts);
-    console.log("totalPages: ", totalPages);
-
     const featuredPost = posts?.[0] ?? null;
     const otherPosts = posts?.slice(1) ?? [];
 
@@ -44,7 +41,7 @@ export default async function BlogPage({
             </div>
 
             {/* Pagination */}
-            {/* <Pagination className="mt-5">
+            <Pagination className="mt-5">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
@@ -67,12 +64,12 @@ export default async function BlogPage({
                         <PaginationNext
                             href={`/blog?page=${Math.min(
                                 currentPage + 1,
-                                totalPages
+                                totalPages,
                             )}`}
                         />
                     </PaginationItem>
                 </PaginationContent>
-            </Pagination> */}
+            </Pagination>
         </div>
     );
 }
