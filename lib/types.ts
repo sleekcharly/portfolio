@@ -33,7 +33,7 @@ export type BlogPost = {
   categories: string[]
   images: PostImage[]
   status: PostStatus
-  createdAt: string 
+  createdAt: string | null
   updatedAt: string | null
   publishedAt: string | null
   deletedAt?: string | null

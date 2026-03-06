@@ -38,7 +38,11 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                         {/* Blog Feature title date */}
                         <div className="flex items-center space-x-2 font-jetMono">
                             <BiCalendar size={25} />{" "}
-                            <p>{post && formattedDate(post.createdAt)}</p>
+                            <p>
+                                {post?.createdAt
+                                    ? formattedDate(post.createdAt)
+                                    : ""}
+                            </p>
                         </div>
                         {/* Blog feature title tags */}
                         <div className="flex items-center space-x-2">

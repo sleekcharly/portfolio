@@ -23,8 +23,9 @@ const BlogCard = ({ post }: BlogCardProps) => {
                 className="relative w-full h-80 xl:h-90"
             >
                 <Image
-                    src={BlogPix}
+                    src={post.images[0].url}
                     alt=""
+                    fill
                     className="object-cover w-full h-full"
                     priority
                 />
@@ -37,8 +38,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="font-Ovo text-xl mb-1 font-semibold"
             >
-                Reverse Engineering Claude Code: How Skills Different from
-                Agents, Commands and Styles
+                {post.title}
             </motion.h3>
 
             {/* Blog post details, (title, and action button)*/}
@@ -50,16 +50,18 @@ const BlogCard = ({ post }: BlogCardProps) => {
             >
                 {/* Blog Feature title date */}
                 <div className="flex items-center space-x-2 font-jetMono">
-                    <BiCalendar size={18} /> <p>{formattedDate(Date.now())}</p>
+                    <BiCalendar size={18} />{" "}
+                    <p>{formattedDate(post.createdAt)}</p>
                 </div>
                 {/* Blog feature title tags */}
                 <div className="flex items-center space-x-2">
                     <FaTags size={18} />
                     <div className="flex items-center space-x-2 font-jetMono">
-                        <Link href="/">git</Link>
-                        <Link href="/">ai</Link>
-                        <Link href="/">open-source</Link>
-                        <Link href="/">mcp</Link>
+                        {post?.tags.map((tag) => (
+                            <Link key={tag} href="/">
+                                {tag}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </motion.div>
@@ -71,10 +73,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.5 }}
                 >
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Voluptatem rem nemo reprehenderit eaque, est laudantium ab,
-                    fuga obcaecati nostrum animi voluptate tempore alias
-                    architecto ipsa odio sunt repellendus earum expedita.
+                    {post?.excerpt}
                 </motion.p>
                 <motion.button
                     initial={{ y: -20, opacity: 0 }}

@@ -11,7 +11,6 @@ import { getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
 
 import BlogCard from "./BlogCard";
 import FeaturedPost from "./FeaturedPost";
-import { BlogPost } from "@/lib/types";
 
 export default async function BlogPage({
     searchParams,

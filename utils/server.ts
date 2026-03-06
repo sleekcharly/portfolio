@@ -3,11 +3,13 @@ import { collection, doc, getDocs, query, serverTimestamp, updateDoc, where } fr
 
 
 // Formats a timestamp into a human-readable date string
-export function formattedDate(date: number | string) {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
+export function formattedDate(date?: number | string | null) {
+  if (!date) return "";
+
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   });
 }
 
@@ -76,6 +78,7 @@ async function restorePost(postId: string) {
 
 export function serializeTimestamp(
   ts?: FirebaseFirestore.Timestamp | null
-) {
-  return ts ? ts.toDate().toISOString() : null;
+): string | null {
+  if (!ts) return null
+  return ts.toDate().toISOString()
 }

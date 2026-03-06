@@ -6,6 +6,7 @@ import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { generateHTML } from "@tiptap/html";
+import { TextStyleKit } from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 import { CustomImage } from "@/lib/editor/editor-utils";
 import { JSONContent } from "@tiptap/react";
@@ -40,6 +41,7 @@ const page = (props: Props) => {
         CustomImage.configure({
             inline: false,
         }),
+        TextStyleKit,
     ]);
 
     // 🔥 actions
