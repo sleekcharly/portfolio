@@ -11,6 +11,7 @@ import { getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
 
 import BlogCard from "./BlogCard";
 import FeaturedPost from "./FeaturedPost";
+import { BlogPost } from "@/lib/types";
 
 export default async function BlogPage({
     searchParams,
@@ -27,15 +28,20 @@ export default async function BlogPage({
     console.log("posts: ", posts);
     console.log("totalPages: ", totalPages);
 
+    const featuredPost = posts?.[0] ?? null;
+    const otherPosts = posts?.slice(1) ?? [];
+
     return (
         <div className="flex flex-col gap-10">
             {/* Blog Feature */}
-            <FeaturedPost />
+            <FeaturedPost post={featuredPost} />
 
             {/* Other blog posts */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Blog post */}
-                <BlogCard />
+                {otherPosts.map((post) => (
+                    <BlogCard key={post.id} post={post} />
+                ))}
             </div>
 
             {/* Pagination */}

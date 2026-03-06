@@ -1,13 +1,8 @@
 import "server-only";
-import { QueryDocumentSnapshot, DocumentData } from "firebase-admin/firestore";
+import { QueryDocumentSnapshot, DocumentData, Timestamp } from "firebase-admin/firestore";
 import { adminDb as db } from "@/lib/firebase-admin";
-
-export type BlogPost = {
-    id: string;
-    title: string;
-    createdAt: any;
-    slug?: string;
-}
+import { FirestorePost } from "./types";
+import { serializeTimestamp } from "@/utils/server";
 
 const POSTS_PER_PAGE = 11;
 
@@ -26,7 +21,18 @@ export async function getPostsPage(page: number) {
     // If page === 1, just fetch first batch
     if (safePage === 1) {
         const snap = await base.limit(POSTS_PER_PAGE).get();
-        const posts = snap.docs.map((d) => ({id: d.id, ...(d.data() as any)}))
+        const posts = snap.docs.map((d) => {
+            const data = d.data() as FirestorePost;
+
+             return {
+                ...data,
+                id: d.id,
+                 createdAt: serializeTimestamp(data.createdAt),
+                updatedAt: serializeTimestamp(data.updatedAt),
+                publishedAt: serializeTimestamp(data.publishedAt),
+                deletedAt: serializeTimestamp(data.deletedAt),
+            };
+        });
         const lastDoc = snap.docs.at(-1) ?? null;
 
         return {posts, total, lastDoc};
@@ -49,7 +55,19 @@ export async function getPostsPage(page: number) {
     const finalQ = lastDoc ? base.startAfter(lastDoc).limit(POSTS_PER_PAGE) :base.limit(POSTS_PER_PAGE);
 
     const finalSnap = await finalQ.get()
-    const posts = finalSnap.docs.map((d) => ({id: d.id, ...(d.data() as any)}))
+
+    const posts = finalSnap.docs.map((d) => {
+        const data = d.data() as FirestorePost;
+
+        return {
+            ...data,
+            id: d.id,
+             createdAt: serializeTimestamp(data.createdAt),
+                updatedAt: serializeTimestamp(data.updatedAt),
+                publishedAt: serializeTimestamp(data.publishedAt),
+                deletedAt: serializeTimestamp(data.deletedAt),
+            }
+        })
 
     return {posts, total, lastDoc: finalSnap.docs.at(-1) ?? null};
 }

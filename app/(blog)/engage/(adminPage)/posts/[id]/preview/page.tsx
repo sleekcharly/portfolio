@@ -7,7 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
-import { CustomImage } from "@/utils";
+import { CustomImage } from "@/lib/editor/editor-utils";
 import { JSONContent } from "@tiptap/react";
 import "../../new/styles.scss";
 

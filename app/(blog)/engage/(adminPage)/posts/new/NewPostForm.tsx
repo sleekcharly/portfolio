@@ -18,10 +18,10 @@ import { ImageIcon, XCircleIcon } from "lucide-react";
 import {
     CustomImage,
     deleteSelectedImage,
-    generateUniqueSlug,
     replaceImage,
     uploadBlogImage,
-} from "@/utils";
+} from "@/lib/editor/editor-utils";
+import { generateUniqueSlug } from "@/utils/server";
 import { useRouter } from "next/navigation";
 
 // Category type definition
@@ -475,6 +475,9 @@ export default function NewPostForm() {
     const [postId, setPostId] = useState<string | null>(null);
     const [isDirty, setIsDirty] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const [postImages, setPostImages] = useState<
+        { url: string; path: string }[]
+    >([]);
 
     // initialize router
     const router = useRouter();
@@ -498,6 +501,8 @@ export default function NewPostForm() {
                     .setImage({ src: url })
                     .updateAttributes("image", { storagePath: path })
                     .run();
+
+                setPostImages((prev) => [...prev, { url, path }]);
             } catch (err) {
                 console.error(err);
                 alert("Image upload failed");
@@ -596,6 +601,7 @@ export default function NewPostForm() {
                     status: "draft",
                     deletedAt: null,
                     deletedBy: null,
+                    images: postImages,
                     updatedAt: serverTimestamp(),
                 };
 
@@ -675,6 +681,7 @@ export default function NewPostForm() {
                     tags,
                     status,
                     slug,
+                    images: postImages,
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp(),
                     publishedAt:
@@ -695,6 +702,7 @@ export default function NewPostForm() {
                         categories: selectedCategories,
                         tags,
                         status,
+                        images: postImages,
                         publishedAt:
                             status === "published" ? serverTimestamp() : null,
                         updatedAt: serverTimestamp(),
@@ -709,6 +717,7 @@ export default function NewPostForm() {
             editor.commands.clearContent();
             setSelectedCategories([]);
             setTags([]);
+            setPostImages([]);
 
             // ✅ Redirect to preview page
             router.push(`/engage/posts/${id}/preview`);
