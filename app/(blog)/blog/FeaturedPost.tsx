@@ -72,7 +72,10 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                         transition={{ duration: 0.6, delay: 0.8 }}
                         className="border border-gray-500 px-3 py-1 mt-3"
                     >
-                        <Link href="/" className="font-semibold">
+                        <Link
+                            href={`/blog/${post?.slug}`}
+                            className="font-semibold"
+                        >
                             Read More
                         </Link>
                     </motion.button>

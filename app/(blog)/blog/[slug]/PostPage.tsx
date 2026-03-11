@@ -1,0 +1,107 @@
+"use client";
+
+import { BlogPost } from "@/lib/types";
+import { TextStyleKit } from "@tiptap/extension-text-style";
+import { generateHTML } from "@tiptap/html";
+import { JSONContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { Calendar, TagIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import ImgTemplate from "@/public/images/img_template.webp";
+import { CustomImage } from "@/lib/tiptap/custom-image";
+
+type Props = {
+    post: BlogPost;
+    relatedPosts: BlogPost[];
+    formattedDate: string;
+};
+
+const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
+    const html = generateHTML(post.content as JSONContent, [
+        StarterKit,
+        CustomImage.configure({
+            inline: false,
+        }),
+        TextStyleKit,
+    ]);
+    return (
+        <div className="flex gap-12 justify-center mx-auto max-w-7xl px-6">
+            <section className="w-full max-w-3xl shrink-0">
+                {/* Social media share buttons */}
+                <div></div>
+                <article className="flex flex-col gap-6 ">
+                    <header className="flex flex-col gap-3">
+                        <h1 className="text-3xl lg:text-5xl font-semibold mb-2 font-Outfit">
+                            {post.title}
+                        </h1>
+                        <div className="flex items-center gap-4 font-Ovo text-lg text-gray-400">
+                            <span className="flex items-center gap-1">
+                                <Calendar />
+                                <p>{formattedDate}</p>
+                            </span>
+
+                            {post.tags && (
+                                <span className="flex items-center gap-1">
+                                    <TagIcon />
+                                    {post.tags.map((tag, i) => (
+                                        <p key={`${tag}-${i}`}>{tag}</p>
+                                    ))}
+                                </span>
+                            )}
+                        </div>
+                    </header>
+
+                    <div
+                        className="tiptap leading-relaxed text-lg space-y-6"
+                        dangerouslySetInnerHTML={{ __html: html }}
+                    />
+                </article>
+            </section>
+            {/* recommended posts based on article category */}
+            <aside className="hidden xl:flex flex-col gap-8 sticky top-20 h-fit w-80">
+                <h2 className="text-xl font-semibold font-Outfit">
+                    Recommended
+                </h2>
+                <div className="flex flex-col gap-4">
+                    {relatedPosts.map((post) => (
+                        <Link
+                            href={`/blog/${post.slug}`}
+                            key={post.id}
+                            className="flex items-center gap-3 group"
+                        >
+                            {post.images[0] ? (
+                                <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-lg">
+                                    <Image
+                                        src={post.images[0].url}
+                                        alt={post.title}
+                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                        fill
+                                        sizes="80px"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-lg">
+                                    <Image
+                                        src={ImgTemplate}
+                                        alt={post.title}
+                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                        fill
+                                        sizes="80px"
+                                    />
+                                </div>
+                            )}
+                            <div className="flex-1">
+                                <h3 className="text-sm font-medium leading-snug group-hover:text-gray-900">
+                                    {post.title}
+                                </h3>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            </aside>
+        </div>
+    );
+};
+
+export default PostPage;

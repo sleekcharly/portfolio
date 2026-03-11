@@ -1,11 +1,12 @@
 import "server-only";
 import { QueryDocumentSnapshot, DocumentData, Timestamp } from "firebase-admin/firestore";
 import { adminDb as db } from "@/lib/firebase-admin";
-import { FirestorePost } from "./types";
+import { BlogPost, FirestorePost } from "./types";
 import { serializeTimestamp } from "@/utils/server";
 
 const POSTS_PER_PAGE = 10;
 
+// Get paginated posts for home page
 export async function getPostsPage(page: number) {
     const safePage = Number.isFinite(page) && page > 0 ? page : 1;
 
@@ -71,5 +72,63 @@ export async function getPostsPage(page: number) {
 
     return {posts, total, lastDoc: finalSnap.docs.at(-1) ?? null};
 }
+
+// get post by slug
+export async function getPostBySlug(slug: string){
+    const snapshot = await db.collection('posts').where("slug", "==", slug).where("deletedAt", "==", null).limit(1).get();
+
+   if(snapshot.empty) {
+    return null
+   }
+
+   const doc = snapshot.docs[0];
+
+   return  {
+    ...doc.data(),
+    id:doc.id,    
+    createdAt: serializeTimestamp(doc.data().createdAt),
+    updatedAt: serializeTimestamp(doc.data().updatedAt),
+    publishedAt: serializeTimestamp(doc.data().publishedAt),
+    deletedAt:serializeTimestamp(doc.data().deletedAt)
+   } as BlogPost
+
+}
+
+// get random related posts based on category
+export async function getRandomRelatedPosts(
+    categories: string[], excludedPostId?: string
+){
+    const postsRef = db.collection("posts")
+    const r = Math.random()
+
+    const baseQuery = await postsRef.where("categories", "array-contains-any", categories).where("status", "==", "published").orderBy("random")
+
+
+    // First attempt
+    let snap = await baseQuery.where("random", ">=", r).limit(4).get()
+
+    // Fallback if not enough results
+    if (snap.size < 4) {
+        const fallback = await baseQuery.where("random", "<", r).limit(4 - snap.size).get();
+
+        snap = {docs: [...snap.docs, ...fallback.docs], } as FirebaseFirestore.QuerySnapshot;
+    }
+
+    const posts = snap.docs.filter((d) => d.id !== excludedPostId).map((d) => {
+        const data = d.data() as FirestorePost;
+
+        return {
+            ...data,
+            id: d.id,
+            createdAt: serializeTimestamp(data.createdAt),
+        updatedAt: serializeTimestamp(data.updatedAt),
+        publishedAt: serializeTimestamp(data.publishedAt),
+        deletedAt: serializeTimestamp(data.deletedAt),
+        }
+    })
+
+    return posts.slice(0, 4)
+}
+
 
 export {POSTS_PER_PAGE}

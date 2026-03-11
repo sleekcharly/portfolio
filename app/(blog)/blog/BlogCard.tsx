@@ -84,7 +84,10 @@ const BlogCard = ({ post }: BlogCardProps) => {
                     className="border border-gray-500 px-2 py-1 mt-2"
                     type="button"
                 >
-                    <Link href="/" className="font-semibold text-sm">
+                    <Link
+                        href={`/blog/${post?.slug}`}
+                        className="font-semibold text-sm"
+                    >
                         Read More
                     </Link>
                 </motion.button>

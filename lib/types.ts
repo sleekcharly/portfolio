@@ -16,6 +16,7 @@ export type FirestorePost = {
   categories: string[]
   images: PostImage[]
   status: PostStatus
+  random:number
   createdAt: Timestamp
   updatedAt: Timestamp
   publishedAt: Timestamp
@@ -33,6 +34,7 @@ export type BlogPost = {
   categories: string[]
   images: PostImage[]
   status: PostStatus
+  random:number
   createdAt: string | null
   updatedAt: string | null
   publishedAt: string | null

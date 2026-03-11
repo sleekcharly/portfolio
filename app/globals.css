@@ -148,3 +148,123 @@
         @apply bg-background text-foreground;
     }
 }
+
+.tiptap {
+    line-height: 1.75;
+    color: #1f2937;
+}
+
+.tiptap p {
+    margin: 1.25rem 0;
+}
+
+.tiptap h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+}
+
+.tiptap h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+}
+
+.tiptap h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.tiptap ul,
+.tiptap ol {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+}
+
+.tiptap li {
+    margin: 0.5rem 0;
+}
+
+.tiptap img {
+    border-radius: 12px;
+    margin: 2rem auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.tiptap blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1rem;
+    margin: 2rem 0;
+    color: #4b5563;
+    font-style: italic;
+}
+
+.tiptap pre {
+    background: #111827;
+    color: #f9fafb;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 1.75rem 0;
+}
+
+.tiptap code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+}
+
+.tiptap p code {
+    background: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+}
+
+.tiptap table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+.tiptap th,
+.tiptap td {
+    border: 1px solid #e5e7eb;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+}
+
+.tiptap th {
+    background: #f9fafb;
+    font-weight: 600;
+}
+
+.tiptap-figure {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tiptap-align-left {
+    align-items: flex-start;
+}
+
+.tiptap-align-right {
+    align-items: flex-end;
+}
+
+.tiptap-image {
+    border-radius: 12px;
+    max-width: 100%;
+    height: auto;
+}
+
+.tiptap-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-align: center;
+}

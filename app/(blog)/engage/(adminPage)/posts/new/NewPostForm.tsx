@@ -16,13 +16,13 @@ import { db } from "@/lib/firebase";
 import "./styles.scss";
 import { ImageIcon, XCircleIcon } from "lucide-react";
 import {
-    CustomImage,
     deleteSelectedImage,
     replaceImage,
     uploadBlogImage,
-} from "@/lib/editor/editor-utils";
+} from "@/lib/editor/image-upload";
 import { generateUniqueSlug } from "@/utils/server";
 import { useRouter } from "next/navigation";
+import { CustomImage } from "@/lib/tiptap/custom-image";
 
 // Category type definition
 type Category = {
@@ -598,6 +598,7 @@ export default function NewPostForm() {
                     content,
                     categories: selectedCategories,
                     tags,
+                    random: Math.random(),
                     status: "draft",
                     deletedAt: null,
                     deletedBy: null,
@@ -681,6 +682,7 @@ export default function NewPostForm() {
                     tags,
                     status,
                     slug,
+                    random: Math.random(),
                     images: postImages,
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp(),
@@ -701,6 +703,7 @@ export default function NewPostForm() {
                         content,
                         categories: selectedCategories,
                         tags,
+                        random: Math.random(),
                         status,
                         images: postImages,
                         publishedAt:

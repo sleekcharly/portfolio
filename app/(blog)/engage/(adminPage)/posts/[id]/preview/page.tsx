@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { generateHTML } from "@tiptap/html";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
-import { CustomImage } from "@/lib/editor/editor-utils";
+import { CustomImage } from "@/lib/editor/image-upload";
 import { JSONContent } from "@tiptap/react";
 import "../../new/styles.scss";
 
