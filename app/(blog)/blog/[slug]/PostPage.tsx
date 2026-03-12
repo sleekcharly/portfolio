@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ImgTemplate from "@/public/images/img_template.webp";
 import { CustomImage } from "@/lib/tiptap/custom-image";
+import ShareButton from "@/components/social/ShareButtons";
 
 type Props = {
     post: BlogPost;
@@ -25,11 +26,13 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
         }),
         TextStyleKit,
     ]);
+
+    const url = `https://devcharles.com/blog/${post.slug}`;
     return (
         <div className="flex gap-12 justify-center mx-auto max-w-7xl px-6">
             <section className="w-full max-w-3xl shrink-0">
                 {/* Social media share buttons */}
-                <div></div>
+                <ShareButton url={url} title={post.title} />
                 <article className="flex flex-col gap-6 ">
                     <header className="flex flex-col gap-3">
                         <h1 className="text-3xl lg:text-5xl font-semibold mb-2 font-Outfit">

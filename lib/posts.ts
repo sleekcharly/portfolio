@@ -130,5 +130,4 @@ export async function getRandomRelatedPosts(
     return posts.slice(0, 4)
 }
 
-
 export {POSTS_PER_PAGE}
