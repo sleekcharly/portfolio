@@ -12,9 +12,7 @@ import { JSONContent } from "@tiptap/react";
 import "../../new/styles.scss";
 import { CustomImage } from "@/lib/tiptap/custom-image";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
     const { id } = useParams();
     const router = useRouter();
 

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import BlogPix from "@/public/images/blog_pix1.webp";
 import { BiCalendar } from "react-icons/bi";
 import Link from "next/link";
 import { motion } from "motion/react";

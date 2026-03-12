@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { formattedDate } from "@/utils/server";
 import { FaTags } from "react-icons/fa";
-import BlogPix from "@/public/images/blog_pix1.webp";
 import { BiCalendar } from "react-icons/bi";
 import Image from "next/image";
 import { BlogPost } from "@/lib/types";
