@@ -637,8 +637,8 @@ export default function NewPostForm() {
         const trimmedExcerpt = excerpt.trim();
         const content = editor.getJSON();
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const hasContent = content?.content?.some(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (node: any) =>
                 node.type !== "paragraph" ||
                 (node.content && node.content.length > 0),
@@ -726,6 +726,7 @@ export default function NewPostForm() {
 
             // ✅ Redirect to preview page
             router.push(`/engage/posts/${id}/preview`);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error("Failed to publish post: ", error);
 
