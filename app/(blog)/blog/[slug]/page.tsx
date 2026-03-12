@@ -8,11 +8,7 @@ import { BlogPost } from "@/lib/types";
 type SlugParams = { slug: string };
 
 //generateMetadata
-export async function generateMetadata({
-    params,
-}: {
-    params: SlugParams | Promise<SlugParams>;
-}) {
+export async function generateMetadata({ params }: any) {
     const resolvedParams: SlugParams = await params;
     const slug = resolvedParams?.slug;
 
@@ -49,11 +45,7 @@ export async function generateMetadata({
     };
 }
 
-const page = async ({
-    params,
-}: {
-    params: SlugParams | Promise<SlugParams>;
-}) => {
+const page = async ({ params }: any) => {
     const resolvedParams: SlugParams = await params;
     const slug = resolvedParams?.slug;
 
