@@ -5,14 +5,16 @@ import { notFound } from "next/navigation";
 import { formattedDate } from "@/utils/server";
 import { BlogPost } from "@/lib/types";
 
+type SlugParams = { slug: string };
+
 //generateMetadata
 export async function generateMetadata({
     params,
 }: {
-    params: { slug: string } | Promise<{ slug: string }>;
+    params: SlugParams | Promise<SlugParams>;
 }) {
-    const resolvedParams = await params;
-    const slug = resolvedParams?.slug ?? "";
+    const resolvedParams: SlugParams = await params;
+    const slug = resolvedParams?.slug;
 
     const post = (await getPostBySlug(slug)) as BlogPost;
 
@@ -50,10 +52,10 @@ export async function generateMetadata({
 const page = async ({
     params,
 }: {
-    params: { slug: string } | Promise<{ slug: string }>;
+    params: SlugParams | Promise<SlugParams>;
 }) => {
-    const resolvedParams = await params;
-    const slug = resolvedParams?.slug ?? "";
+    const resolvedParams: SlugParams = await params;
+    const slug = resolvedParams?.slug;
 
     const post = await getPostBySlug(slug);
 
