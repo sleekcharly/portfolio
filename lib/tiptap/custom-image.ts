@@ -17,6 +17,7 @@ export const CustomImage = ImageExtension.extend({
   },
 
   renderHTML({ HTMLAttributes }): DOMOutputSpec {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const attrs = HTMLAttributes as Record<string, any>;
 
     const caption = (attrs.caption ?? "").toString();

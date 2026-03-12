@@ -2,9 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import React from "react";
 import NewPostForm from "./NewPostForm";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
     return (
         <div>
             <h1 className="text-lg lg:text-2xl font-bold ml-4 mb-2">

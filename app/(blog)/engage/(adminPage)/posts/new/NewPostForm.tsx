@@ -592,6 +592,7 @@ export default function NewPostForm() {
                     ? doc(collection(db, "posts"))
                     : doc(db, "posts", postId);
 
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const baseData: any = {
                     title: title.trim(),
                     excerpt: excerpt.trim(),
@@ -636,6 +637,7 @@ export default function NewPostForm() {
         const trimmedExcerpt = excerpt.trim();
         const content = editor.getJSON();
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const hasContent = content?.content?.some(
             (node: any) =>
                 node.type !== "paragraph" ||
