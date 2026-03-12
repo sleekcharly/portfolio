@@ -3,6 +3,7 @@ import { Outfit as OutfitFont, Ovo as OvoFont } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const outfit = OutfitFont({
   weight: ['400', '500', '600', '700'],
@@ -28,7 +29,6 @@ export const metadata: Metadata = {
     'TypeScript',
     'Node.js',
     'Python',
-    'Django',
     'Machine Learning',
     'AI',
     'Cloud Computing',
@@ -100,57 +100,65 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${outfit.variable} ${ovo.variable} scroll-smooth`}
-      suppressHydrationWarning
-    >
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <Script
-          id="person-schema"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Person',
-              name: 'Charles Ukasoanya',
-              jobTitle: 'Software Developer & Technology Leader',
-              url: 'https://www.devcharles.com',
-              sameAs: [
-                'https://twitter.com/sleekcharly',
-                'https://www.linkedin.com/in/charles-ukasoanya',
-                'https://github.com/sleekcharly',
-              ],
-              worksFor: {
-                '@type': 'Organization',
-                name: 'Ping Telecommunications Resources Limited',
-              },
-              alumniOf: 'Anglia Ruskin University, Cambridge United Kingdom',
-              nationality: 'Nigerian',
-              knowsAbout: [
-                'Software Engineering',
-                'IoT Systems',
-                'Meteorological Installations',
-                'Web Development',
-                'Next.js',
-                'Cloud Computing',
-                'AWOS',
-              ],
-            }),
-          }}
-        />
-      </head>
-
-      <body
-        className={`antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
+    <ClerkProvider>
+      <html
+        lang="en"
+        className={`${outfit.variable} ${ovo.variable} scroll-smooth`}
+        suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+        <head>
+          <meta charSet="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <Script
+            id="person-schema"
+            type="application/ld+json"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Person',
+                name: 'Charles Ukasoanya',
+                jobTitle: 'Software Developer & Technology Leader',
+                url: 'https://www.devcharles.com',
+                sameAs: [
+                  'https://twitter.com/sleekcharly',
+                  'https://www.linkedin.com/in/charles-ukasoanya',
+                  'https://github.com/sleekcharly',
+                ],
+                worksFor: {
+                  '@type': 'Organization',
+                  name: 'Ping Telecommunications Resources Limited',
+                },
+                alumniOf: 'Anglia Ruskin University, Cambridge United Kingdom',
+                nationality: 'Nigerian',
+                knowsAbout: [
+                  'Software Engineering',
+                  'IoT Systems',
+                  'Meteorological Installations',
+                  'Web Development',
+                  'Next.js',
+                  'Cloud Computing',
+                  'AWOS',
+                ],
+              }),
+            }}
+          />
+        </head>
+
+        <body
+          className={`antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
+        >
+          <Script 
+      src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js"
+      strategy="afterInteractive"/>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

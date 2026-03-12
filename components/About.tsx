@@ -1,13 +1,19 @@
+'use client';
+
 import Image from 'next/image';
 import React from 'react';
 import UserPhoto from '@/public/images/user-image-light.png';
 import UserPhotoDark from '@/public/images/user-image-dark.png';
 import { infoList, toolsData } from '@/assets/data';
 import { motion } from 'motion/react';
+import { HERO_QUERYResult } from '@/sanity.types';
+import { urlFor } from '@/sanity/lib/image';
+import { PortableText } from '@portabletext/react';
+import Link from 'next/link';
 
-// type Props = {}
+type Props = { profile: HERO_QUERYResult };
 
-const About = () => {
+const About = ({ profile }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -43,17 +49,29 @@ const About = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="w-64 sm:w-80 rounded-3xl max-w-none"
+          className="w-88 h-94 lg:h-99 rounded-3xl max-w-none relative"
         >
           <Image
-            src={UserPhoto}
+            src={
+              profile?.profileImage
+                ? urlFor(profile?.profileImage).width(400).height(400).url()
+                : UserPhoto
+            }
+            fill
             alt="Charles Ukasoanya"
-            className="w-full rounded-3xl dark:hidden"
+            priority
+            className="w-full rounded-3xl dark:hidden object-cover"
           />
           <Image
-            src={UserPhotoDark}
+            src={
+              profile?.profileImageDark
+                ? urlFor(profile?.profileImageDark).width(400).height(400).url()
+                : UserPhotoDark
+            }
+            fill
             alt="Charles Ukasoanya"
-            className="w-full rounded-3xl hidden dark:block"
+            className="w-full rounded-3xl hidden dark:block object-cover"
+            priority
           />
         </motion.div>
 
@@ -63,14 +81,71 @@ const About = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="flex-1"
         >
-          <p className="mb-10 max-w-2xl font-Ovo">
-            Dynamic technology leader with a rare blend of Petroleum
-            Engineering, Telecommunications, and Software Development expertise.
-            Proven record of delivering large-scale infrastructure projects and
-            creating real-time IoT/Software solutions for critical operations.
-            Skilled at bridging hardware systems, cloud platforms, and business
-            strategy to drive digital transformation and growth.
-          </p>
+          <div className="mb-10 max-w-2xl font-Ovo">
+            {profile?.extendedBio && (
+              <PortableText
+                value={profile.extendedBio}
+                components={{
+                  block: {
+                    normal: ({ children }) => (
+                      <p className=" leading-relaxed mb-4">{children}</p>
+                    ),
+                    h2: ({ children }) => (
+                      <h2 className="text-3xl font-bold mt-8 mb-4">
+                        {children}
+                      </h2>
+                    ),
+                    h3: ({ children }) => (
+                      <h3 className="text-2xl font-semibold mt-6 mb-3">
+                        {children}
+                      </h3>
+                    ),
+                    blockquote: ({ children }) => (
+                      <blockquote className="border-l-4 border-primary pl-4 italic my-4">
+                        {children}
+                      </blockquote>
+                    ),
+                  },
+                  marks: {
+                    strong: ({ children }) => (
+                      <strong className="font-semibold text-foreground">
+                        {children}
+                      </strong>
+                    ),
+                    em: ({ children }) => (
+                      <em className="italic">{children}</em>
+                    ),
+                    link: ({ children, value }) => {
+                      const href = value?.href || '';
+                      const isExternal = href.startsWith('http');
+                      return (
+                        <Link
+                          href={href}
+                          target={isExternal ? '_blank' : undefined}
+                          rel={isExternal ? 'noopener noreferrer' : undefined}
+                          className="text-primary hover:underline"
+                        >
+                          {children}
+                        </Link>
+                      );
+                    },
+                  },
+                  list: {
+                    bullet: ({ children }) => (
+                      <ul className="list-disc list-inside space-y-2 mb-4 text-muted-foreground">
+                        {children}
+                      </ul>
+                    ),
+                    number: ({ children }) => (
+                      <ol className="list-decimal list-inside space-y-2 mb-4 text-muted-foreground">
+                        {children}
+                      </ol>
+                    ),
+                  },
+                }}
+              />
+            )}
+          </div>
 
           <motion.ul
             initial={{ opacity: 0 }}

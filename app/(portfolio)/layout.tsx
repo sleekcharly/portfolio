@@ -4,6 +4,10 @@ import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Script from 'next/script';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { SanityLive } from '@/sanity/lib/live';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/app-sidebar';
+import SidebarToggle from '@/components/SidebarToggle';
 
 export const metadata: Metadata = {
   title: 'Portfolio - Charles Ukasoanya',
@@ -102,9 +106,18 @@ export default function RootLayout({
         className="antialiased leading-8 overflow-x-hidden"
         suppressHydrationWarning
       >
+      
+      
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          {children}
+          <SidebarProvider defaultOpen={false}>
+            <SidebarInset>{children}</SidebarInset>
+            <AppSidebar side="right" />
+
+            <SidebarToggle />
+          </SidebarProvider>
+
+          <SanityLive />
           <Footer />
         </ThemeProvider>
       </body>

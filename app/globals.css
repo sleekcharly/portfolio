@@ -2,10 +2,6 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 
-* {
-    font-family: outfit
-}
-
 :root {
     --box-shadow-black: 4px 4px 0 #000;
     --box-shadow-white: 4px 4px 0 #fff;
@@ -41,6 +37,7 @@
     --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
     --sidebar-border: oklch(0.929 0.013 255.508);
     --sidebar-ring: oklch(0.704 0.04 256.788);
+
 }
 
 @theme {
@@ -50,6 +47,8 @@
 
     --font-Outfit: "Outfit", sans-serif;
     --font-Ovo: "Ovo", serif;
+    --font-jetMono: "JetBrains Mono", monospace;
+    --font-pirata-one: "Pirata One", cursive;
 }
 
 .dark {
@@ -83,9 +82,26 @@
     --sidebar-accent: oklch(0.279 0.041 260.031);
     --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
     --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.551 0.027 264.364)}
+    --sidebar-ring: oklch(0.551 0.027 264.364)
+}
 
 @theme inline {
+    --animate-cell-ripple: cell-ripple var(--duration, 200ms) ease-out none 1 var(--delay, 0ms);
+
+    @keyframes cell-ripple {
+        0% {
+            opacity: 0.4;
+        }
+
+        50% {
+            opacity: 0.8;
+        }
+
+        100% {
+            opacity: 0.4;
+        }
+    }
+
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
@@ -124,10 +140,131 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
     }
+}
+
+.tiptap {
+    line-height: 1.75;
+    color: #1f2937;
+}
+
+.tiptap p {
+    margin: 1.25rem 0;
+}
+
+.tiptap h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+}
+
+.tiptap h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+}
+
+.tiptap h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.tiptap ul,
+.tiptap ol {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+}
+
+.tiptap li {
+    margin: 0.5rem 0;
+}
+
+.tiptap img {
+    border-radius: 12px;
+    margin: 2rem auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.tiptap blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1rem;
+    margin: 2rem 0;
+    color: #4b5563;
+    font-style: italic;
+}
+
+.tiptap pre {
+    background: #111827;
+    color: #f9fafb;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 1.75rem 0;
+}
+
+.tiptap code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+}
+
+.tiptap p code {
+    background: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+}
+
+.tiptap table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+.tiptap th,
+.tiptap td {
+    border: 1px solid #e5e7eb;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+}
+
+.tiptap th {
+    background: #f9fafb;
+    font-weight: 600;
+}
+
+.tiptap-figure {
+    margin: 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tiptap-align-left {
+    align-items: flex-start;
+}
+
+.tiptap-align-right {
+    align-items: flex-end;
+}
+
+.tiptap-image {
+    border-radius: 12px;
+    max-width: 100%;
+    height: auto;
+}
+
+.tiptap-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-align: center;
 }
