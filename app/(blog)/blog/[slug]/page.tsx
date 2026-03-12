@@ -9,7 +9,7 @@ import { BlogPost } from "@/lib/types";
 export async function generateMetadata({
     params,
 }: {
-    params?: { slug?: string } | Promise<{ slug?: string }>;
+    params: { slug: string } | Promise<{ slug: string }>;
 }) {
     const resolvedParams = await params;
     const slug = resolvedParams?.slug ?? "";
@@ -50,7 +50,7 @@ export async function generateMetadata({
 const page = async ({
     params,
 }: {
-    params?: { slug?: string } | Promise<{ slug?: string }>;
+    params: { slug: string } | Promise<{ slug: string }>;
 }) => {
     const resolvedParams = await params;
     const slug = resolvedParams?.slug ?? "";
