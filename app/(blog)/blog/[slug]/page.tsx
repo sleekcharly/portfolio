@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: any) {
     if (!post) return {};
 
     const url = `https://devcharles.com/blog/${slug}`;
+    console.log(slug);
 
     return {
         title: post.title,
