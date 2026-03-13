@@ -33,14 +33,14 @@ export async function generateMetadata({ params }: any) {
             description: post.excerpt,
             url,
             siteName: "devcharles.com/blog",
-            images: [`${url}/opengraph-image}`],
+            images: [`${url}/opengraph-image`],
         },
 
         X: {
             card: "summary_large_image",
             title: post.title,
             description: post.excerpt,
-            images: [`${url}/opengraph-image}`],
+            images: [`${url}/opengraph-image`],
         },
     };
 }
