@@ -27,12 +27,6 @@ const categoryThemes: Record<string, string> = {
     default: "linear-gradient(135deg,#0f172a,#1e293b)",
 };
 
-type RouteParams = {
-    params: {
-        slug: string;
-    };
-};
-
 function formatTitle(title: string, maxCharsPerLine = 28) {
     const words = title.split(" ");
     const lines: string[] = [];
@@ -61,12 +55,10 @@ function formatTitle(title: string, maxCharsPerLine = 28) {
 
 export async function GET(
     _request: Request,
-    { params }: RouteParams,
-): Promise<ImageResponse | Response> {
+    { params }: { params: Promise<{ slug: string }> },
+): Promise<Response> {
     try {
         const { slug } = await params;
-
-        console.log("slug: ", slug);
 
         const post = (await getPostBySlug(slug)) as BlogPost | null;
 
