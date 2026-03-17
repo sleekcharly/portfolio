@@ -9,6 +9,7 @@ import {
     collection,
     serverTimestamp,
     getDocs,
+    getDoc,
     doc,
     setDoc,
 } from "firebase/firestore";
@@ -464,7 +465,11 @@ function setImageAlignment(
 }
 
 // New post form component
-export default function NewPostForm() {
+export default function NewPostForm({
+    postId: initialPostId,
+}: {
+    postId?: string;
+}) {
     const [title, setTitle] = useState("");
     const [excerpt, setExcerpt] = useState("");
     const [loading, setLoading] = useState(false);
@@ -472,7 +477,8 @@ export default function NewPostForm() {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [tags, setTags] = useState<string[]>([]);
     const [tagInput, setTagInput] = useState("");
-    const [postId, setPostId] = useState<string | null>(null);
+    const [postId, setPostId] = useState<string | null>(initialPostId ?? null);
+    const [isEditing, setIsEditing] = useState(!!initialPostId);
     const [isDirty, setIsDirty] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [postImages, setPostImages] = useState<
@@ -575,6 +581,48 @@ export default function NewPostForm() {
         },
     });
 
+    async function notifyGoogle() {
+        try {
+            const res = await fetch("/api/ping-google");
+            if (!res.ok) throw new Error("Failed to ping Google");
+            const data = await res.json();
+            console.log("Google pinged:", data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // get existing post
+    useEffect(() => {
+        async function loadPost() {
+            if (!postId) return;
+
+            try {
+                const snap = await getDoc(doc(db, "posts", postId));
+                if (!snap.exists()) return;
+
+                const data = snap.data();
+
+                setTitle(data.title || "");
+                setExcerpt(data.excerpt || "");
+                setSelectedCategories(data.categories || []);
+                setTags(data.tags || []);
+                setPostImages(data.images || []);
+
+                // set editor content
+                if (editor && data.content) {
+                    editor.commands.setContent(data.content);
+                }
+
+                setIsDirty(false);
+            } catch (err) {
+                console.error("Failed to load post: ", err);
+            }
+        }
+
+        loadPost();
+    }, [postId, editor]);
+
     // Autosave functionality
     useEffect(() => {
         if (!editor) return;
@@ -601,8 +649,6 @@ export default function NewPostForm() {
                     tags,
                     random: Math.random(),
                     status: "draft",
-                    deletedAt: null,
-                    deletedBy: null,
                     images: postImages,
                     updatedAt: serverTimestamp(),
                 };
@@ -667,17 +713,6 @@ export default function NewPostForm() {
 
         setLoading(true);
 
-        async function notifyGoogle() {
-            try {
-                const res = await fetch("/api/ping-google");
-                if (!res.ok) throw new Error("Failed to ping Google");
-                const data = await res.json();
-                console.log("Google pinged:", data);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
         try {
             let id = postId;
             let slug: string | undefined;
@@ -728,12 +763,14 @@ export default function NewPostForm() {
             }
 
             // Optional: reset form after save
-            setTitle("");
-            setExcerpt("");
-            editor.commands.clearContent();
-            setSelectedCategories([]);
-            setTags([]);
-            setPostImages([]);
+            if (!isEditing) {
+                setTitle("");
+                setExcerpt("");
+                editor.commands.clearContent();
+                setSelectedCategories([]);
+                setTags([]);
+                setPostImages([]);
+            }
 
             notifyGoogle();
 

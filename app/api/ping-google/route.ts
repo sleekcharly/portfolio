@@ -1,18 +1,44 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
+  const sitemapUrl = "https://devcharles.com/sitemap.xml";
+
+  const googlePing = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
+  const bingPing = `https://www.bing.com/webmaster/ping.aspx?siteMap=${encodeURIComponent(sitemapUrl)}`;
+
+  if (process.env.NODE_ENV !== "production") {
+    return NextResponse.json({ message: "Disabled in dev" });
+  }
+
   try {
-    const sitemapUrl = "https://devcharles.com/sitemap.xml";
-    const res = await fetch(
-      `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`
-    );
+    const [googleRes, bingRes] = await Promise.allSettled([
+      fetch(googlePing),
+      fetch(bingPing),
+    ]);
 
-    if (res.ok) return NextResponse.json({ success: true, message: "Google pinged" });
+    const result = {
+      google:
+        googleRes.status === "fulfilled" && googleRes.value.ok
+          ? "success"
+          : "failed",
+      bing:
+        bingRes.status === "fulfilled" && bingRes.value.ok
+          ? "success"
+          : "failed",
+    };
 
-    await fetch(`https://www.bing.com/webmaster/ping.aspx?siteMap=${encodeURIComponent(sitemapUrl)}`);
-
-    return NextResponse.json({ success: false, message: "Failed to ping Google" }, { status: 500 });
+    return NextResponse.json({
+      success: result.google === "success" || result.bing === "success",
+      result,
+    });
   } catch (error) {
-    return NextResponse.json({ success: false, message: "Error pinging Google", error }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Error pinging search engines",
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
   }
 }
