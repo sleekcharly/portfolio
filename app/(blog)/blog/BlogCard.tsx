@@ -59,7 +59,11 @@ const BlogCard = ({ post }: BlogCardProps) => {
                     <FaTags size={18} />
                     <div className="flex items-center space-x-2 font-jetMono">
                         {post?.tags.map((tag) => (
-                            <Link key={tag} href={`/blog/tag/${tag}`}>
+                            <Link
+                                key={tag}
+                                href={`/blog/tag/${tag}`}
+                                className="hover:font-bold"
+                            >
                                 {tag}
                             </Link>
                         ))}

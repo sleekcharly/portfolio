@@ -48,7 +48,11 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                             <FaTags size={25} />
                             <div className="flex items-center space-x-2 font-jetMono">
                                 {post?.tags.map((tag) => (
-                                    <Link href={`/blog/tag/${tag}`} key={tag}>
+                                    <Link
+                                        href={`/blog/tag/${tag}`}
+                                        key={tag}
+                                        className="hover:font-bold"
+                                    >
                                         {tag}
                                     </Link>
                                 ))}
@@ -116,7 +120,11 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                         <FaTags size={18} />
                         <div className="flex items-center space-x-2 font-jetMono">
                             {post?.tags.map((tag) => (
-                                <Link key={tag} href={`/blog/tag/${tag}`}>
+                                <Link
+                                    key={tag}
+                                    href={`/blog/tag/${tag}`}
+                                    className="hover:font-bold"
+                                >
                                     {tag}
                                 </Link>
                             ))}
