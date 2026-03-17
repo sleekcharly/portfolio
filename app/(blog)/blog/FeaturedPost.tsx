@@ -48,7 +48,7 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                             <FaTags size={25} />
                             <div className="flex items-center space-x-2 font-jetMono">
                                 {post?.tags.map((tag) => (
-                                    <Link href="/" key={tag}>
+                                    <Link href={`/blog/tag/${tag}`} key={tag}>
                                         {tag}
                                     </Link>
                                 ))}
@@ -69,11 +69,11 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                         initial={{ y: -20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
-                        className="border border-gray-500 px-3 py-1 mt-3"
+                        className="border border-gray-500 px-3 py-1 mt-3 rounded-md hover:bg-gray-300"
                     >
                         <Link
                             href={`/blog/${post?.slug}`}
-                            className="font-semibold"
+                            className="font-semibold hover:scale-105 hover:font-bold"
                         >
                             Read More
                         </Link>
@@ -99,20 +99,42 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                     </motion.div>
                 )}
 
+                {/* Blog post details, (title, and action button)*/}
+                <motion.div
+                    initial={{ y: -20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    className="flex items-center space-x-2 flex-wrap font-extralight text-gray-500 mb-3 mt-2 text-xs"
+                >
+                    {/* Blog Feature title date */}
+                    <div className="flex items-center space-x-2 font-jetMono">
+                        <BiCalendar size={18} />{" "}
+                        <p>{formattedDate(post?.createdAt)}</p>
+                    </div>
+                    {/* Blog feature title tags */}
+                    <div className="flex items-center space-x-2">
+                        <FaTags size={18} />
+                        <div className="flex items-center space-x-2 font-jetMono">
+                            {post?.tags.map((tag) => (
+                                <Link key={tag} href={`/blog/tag/${tag}`}>
+                                    {tag}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+
                 {/* Blog Feature Title text and action button */}
                 <div className="xl:hidden">
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Voluptatem rem nemo reprehenderit eaque, est
-                        laudantium ab, fuga obcaecati nostrum animi voluptate
-                        tempore alias architecto ipsa odio sunt repellendus
-                        earum expedita.
-                    </p>
+                    <p>{post?.excerpt}</p>
                     <button
-                        className="border border-gray-500 px-3 py-1"
+                        className="border border-gray-500 px-3 py-1 rounded-md hover:bg-gray-300"
                         type="button"
                     >
-                        <Link href="/" className="font-semibold">
+                        <Link
+                            href={`/blog/${post?.slug}`}
+                            className="font-semibold"
+                        >
                             Read More
                         </Link>
                     </button>

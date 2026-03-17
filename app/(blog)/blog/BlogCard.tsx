@@ -59,7 +59,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
                     <FaTags size={18} />
                     <div className="flex items-center space-x-2 font-jetMono">
                         {post?.tags.map((tag) => (
-                            <Link key={tag} href="/">
+                            <Link key={tag} href={`/blog/tag/${tag}`}>
                                 {tag}
                             </Link>
                         ))}
@@ -80,12 +80,12 @@ const BlogCard = ({ post }: BlogCardProps) => {
                     initial={{ y: -20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
-                    className="border border-gray-500 px-2 py-1 mt-2"
+                    className="border border-gray-500 px-2 py-1 mt-2 hover:bg-gray-300 rounded-md"
                     type="button"
                 >
                     <Link
                         href={`/blog/${post?.slug}`}
-                        className="font-semibold text-sm"
+                        className="font-semibold text-sm hover:font-bold hover:scale-105"
                     >
                         Read More
                     </Link>
