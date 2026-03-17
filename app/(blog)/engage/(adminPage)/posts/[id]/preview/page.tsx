@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { db } from "@/lib/firebase";
 import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { generateHTML } from "@tiptap/html";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
@@ -80,7 +80,7 @@ const Page = () => {
                         onClick={() =>
                             router.push(`/engage/posts/${post.id}/edit`)
                         }
-                        className="px-4 py-2 rounded bg-black text-white"
+                        className="px-4 py-2 rounded bg-black text-white cursor-pointer hover:scale-105"
                     >
                         Edit
                     </button>
@@ -88,7 +88,7 @@ const Page = () => {
                     {post.status !== "published" && (
                         <button
                             onClick={publishPost}
-                            className="px-4 py-2 rounded bg-green-600 text-white"
+                            className="px-4 py-2 rounded bg-green-600 text-white cursor-pointer hover:scale-105"
                         >
                             Publish
                         </button>
@@ -96,7 +96,7 @@ const Page = () => {
 
                     <button
                         onClick={softDelete}
-                        className="px-4 py-2 rounded bg-red-600 text-white"
+                        className="px-4 py-2 rounded bg-red-600 text-white cursor-pointer hover:scale-105"
                     >
                         Delete
                     </button>
