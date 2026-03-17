@@ -11,6 +11,8 @@ type PageProps = {
     params: { slug: string };
 };
 
+export const revalidate = 60; // regenerate page every 60 seconds
+
 //generateMetadata
 export async function generateMetadata({
     params,
@@ -25,7 +27,7 @@ export async function generateMetadata({
     const ogImage = `https://devcharles.com/api/og/${slug}`;
 
     return {
-        title: post.title,
+        title: `${post.title} - ${post.tags[0]} | DevCharles`,
         description: post.excerpt,
 
         metadataBase: new URL("https://devcharles.com"),
@@ -34,7 +36,10 @@ export async function generateMetadata({
             canonical: url,
         },
 
+        keywords: [...post.tags, ...post.categories],
+
         openGraph: {
+            type: "article",
             title: post.title,
             description: post.excerpt,
             url,
@@ -44,6 +49,7 @@ export async function generateMetadata({
                     url: ogImage,
                     width: 1200,
                     height: 630,
+                    alt: post.title,
                 },
                 ogImage,
             ],
@@ -53,14 +59,33 @@ export async function generateMetadata({
             card: "summary_large_image",
             title: post.title,
             description: post.excerpt,
+            creator: "@sleekcharly",
             images: [
                 {
                     url: ogImage,
                     width: 1200,
                     height: 630,
+                    alt: post.title,
                 },
             ],
         },
+
+        authors: [{ name: "Charles Ukasoanya", url: "https://devcharles.com" }],
+        creator: "Charles Ukasoanya",
+        publisher: "DevCharles",
+
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+            },
+        },
+
+        category: post.categories[0],
     };
 }
 
@@ -76,8 +101,37 @@ const page = async ({ params }: any) => {
 
     const formatted = formattedDate(post.createdAt);
 
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        image: `https://devcharles.com/api/og/${post.slug}`,
+        author: {
+            "@type": "Person",
+            name: "Charles Ukasoanya",
+            url: "https://devcharles.com",
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "DevCharles",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://www.devcharles.com/images/og-image.png",
+            },
+        },
+        datePublished: post.createdAt,
+        mainEntityOfPage: `https://devcharles.com/blog/${post.slug}`,
+    };
+
     return (
         <div>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(structuredData),
+                }}
+            />
             <PostPage
                 post={post}
                 relatedPosts={relatedPosts}

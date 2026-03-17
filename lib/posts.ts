@@ -6,11 +6,33 @@ import { serializeTimestamp } from "@/utils/server";
 
 const POSTS_PER_PAGE = 10;
 
-// Get paginated posts for home page
-export async function getPostsPage(page: number) {
-    const safePage = Number.isFinite(page) && page > 0 ? page : 1;
-
+export async function getAllPosts() { 
     const postsRef = db.collection("posts");
+
+    const snap =await postsRef.get();
+
+    const posts = snap.docs.map((d) => {
+        const data = d.data() as FirestorePost;
+
+        return {
+            ...data,
+                id: d.id,
+                 createdAt: serializeTimestamp(data.createdAt),
+                updatedAt: serializeTimestamp(data.updatedAt),
+                publishedAt: serializeTimestamp(data.publishedAt),
+                deletedAt: serializeTimestamp(data.deletedAt),
+        }
+    })
+
+    return posts 
+}
+
+// Get paginated posts for home page
+export async function getPostsPage(page: number, tag?: string, cat?:string) {
+    const safePage = Number.isFinite(page) && page > 0 ? page : 1;
+    console.log(cat)
+
+    const postsRef = tag ? db.collection("posts").where("tags", "array-contains", tag) :cat ? db.collection("posts").where("categories", "array-contains", cat): db.collection("posts");
 
     // Total count (for totalPages)
     const countSnap = await postsRef.count().get();

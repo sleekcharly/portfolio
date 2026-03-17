@@ -11,6 +11,7 @@ import Link from "next/link";
 import ImgTemplate from "@/public/images/img_template.webp";
 import { CustomImage } from "@/lib/tiptap/custom-image";
 import ShareButton from "@/components/social/ShareButtons";
+import ShareButtonMobile from "@/components/social/ShareButtonMobile";
 
 type Props = {
     post: BlogPost;
@@ -29,13 +30,15 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
 
     const url = `https://devcharles.com/blog/${post.slug}`;
     return (
-        <div className="flex gap-12 justify-center mx-auto max-w-7xl px-6">
-            <section className="w-full max-w-3xl shrink-0">
+        <div className="flex gap-12  mx-auto max-w-7xl px-6">
+            <section className="flex-1 gap-7 flex">
                 {/* Social media share buttons */}
+
                 <ShareButton url={url} title={post.title} />
-                <article className="flex flex-col gap-6 ">
+
+                <article className="flex flex-col gap-6 w-full">
                     <header className="flex flex-col gap-3">
-                        <h1 className="text-3xl lg:text-5xl font-semibold mb-2 font-Outfit">
+                        <h1 className="font-Outfit font-semibold mb-2 text-[clamp(1.8rem,4vw,3rem)]">
                             {post.title}
                         </h1>
                         <div className="flex items-center gap-4 font-Ovo text-lg text-gray-400">
@@ -48,15 +51,23 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
                                 <span className="flex items-center gap-1">
                                     <TagIcon />
                                     {post.tags.map((tag, i) => (
-                                        <p key={`${tag}-${i}`}>{tag}</p>
+                                        <Link
+                                            href={`/blog/tag/${tag}`}
+                                            key={`${tag}-${i}`}
+                                        >
+                                            {tag}
+                                        </Link>
                                     ))}
                                 </span>
                             )}
                         </div>
+                        <div className="flex xl:hidden gap-4 py-3 border-y border-gray-200">
+                            <ShareButtonMobile url={url} title={post.title} />
+                        </div>
                     </header>
 
                     <div
-                        className="tiptap leading-relaxed text-lg space-y-6"
+                        className="tiptap text-[clamp(1rem,1.1vw,1.125rem)] space-y-6 max-w-[70ch] leading-relaxed tracking-normal"
                         dangerouslySetInnerHTML={{ __html: html }}
                     />
                 </article>

@@ -44,21 +44,23 @@ const BlogSidebar = () => {
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                 >
-                    <Link href="/blog">Software Development</Link>
+                    <Link href="/blog/category/software-development">
+                        Software Development
+                    </Link>
                 </motion.li>
                 <motion.li
                     initial={{ y: -20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
                 >
-                    <Link href="/blog">IoT & Systems</Link>
+                    <Link href="/blog/category/iot-systems">IoT & Systems</Link>
                 </motion.li>
                 <motion.li
                     initial={{ y: -20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.7, duration: 0.5 }}
                 >
-                    <Link href="/blog">Career & Insights</Link>
+                    <Link href="/blog/category/career">Career & Insights</Link>
                 </motion.li>
                 <motion.li
                     initial={{ y: -20, opacity: 0 }}

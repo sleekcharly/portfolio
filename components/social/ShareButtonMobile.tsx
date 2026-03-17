@@ -7,7 +7,7 @@ type Props = {
     title: string;
 };
 
-export default function ShareButton({ url, title }: Props) {
+export default function ShareButtonMobile({ url, title }: Props) {
     const encodedUrl = encodeURIComponent(url);
     const encodedTitle = encodeURIComponent(title);
 
@@ -35,7 +35,7 @@ export default function ShareButton({ url, title }: Props) {
     ];
 
     return (
-        <div className="hidden sticky top-20 xl:flex flex-col items-center gap-4 w-10 border border-gray-700 p-2 h-fit rounded-lg">
+        <div className="flex items-center gap-5">
             {platforms.map(({ name, icon: Icon, href }) => (
                 <a
                     key={name}
@@ -45,7 +45,7 @@ export default function ShareButton({ url, title }: Props) {
                     aria-label={`Share on ${name}`}
                     className="transition-transform hover:scale-110"
                 >
-                    <Icon size={24} />
+                    <Icon size={22} />
                 </a>
             ))}
         </div>

@@ -667,6 +667,17 @@ export default function NewPostForm() {
 
         setLoading(true);
 
+        async function notifyGoogle() {
+            try {
+                const res = await fetch("/api/ping-google");
+                if (!res.ok) throw new Error("Failed to ping Google");
+                const data = await res.json();
+                console.log("Google pinged:", data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
         try {
             let id = postId;
             let slug: string | undefined;
@@ -723,6 +734,8 @@ export default function NewPostForm() {
             setSelectedCategories([]);
             setTags([]);
             setPostImages([]);
+
+            notifyGoogle();
 
             // ✅ Redirect to preview page
             router.push(`/engage/posts/${id}/preview`);

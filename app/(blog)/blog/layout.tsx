@@ -146,7 +146,7 @@ export default function RootLayout({
                 >
                     <div className="flex flex-col lg:flex-row lg:gap-10">
                         <BlogSidebar />
-                        <div className="p-5 md:ml-[320px]">{children}</div>
+                        <div className="p-5 md:ml-80">{children}</div>
                     </div>
                 </ThemeProvider>
             </body>
