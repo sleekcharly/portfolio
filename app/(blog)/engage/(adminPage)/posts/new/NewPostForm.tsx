@@ -484,6 +484,7 @@ export default function NewPostForm({
     const [postImages, setPostImages] = useState<
         { url: string; path: string }[]
     >([]);
+    const [postSlug, setPostSlug] = useState("");
 
     // initialize router
     const router = useRouter();
@@ -655,7 +656,9 @@ export default function NewPostForm({
 
                 if (isNew) {
                     baseData.createdAt = serverTimestamp();
-                    baseData.slug = await generateUniqueSlug(title.trim(), db);
+                    baseData.slug = postSlug
+                        ? postSlug
+                        : await generateUniqueSlug(title.trim(), db);
                 }
 
                 await setDoc(ref, baseData, { merge: true });
@@ -719,7 +722,9 @@ export default function NewPostForm({
 
             // 🔥 If post does not exist yet, create it first
             if (!id) {
-                slug = await generateUniqueSlug(trimmedTitle, db);
+                slug = postSlug
+                    ? postSlug
+                    : await generateUniqueSlug(trimmedTitle, db);
                 const ref = doc(collection(db, "posts"));
 
                 await setDoc(ref, {
@@ -804,6 +809,19 @@ export default function NewPostForm({
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Post Title"
+                    className="w-full text-lg lg:text-xl p-2 border border-gray-300 rounded-md mb-4 bg-gray-100 dark:text-gray-800"
+                />
+            </div>
+
+            {/* Optional Slug */}
+            <div className="border border-gray-300 rounded-md p-4 ">
+                <label className="block mb-2 font-medium">
+                    Hard-coded Slug
+                </label>
+                <input
+                    value={postSlug}
+                    onChange={(e) => setPostSlug(e.target.value)}
+                    placeholder="Post Slug for SEO"
                     className="w-full text-lg lg:text-xl p-2 border border-gray-300 rounded-md mb-4 bg-gray-100 dark:text-gray-800"
                 />
             </div>
