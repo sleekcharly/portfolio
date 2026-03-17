@@ -7,9 +7,10 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
+import { getAllCategories, getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
 import FeaturedPost from "../../FeaturedPost";
 import BlogCard from "../../BlogCard";
+import CategoryDropdown from "./CategoryDropdown";
 
 type CatParams = { cat: string };
 
@@ -33,21 +34,30 @@ export default async function CategoryPage({
     const featuredPost = posts?.[0] ?? null;
     const otherPosts = posts?.slice(1) ?? [];
 
+    const { categories } = await getAllCategories();
+
     return (
         <div className="flex flex-col gap-10">
             {cat && (
-                <div className="flex flex-col gap-1">
-                    <p className="text-sm text-gray-500">Category</p>
-                    <h1 className="text-2xl font-semibold">
-                        {cat
-                            .split("-")
-                            .map(
-                                (word) =>
-                                    word.charAt(0).toUpperCase() +
-                                    word.slice(1),
-                            )
-                            .join(" ")}
-                    </h1>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex flex-col gap-1">
+                        <p className="text-sm text-gray-500">Category</p>
+                        <h1 className="text-2xl font-semibold">
+                            {cat
+                                .split("-")
+                                .map(
+                                    (word) =>
+                                        word.charAt(0).toUpperCase() +
+                                        word.slice(1),
+                                )
+                                .join(" ")}
+                        </h1>
+                    </div>
+
+                    <CategoryDropdown
+                        categories={categories}
+                        currentCategory={cat}
+                    />
                 </div>
             )}
             {/* Blog Feature */}

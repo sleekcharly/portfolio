@@ -1,13 +1,13 @@
 import "server-only";
 import { QueryDocumentSnapshot, DocumentData, Timestamp } from "firebase-admin/firestore";
 import { adminDb as db } from "@/lib/firebase-admin";
-import { BlogPost, FirestorePost } from "./types";
+import { BlogPost, FirestoreCategory, FirestorePost } from "./types";
 import { serializeTimestamp } from "@/utils/server";
 
 const POSTS_PER_PAGE = 10;
 
 export async function getAllPosts() { 
-    const postsRef = db.collection("posts");
+    const postsRef = db.collection("posts").where('deletedAt', '==', null);
 
     const snap =await postsRef.get();
 
@@ -27,12 +27,29 @@ export async function getAllPosts() {
     return posts 
 }
 
+export async function getAllCategories() {
+    const categoriesRef = db.collection("categories");
+
+    const snap = await categoriesRef.get();
+
+    const categories = snap.docs.map((d) => {
+        const data = d.data() as FirestoreCategory;
+
+        return {
+            ...data,
+            id:d.id,
+            createdAt: serializeTimestamp(data.createdAt)
+        }
+    })
+
+    return {categories}
+}
+
 // Get paginated posts for home page
 export async function getPostsPage(page: number, tag?: string, cat?:string) {
     const safePage = Number.isFinite(page) && page > 0 ? page : 1;
-    console.log(cat)
 
-    const postsRef = tag ? db.collection("posts").where("tags", "array-contains", tag) :cat ? db.collection("posts").where("categories", "array-contains", cat): db.collection("posts");
+    const postsRef = tag ? db.collection("posts").where("tags", "array-contains", tag).where('deletedAt', '==', null) :cat ? db.collection("posts").where("categories", "array-contains", cat).where('deletedAt', '==', null): db.collection("posts").where('deletedAt', '==', null);
 
     // Total count (for totalPages)
     const countSnap = await postsRef.count().get();
@@ -120,7 +137,7 @@ export async function getPostBySlug(slug: string){
 export async function getRandomRelatedPosts(
     categories: string[], excludedPostId?: string
 ){
-    const postsRef = db.collection("posts")
+    const postsRef = db.collection("posts").where('deletedAt', '==', null)
     const r = Math.random()
 
     const baseQuery = await postsRef.where("categories", "array-contains-any", categories).where("status", "==", "published").orderBy("random")

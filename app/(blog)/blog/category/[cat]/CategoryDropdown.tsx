@@ -7,9 +7,10 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { BlogCategory } from "@/lib/types";
 
 type Props = {
-    categories: string[];
+    categories: BlogCategory[];
     currentCategory?: string;
 };
 
@@ -50,15 +51,15 @@ export default function CategoryDropdown({
 
                 {categories.map((cat) => (
                     <DropdownMenuItem
-                        key={cat}
-                        onClick={() => handleSelect(cat)}
+                        key={cat.id}
+                        onClick={() => handleSelect(cat.slug)}
                         className={
-                            cat === currentCategory
+                            cat.slug === currentCategory
                                 ? "font-semibold text-primary"
                                 : ""
                         }
                     >
-                        {format(cat)}
+                        {format(cat.slug)}
                     </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>

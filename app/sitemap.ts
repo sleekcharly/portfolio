@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/posts";
+import { getAllCategories, getAllPosts } from "@/lib/posts";
 
 // Define pages with dynamic frequency and priority
 const projectPages: MetadataRoute.Sitemap = [
@@ -32,6 +32,8 @@ const projectPages: MetadataRoute.Sitemap = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPosts();
 
+  const {categories} = await getAllCategories()
+
   // Blog posts get higher frequency than projects
   const postEntries: MetadataRoute.Sitemap = posts.map(post => ({
     url: `https://devcharles.com/blog/${post.slug}`,
@@ -39,6 +41,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly" as "weekly", // updated more often
     priority: 0.7,
   }));
+
+  const categoryEntries: MetadataRoute.Sitemap = categories.map(cat => ({
+    url: `https://devcharles.com/blog/category/${cat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as "monthly", // updated more often
+    priority: 0.6,
+  }))
 
   return [
     {
@@ -55,5 +64,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     ...postEntries,
+    ...categoryEntries
   ];
 }

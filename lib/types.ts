@@ -7,6 +7,19 @@ export type PostImage = {
   path:string
 }
 
+export type FirestoreCategory = {
+  name:string;
+  slug: string;
+  createdAt: Timestamp
+}
+
+export type BlogCategory = {
+  id:string
+  name:string;
+  slug: string;
+  createdAt: string | null
+}
+
 export type FirestorePost = {
   title: string
   slug: string
