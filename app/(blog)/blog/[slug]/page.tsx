@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { formattedDate } from "@/utils/server";
 import { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
+import { getApprovedCommentsByPostSlug } from "@/lib/comments";
 
 type SlugParams = { slug: string };
 
@@ -97,7 +98,10 @@ const page = async ({ params }: any) => {
 
     if (!post) notFound();
 
-    const relatedPosts = await getRandomRelatedPosts(post.categories, post.id);
+    const [relatedPosts, comments] = await Promise.all([
+        getRandomRelatedPosts(post.categories, post.id),
+        getApprovedCommentsByPostSlug(post.slug),
+    ]);
 
     const formatted = formattedDate(post.createdAt);
 
@@ -136,6 +140,7 @@ const page = async ({ params }: any) => {
                 post={post}
                 relatedPosts={relatedPosts}
                 formattedDate={formatted}
+                comments={comments}
             />
         </div>
     );

@@ -54,3 +54,38 @@ export type BlogPost = {
   deletedAt?: string | null
   deletedBy?: string | null
 }
+
+export type FirestoreComment = {
+  id: string;
+  postSlug: string;
+  name: string;
+  email?: string;
+  website?: string;
+  message: string;
+  createdAt: string;
+  createsAtTimestamp?: Timestamp
+  approved: boolean;
+  parentId?: string | null;
+}
+
+export type Comment = {
+  id: string;
+  postSlug: string;
+  name: string;
+  email?: string;
+  website?: string;
+  message: string;
+  createdAt: string;
+  createsAtTimestamp?: string
+  approved: boolean;
+  parentId?: string | null;
+}
+
+export type CreateCommentInput = {
+  postSlug: string;
+  name: string;
+  email?: string;
+  website?: string;
+  message: string;
+  parentId?: string | null;
+}

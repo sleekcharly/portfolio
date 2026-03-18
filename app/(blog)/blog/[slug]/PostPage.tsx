@@ -1,6 +1,6 @@
 "use client";
 
-import { BlogPost } from "@/lib/types";
+import { BlogPost, Comment } from "@/lib/types";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import { generateHTML } from "@tiptap/html";
 import { JSONContent } from "@tiptap/react";
@@ -12,14 +12,17 @@ import ImgTemplate from "@/public/images/img_template.webp";
 import { CustomImage } from "@/lib/tiptap/custom-image";
 import ShareButton from "@/components/social/ShareButtons";
 import ShareButtonMobile from "@/components/social/ShareButtonMobile";
+import CommentForm from "@/components/comments/CommentForm";
+import CommentsList from "@/components/comments/CommentsList";
 
 type Props = {
     post: BlogPost;
     relatedPosts: BlogPost[];
     formattedDate: string;
+    comments: Comment[];
 };
 
-const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
+const PostPage = ({ post, relatedPosts, formattedDate, comments }: Props) => {
     const html = generateHTML(post.content as JSONContent, [
         StarterKit,
         CustomImage.configure({
@@ -31,12 +34,12 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
     const url = `https://devcharles.com/blog/${post.slug}`;
 
     return (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 dark:bg-white">
             <div className="flex flex-col xl:flex-row gap-10 xl:gap-12">
                 <section className="flex-1">
                     <div className="flex gap-4 lg:gap-6">
                         {/* Desktop social media share buttons */}
-                        <div className="hidden lg:block shrink-0">
+                        <div className="hidden lg:block shrink-0 dark:text-black">
                             <div className="sticky top-24">
                                 <ShareButton url={url} title={post.title} />
                             </div>
@@ -44,7 +47,7 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
 
                         <article className="w-full min-w-0">
                             <header className="flex flex-col gap-4 pb-2">
-                                <h1 className="font-Outfit font-semibold text-3xl sm:text-4xl lg:text-5xl leading-tight">
+                                <h1 className="font-Outfit font-semibold text-3xl sm:text-4xl lg:text-5xl leading-tight dark:text-black">
                                     {post.title}
                                 </h1>
 
@@ -93,6 +96,9 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
                                            [&_img]:rounded-xl [&_img]:my-8"
                                 dangerouslySetInnerHTML={{ __html: html }}
                             />
+
+                            <CommentsList comments={comments} />
+                            <CommentForm postSlug={post.slug} />
                         </article>
                     </div>
                 </section>
