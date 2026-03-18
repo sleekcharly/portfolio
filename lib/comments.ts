@@ -21,7 +21,7 @@ export async function getApprovedCommentsByPostSlug(
         }
     })
 
-    return comments
+    return comments as Comment[]
 }
 
 // create a comment
