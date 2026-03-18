@@ -22,6 +22,7 @@ export default async function BlogPage({
     const currentPage = Math.max(Number(pageParam) || 1, 1);
 
     const { posts, total } = await getPostsPage(currentPage);
+
     const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
     const featuredPost = posts?.[0] ?? null;

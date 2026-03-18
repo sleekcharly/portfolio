@@ -15,43 +15,45 @@ type FeaturedPostProps = {
 
 const FeaturedPost = ({ post }: FeaturedPostProps) => {
     return (
-        <div className="flex items-center flex-col xl:flex-row-reverse gap-7 w-full">
-            <div className="w-full flex flex-col gap-5">
+        <div className="flex flex-col items-center xl:flex-row-reverse gap-7 w-full">
+            <div className="w-full flex flex-col gap-4 sm:gap-5">
                 <div>
                     {/* Blog Feature title */}
                     <motion.h2
                         initial={{ y: -20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="font-Ovo text-4xl mb-1 font-semibold"
+                        className="font-Ovo text-2xl sm:text-3xl lg:text-4xl mb-2 font-semibold leading-tight"
                     >
                         {post?.title}
                     </motion.h2>
+
                     {/* Blog Feature title info */}
                     <motion.div
                         initial={{ y: -20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.5 }}
-                        className="flex items-center space-x-6 flex-wrap font-extralight text-gray-500 mb-3"
+                        className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 sm:gap-5 text-sm sm:text-base font-extralight text-gray-500"
                     >
                         {/* Blog Feature title date */}
-                        <div className="flex items-center space-x-2 font-jetMono">
-                            <BiCalendar size={25} />{" "}
+                        <div className="flex items-center gap-2 font-jetMono">
+                            <BiCalendar className="text-lg sm:text-xl shrink-0" />
                             <p>
                                 {post?.createdAt
                                     ? formattedDate(post.createdAt)
                                     : ""}
                             </p>
                         </div>
+
                         {/* Blog feature title tags */}
-                        <div className="flex items-center space-x-2">
-                            <FaTags size={25} />
-                            <div className="flex items-center space-x-2 font-jetMono">
+                        <div className="flex items-start gap-2">
+                            <FaTags className="text-lg sm:text-xl shrink-0 mt-0.5" />
+                            <div className="flex flex-wrap gap-2 font-jetMono text-xs">
                                 {post?.tags.map((tag) => (
                                     <Link
                                         href={`/blog/tag/${tag}`}
                                         key={tag}
-                                        className="hover:font-bold"
+                                        className="hover:font-bold transition"
                                     >
                                         {tag}
                                     </Link>
@@ -60,28 +62,31 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                         </div>
                     </motion.div>
                 </div>
+
                 {/* Blog Feature Title text and action button */}
                 <div className="hidden xl:block">
                     <motion.p
                         initial={{ y: -20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.5 }}
+                        className="text-sm sm:text-base leading-7 text-gray-700"
                     >
                         {post?.excerpt}
                     </motion.p>
-                    <motion.button
+
+                    <motion.div
                         initial={{ y: -20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
-                        className="border border-gray-500 px-3 py-1 mt-3 rounded-md hover:bg-gray-300"
+                        className="mt-4"
                     >
                         <Link
                             href={`/blog/${post?.slug}`}
-                            className="font-semibold hover:scale-105 hover:font-bold"
+                            className="inline-block rounded-md border border-gray-500 px-4 py-2 text-sm sm:text-base font-semibold transition hover:bg-gray-300 hover:scale-105"
                         >
                             Read More
                         </Link>
-                    </motion.button>
+                    </motion.div>
                 </div>
             </div>
             <div className="w-full">
@@ -102,35 +107,6 @@ const FeaturedPost = ({ post }: FeaturedPostProps) => {
                         />
                     </motion.div>
                 )}
-
-                {/* Blog post details, (title, and action button)*/}
-                <motion.div
-                    initial={{ y: -20, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="flex items-center space-x-2 flex-wrap font-extralight text-gray-500 mb-3 mt-2 text-xs"
-                >
-                    {/* Blog Feature title date */}
-                    <div className="flex items-center space-x-2 font-jetMono">
-                        <BiCalendar size={18} />{" "}
-                        <p>{formattedDate(post?.createdAt)}</p>
-                    </div>
-                    {/* Blog feature title tags */}
-                    <div className="flex items-center space-x-2">
-                        <FaTags size={18} />
-                        <div className="flex items-center space-x-2 font-jetMono">
-                            {post?.tags.map((tag) => (
-                                <Link
-                                    key={tag}
-                                    href={`/blog/tag/${tag}`}
-                                    className="hover:font-bold"
-                                >
-                                    {tag}
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                </motion.div>
 
                 {/* Blog Feature Title text and action button */}
                 <div className="xl:hidden">
