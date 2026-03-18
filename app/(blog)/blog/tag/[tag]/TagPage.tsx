@@ -11,6 +11,7 @@ import { getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
 
 import BlogCard from "../../BlogCard";
 import FeaturedPost from "../../FeaturedPost";
+import { notFound } from "next/navigation";
 
 type TagParams = { tag: string };
 
@@ -29,6 +30,8 @@ export default async function TagPage({
     const currentPage = Math.max(Number(pageParam) || 1, 1);
 
     const { posts, total } = await getPostsPage(currentPage, tag);
+    if (posts.length == 0) notFound();
+
     const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
     const featuredPost = posts?.[0] ?? null;

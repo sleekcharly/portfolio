@@ -98,41 +98,43 @@ const PostPage = ({ post, relatedPosts, formattedDate }: Props) => {
                 </section>
 
                 {/* recommended posts based on article category */}
-                <aside className="hidden xl:flex xl:w-80 shrink-0 flex-col gap-6 sticky top-24 h-fit">
-                    <h2 className="text-xl font-semibold font-Outfit">
-                        Recommended
-                    </h2>
+                {relatedPosts.length > 0 && (
+                    <aside className="hidden xl:flex xl:w-80 shrink-0 flex-col gap-6 sticky top-24 h-fit">
+                        <h2 className="text-xl font-semibold font-Outfit">
+                            Recommended
+                        </h2>
 
-                    <div className="flex flex-col gap-4">
-                        {relatedPosts.map((post) => (
-                            <Link
-                                href={`/blog/${post.slug}`}
-                                key={post.id}
-                                className="flex items-center gap-3 rounded-xl transition hover:bg-gray-50 p-2 -m-2 group"
-                            >
-                                <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-lg">
-                                    <Image
-                                        src={
-                                            post.images[0]
-                                                ? post.images[0].url
-                                                : ImgTemplate
-                                        }
-                                        alt={post.title}
-                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                        fill
-                                        sizes="80px"
-                                    />
-                                </div>
+                        <div className="flex flex-col gap-4">
+                            {relatedPosts.map((post) => (
+                                <Link
+                                    href={`/blog/${post.slug}`}
+                                    key={post.id}
+                                    className="flex items-center gap-3 rounded-xl transition hover:bg-gray-50 p-2 -m-2 group"
+                                >
+                                    <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-lg">
+                                        <Image
+                                            src={
+                                                post.images[0]
+                                                    ? post.images[0].url
+                                                    : ImgTemplate
+                                            }
+                                            alt={post.title}
+                                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                            fill
+                                            sizes="80px"
+                                        />
+                                    </div>
 
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="text-sm font-medium leading-snug text-gray-800 group-hover:text-black line-clamp-3">
-                                        {post.title}
-                                    </h3>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </aside>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-sm font-medium leading-snug text-gray-800 group-hover:text-black line-clamp-3">
+                                            {post.title}
+                                        </h3>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </aside>
+                )}
             </div>
         </div>
     );

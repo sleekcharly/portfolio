@@ -11,6 +11,7 @@ import { getAllCategories, getPostsPage, POSTS_PER_PAGE } from "@/lib/posts";
 import FeaturedPost from "../../FeaturedPost";
 import BlogCard from "../../BlogCard";
 import CategoryDropdown from "./CategoryDropdown";
+import { notFound } from "next/navigation";
 
 type CatParams = { cat: string };
 
@@ -29,6 +30,8 @@ export default async function CategoryPage({
     const currentPage = Math.max(Number(pageParam) || 1, 1);
 
     const { posts, total } = await getPostsPage(currentPage, "", cat);
+    if (posts.length == 0) notFound();
+
     const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
     const featuredPost = posts?.[0] ?? null;
